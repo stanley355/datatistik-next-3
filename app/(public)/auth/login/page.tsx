@@ -1,3 +1,9 @@
+import { LoginForm } from "./_components";
+
 export default function Page() {
-  return <div>Login</div>;
+  return (
+    <div className="container mx-auto flex items-center justify-center min-h-96 p-4">
+      <LoginForm />
+    </div>
+  );
 }
