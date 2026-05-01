@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { registrationFormSchema } from "../_libs/form-schema";
+import { authSignUpEmail } from "@/lib/api";
 
 export function RegisterForm() {
   const form = useForm<z.infer<typeof registrationFormSchema>>({
@@ -23,8 +24,13 @@ export function RegisterForm() {
       password: "",
     },
   });
-  function onSubmit(data: z.infer<typeof registrationFormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof registrationFormSchema>) {
+    try {
+      const signUp = await authSignUpEmail(data);
+      console.log(signUp);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
