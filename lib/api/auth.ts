@@ -14,11 +14,15 @@ type AuthErrorRes = {
 };
 
 type AuthSignUpEmailRes =
-  | AuthErrorRes
   | {
       token: string;
       user: User;
-    };
+    }
+  | AuthErrorRes;
+
+export const isAuthError = (res: AuthSignUpEmailRes): res is AuthErrorRes => {
+  return (res as AuthErrorRes).message !== undefined && !("user" in res);
+};
 
 export const authSignUpEmail = async (
   params: AuthSignUpEmailParams,

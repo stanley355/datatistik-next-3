@@ -13,7 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { registrationFormSchema } from "../_libs/form-schema";
-import { authSignUpEmail } from "@/lib/api";
+import { authSignUpEmail, isAuthError } from "@/lib/api";
+import { toast } from "sonner";
 
 export function RegisterForm() {
   const form = useForm<z.infer<typeof registrationFormSchema>>({
@@ -27,9 +28,19 @@ export function RegisterForm() {
   async function onSubmit(data: z.infer<typeof registrationFormSchema>) {
     try {
       const signUp = await authSignUpEmail(data);
+      if (!signUp) {
+        toast.error("Something went wrong, please try again later");
+        return;
+      }
+      if (isAuthError(signUp)) {
+        toast.warning(signUp.message);
+        return;
+      }
       console.log(signUp);
+      // if (signUp.token) console.log(signUp);
     } catch (err) {
       console.error(err);
+      toast.error("Something went wrong, please try again later");
     }
   }
 
