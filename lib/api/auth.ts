@@ -139,7 +139,7 @@ type AuthGetSessionRes =
     }
   | AuthErrorRes;
 export const authGetSession = async (
-  headers?: Record<string, string>,
+  headers?: Record<string, string | null>,
 ): Promise<AuthGetSessionRes | undefined> => {
   try {
     const res = await fetch(baseUrl + "/get-session", {
