@@ -182,3 +182,24 @@ export const authSignIn = async (
     console.error(err);
   }
 };
+
+type AuthSignOutRes =
+  | {
+      success: boolean;
+    }
+  | AuthErrorRes;
+
+export const authSignOut = async (): Promise<AuthSignOutRes | undefined> => {
+  try {
+    const res = await fetch(baseUrl + "/sign-out", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};

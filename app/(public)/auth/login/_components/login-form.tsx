@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -23,6 +24,7 @@ const loginFormSchema = z.object({
 });
 
 export function LoginForm() {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -48,7 +50,7 @@ export function LoginForm() {
       queryClient.invalidateQueries({
         queryKey: authGetSessionOptions().queryKey,
       });
-      // window.location.reload();
+      router.push("/");
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong, please try again later");

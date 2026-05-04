@@ -1,4 +1,5 @@
 "use client";
+import { ThemeToggle } from "@/components/custom-ui/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { authGetSessionOptions } from "@/hooks/auth";
@@ -24,10 +25,10 @@ const LoginProfileLink = () => {
 
   return (
     <Link
-      href={"/profile"}
+      href={"/account"}
       className={cn(buttonVariants({ variant: "ghost" }))}
     >
-      <LuUser /> {session.data.user.name}
+      <LuUser /> Account
     </Link>
   );
 };
@@ -42,7 +43,14 @@ export const Navigation = () => {
           DELIFUNDS
         </Link>
 
-        {isMobile ? <SidebarTrigger /> : <LoginProfileLink />}
+        {isMobile ? (
+          <SidebarTrigger />
+        ) : (
+          <div className="flex items-center gap-4">
+            <LoginProfileLink />
+            <ThemeToggle />
+          </div>
+        )}
       </div>
     </div>
   );

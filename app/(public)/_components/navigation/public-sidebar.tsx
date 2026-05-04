@@ -8,15 +8,23 @@ import {
   SidebarHeader,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { authGetSessionOptions } from "@/hooks/auth";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
 import { LucideX } from "lucide-react";
 import Link from "next/link";
 import { LuUserRound } from "react-icons/lu";
 
 export function PublicSidebar() {
   const isMobile = useIsMobile();
+
   const { setOpen, setOpenMobile } = useSidebar();
+  const session = useQuery(authGetSessionOptions());
+  const isLoggedIn =
+    session.data && !isAuthError(session.data) && session.data?.session;
+
   const closeSidebar = () => {
     setOpen(false);
     setOpenMobile(false);
@@ -39,12 +47,12 @@ export function PublicSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <Link
-          href="/auth/login"
+          href={isLoggedIn ? "/account" : "/auth/login"}
           className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
           onClick={closeSidebar}
         >
           <LuUserRound />
-          LOGIN
+          {isLoggedIn ? "ACCOUNT" : "LOGIN"}
         </Link>
       </SidebarContent>
       <SidebarFooter>
