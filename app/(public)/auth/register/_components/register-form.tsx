@@ -108,6 +108,26 @@ export function RegisterForm() {
             </Field>
           )}
         />
+        <Controller
+          name="repassword"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="repassword">
+                Re-type Password (8 characters minimum)
+              </FieldLabel>
+              <Input
+                {...field}
+                id="repassword"
+                type="repassword"
+                required
+                aria-invalid={fieldState.invalid}
+                placeholder="********"
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
         <Field>
           <Button type="submit">Register</Button>
           <Link

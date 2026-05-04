@@ -5,9 +5,11 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { toast } from "sonner";
 import { authRequestPasswordReset, isAuthError } from "@/lib/api";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const verifyEmailFormSchema = z.object({
   email: z.email().min(1, "Email can't be empty"),
@@ -71,7 +73,15 @@ export const ForgotPasswordForm = () => {
           )}
         />
 
-        <Button type="submit">Send Reset Password Link</Button>
+        <Field>
+          <Button type="submit">Send Reset Password Link</Button>
+          <Link
+            href="/auth/login"
+            className={cn(buttonVariants({ variant: "outline" }))}
+          >
+            Back to Login
+          </Link>
+        </Field>
       </form>
     </div>
   );
