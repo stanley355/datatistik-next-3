@@ -107,3 +107,26 @@ export const authRequestPasswordReset = async (
     console.error(err);
   }
 };
+
+type AuthResetPasswordRes =
+  | {
+      status: boolean;
+    }
+  | AuthErrorRes;
+export const authResetPassword = async (
+  newPassword: string,
+  token: string,
+): Promise<AuthResetPasswordRes | undefined> => {
+  try {
+    const res = await fetch(baseUrl + "/reset-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ newPassword, token }),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};

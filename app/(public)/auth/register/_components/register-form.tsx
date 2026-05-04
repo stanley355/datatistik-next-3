@@ -119,7 +119,7 @@ export function RegisterForm() {
               <Input
                 {...field}
                 id="repassword"
-                type="repassword"
+                type="password"
                 required
                 aria-invalid={fieldState.invalid}
                 placeholder="********"
