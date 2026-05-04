@@ -6,11 +6,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { toast } from "sonner";
-import {
-  authResetPassword,
-  authSendVerificationEmail,
-  isAuthError,
-} from "@/lib/api";
+import { authResetPassword, isAuthError } from "@/lib/api";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 

@@ -1,11 +1,12 @@
 import { env } from "../env";
-import { User } from "../types";
+import { Session, User } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_BETTER_AUTH_URL + "/api/auth";
 
 type AuthErrorRes = {
   message: string;
 };
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isAuthError = (res: any): res is AuthErrorRes => {
   return (res as AuthErrorRes).message !== undefined && !("user" in res);
@@ -124,6 +125,57 @@ export const authResetPassword = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ newPassword, token }),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+type AuthGetSessionRes =
+  | {
+      session: Session;
+      user: User;
+    }
+  | AuthErrorRes;
+export const authGetSession = async (): Promise<
+  AuthGetSessionRes | undefined
+> => {
+  try {
+    const res = await fetch(baseUrl + "/get-session", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+type AuthSignInEmailRes =
+  | {
+      redirect: boolean;
+      token: string;
+      url: string;
+      user: User;
+    }
+  | AuthErrorRes;
+
+export const authSignIn = async (
+  email: string,
+  password: string,
+): Promise<AuthSignInEmailRes | undefined> => {
+  try {
+    const res = await fetch(baseUrl + "/sign-in/email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
     });
     return await res.json();
   } catch (err) {

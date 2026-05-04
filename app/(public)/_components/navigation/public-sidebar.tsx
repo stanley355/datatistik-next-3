@@ -8,17 +8,20 @@ import {
   SidebarHeader,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { LucideX } from "lucide-react";
 import Link from "next/link";
 import { LuUserRound } from "react-icons/lu";
 
 export function PublicSidebar() {
+  const isMobile = useIsMobile();
   const { setOpen, setOpenMobile } = useSidebar();
   const closeSidebar = () => {
     setOpen(false);
     setOpenMobile(false);
   };
+  if (!isMobile) return <></>;
   return (
     <Sidebar>
       <SidebarHeader className="flex items-center justify-between">

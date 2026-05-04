@@ -1,7 +1,40 @@
+"use client";
+import { buttonVariants } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { authGetSessionOptions } from "@/hooks/auth";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { isAuthError } from "@/lib/api";
+import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { LuUser } from "react-icons/lu";
+
+const LoginProfileLink = () => {
+  const session = useQuery(authGetSessionOptions());
+  if (!session.data || isAuthError(session.data)) {
+    return (
+      <Link
+        href={"/auth/login"}
+        className={cn(buttonVariants({ variant: "ghost" }))}
+      >
+        <LuUser /> Login
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      href={"/profile"}
+      className={cn(buttonVariants({ variant: "ghost" }))}
+    >
+      <LuUser /> {session.data.user.name}
+    </Link>
+  );
+};
 
 export const Navigation = () => {
+  const isMobile = useIsMobile();
+
   return (
     <div className="border-b">
       <div className="flex items-center justify-between container mx-auto">
@@ -9,7 +42,7 @@ export const Navigation = () => {
           DELIFUNDS
         </Link>
 
-        <SidebarTrigger />
+        {isMobile ? <SidebarTrigger /> : <LoginProfileLink />}
       </div>
     </div>
   );

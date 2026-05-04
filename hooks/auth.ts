@@ -1,4 +1,4 @@
-import { authVerifyEmail } from "@/lib/api";
+import { authGetSession, authVerifyEmail } from "@/lib/api";
 import { queryOptions, UseQueryOptions } from "@tanstack/react-query";
 
 export const authVerifyEmailOptions = (
@@ -9,7 +9,19 @@ export const authVerifyEmailOptions = (
 ) => {
   return queryOptions({
     ...options,
-    queryKey: ["verify-email", token],
+    queryKey: ["auth-verify-email", token],
     queryFn: () => authVerifyEmail(token),
+  });
+};
+
+export const authGetSessionOptions = (
+  options?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof authGetSession>>>
+  >,
+) => {
+  return queryOptions({
+    ...options,
+    queryKey: ["auth-get-session"],
+    queryFn: () => authGetSession(),
   });
 };
