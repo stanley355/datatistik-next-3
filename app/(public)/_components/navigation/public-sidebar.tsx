@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { LucideX } from "lucide-react";
 import Link from "next/link";
-import { LuUser, LuUserCog, LuUserRound } from "react-icons/lu";
+import { LuUser, LuUserCog } from "react-icons/lu";
 
 export function PublicSidebar() {
   const isMobile = useIsMobile();

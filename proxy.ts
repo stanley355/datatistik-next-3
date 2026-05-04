@@ -1,10 +1,14 @@
 // proxy.ts
 import { NextRequest, NextResponse } from "next/server";
 import { authGetSession, isAuthError } from "@/lib/api";
+import { headers } from "next/headers";
 
 export async function proxy(request: NextRequest) {
   // Check for the user session
-  const session = await authGetSession();
+  // const allHeaders = request.headers;
+  const session = await authGetSession({
+    cookie: request.headers.get("cookie"),
+  });
 
   if (!session || isAuthError(session)) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
