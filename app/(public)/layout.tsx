@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <PublicSidebar />
       <div className="flex flex-col w-full">
         <Navigation />
-        <main className="p-2 w-full">{children}</main>
+        <main className="p-2 w-full flex-1">{children}</main>
       </div>
     </SidebarProvider>
   );

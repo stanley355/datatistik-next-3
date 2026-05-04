@@ -24,10 +24,10 @@ export function PublicSidebar() {
       <SidebarHeader className="flex items-center justify-between">
         <Link
           href="/"
-          className="p-2 font-bold text-lg "
+          className="p-2 font-bold text-lg font-mono"
           onClick={closeSidebar}
         >
-          DATATISTIK
+          DELIFUNDS
         </Link>
 
         <Button variant="ghost" size="icon" onClick={closeSidebar}>

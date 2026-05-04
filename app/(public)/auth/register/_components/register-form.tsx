@@ -15,8 +15,10 @@ import * as z from "zod";
 import { registrationFormSchema } from "../_libs/form-schema";
 import { authSignUpEmail, isAuthError } from "@/lib/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function RegisterForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof registrationFormSchema>>({
     resolver: zodResolver(registrationFormSchema),
     defaultValues: {
@@ -36,8 +38,11 @@ export function RegisterForm() {
         toast.warning(signUp.message);
         return;
       }
-      console.log(signUp);
-      // if (signUp.token) console.log(signUp);
+
+      toast.success(
+        "Registration successful, please check your email for verification.",
+      );
+      router.push("/auth/login");
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong, please try again later");
@@ -88,13 +93,16 @@ export function RegisterForm() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
+              <FieldLabel htmlFor="password">
+                Password (8 characters minimum)
+              </FieldLabel>
               <Input
                 {...field}
                 id="password"
                 type="password"
                 required
                 aria-invalid={fieldState.invalid}
+                placeholder="********"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
