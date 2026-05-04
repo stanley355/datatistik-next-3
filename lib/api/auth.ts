@@ -20,10 +20,6 @@ type AuthSignUpEmailRes =
     }
   | AuthErrorRes;
 
-export const isAuthError = (res: AuthSignUpEmailRes): res is AuthErrorRes => {
-  return (res as AuthErrorRes).message !== undefined && !("user" in res);
-};
-
 export const authSignUpEmail = async (
   params: AuthSignUpEmailParams,
 ): Promise<AuthSignUpEmailRes | undefined> => {
@@ -39,4 +35,53 @@ export const authSignUpEmail = async (
   } catch (err) {
     console.error(err);
   }
+};
+
+type AuthVerifyEmailRes =
+  | {
+      status: boolean;
+      user: User;
+    }
+  | AuthErrorRes;
+export const authVerifyEmail = async (
+  token: string,
+): Promise<AuthVerifyEmailRes | undefined> => {
+  try {
+    const res = await fetch(baseUrl + "/verify-email?token=" + token, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+type AuthSendVerificationEmailRes =
+  | {
+      status: boolean;
+    }
+  | AuthErrorRes;
+export const authSendVerificationEmail = async (
+  email: string,
+): Promise<AuthSendVerificationEmailRes | undefined> => {
+  try {
+    const res = await fetch(baseUrl + "/send-verification-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isAuthError = (res: any): res is AuthErrorRes => {
+  return (res as AuthErrorRes).message !== undefined && !("user" in res);
 };

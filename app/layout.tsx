@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { TanstackQueryProvider } from "@/components/providers/tanstack-query-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,16 +23,18 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
+        <TanstackQueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
 
-          <Toaster position="top-center" />
-        </ThemeProvider>
+            <Toaster position="top-center" />
+          </ThemeProvider>
+        </TanstackQueryProvider>
       </body>
     </html>
   );
