@@ -3,14 +3,18 @@ import { User } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_BETTER_AUTH_URL + "/api/auth";
 
+type AuthErrorRes = {
+  message: string;
+};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isAuthError = (res: any): res is AuthErrorRes => {
+  return (res as AuthErrorRes).message !== undefined && !("user" in res);
+};
+
 type AuthSignUpEmailParams = {
   name: string;
   email: string;
   password: string;
-};
-
-type AuthErrorRes = {
-  message: string;
 };
 
 type AuthSignUpEmailRes =
@@ -81,7 +85,25 @@ export const authSendVerificationEmail = async (
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isAuthError = (res: any): res is AuthErrorRes => {
-  return (res as AuthErrorRes).message !== undefined && !("user" in res);
+type AuthRequestPasswordResetRes =
+  | {
+      status: boolean;
+      message: string;
+    }
+  | AuthErrorRes;
+export const authRequestPasswordReset = async (
+  email: string,
+): Promise<AuthRequestPasswordResetRes | undefined> => {
+  try {
+    const res = await fetch(baseUrl + "/request-password-reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
 };
