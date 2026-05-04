@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TanstackQueryProvider } from "@/components/providers/tanstack-query-provider";
+import { PublicLayout } from "@/components/custom-ui/public-layout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,8 +31,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
-
+            <PublicLayout>{children}</PublicLayout>
             <Toaster position="top-center" />
           </ThemeProvider>
         </TanstackQueryProvider>

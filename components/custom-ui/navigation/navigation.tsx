@@ -8,9 +8,9 @@ import { isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { LuUser } from "react-icons/lu";
+import { LuUser, LuUserCog } from "react-icons/lu";
 
-const LoginProfileLink = () => {
+const UserMenuLinks = () => {
   const session = useQuery(authGetSessionOptions());
   if (!session.data || isAuthError(session.data)) {
     return (
@@ -24,12 +24,22 @@ const LoginProfileLink = () => {
   }
 
   return (
-    <Link
-      href={"/account"}
-      className={cn(buttonVariants({ variant: "ghost" }))}
-    >
-      <LuUser /> Account
-    </Link>
+    <div className="flex items-center gap-4">
+      {session.data.user.role === "admin" && (
+        <Link
+          href={"/admin"}
+          className={cn(buttonVariants({ variant: "ghost" }))}
+        >
+          <LuUserCog /> Admin
+        </Link>
+      )}
+      <Link
+        href={"/account"}
+        className={cn(buttonVariants({ variant: "ghost" }))}
+      >
+        <LuUser /> Account
+      </Link>
+    </div>
   );
 };
 
@@ -47,7 +57,7 @@ export const Navigation = () => {
           <SidebarTrigger />
         ) : (
           <div className="flex items-center gap-4">
-            <LoginProfileLink />
+            <UserMenuLinks />
             <ThemeToggle />
           </div>
         )}

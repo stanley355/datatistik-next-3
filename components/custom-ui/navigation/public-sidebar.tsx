@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { LucideX } from "lucide-react";
 import Link from "next/link";
-import { LuUserRound } from "react-icons/lu";
+import { LuUser, LuUserCog, LuUserRound } from "react-icons/lu";
 
 export function PublicSidebar() {
   const isMobile = useIsMobile();
@@ -24,6 +24,10 @@ export function PublicSidebar() {
   const session = useQuery(authGetSessionOptions());
   const isLoggedIn =
     session.data && !isAuthError(session.data) && session.data?.session;
+  const isAdmin =
+    session.data &&
+    !isAuthError(session.data) &&
+    session.data?.user.role === "admin";
 
   const closeSidebar = () => {
     setOpen(false);
@@ -46,12 +50,25 @@ export function PublicSidebar() {
         </Button>
       </SidebarHeader>
       <SidebarContent>
+        {isAdmin && (
+          <Link
+            href="/admin"
+            className={cn(
+              buttonVariants({ variant: "ghost" }),
+              "justify-start",
+            )}
+            onClick={closeSidebar}
+          >
+            <LuUserCog />
+            ADMIN
+          </Link>
+        )}
         <Link
           href={isLoggedIn ? "/account" : "/auth/login"}
           className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
           onClick={closeSidebar}
         >
-          <LuUserRound />
+          <LuUser />
           {isLoggedIn ? "ACCOUNT" : "LOGIN"}
         </Link>
       </SidebarContent>

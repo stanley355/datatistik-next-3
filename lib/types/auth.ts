@@ -6,6 +6,10 @@ export type User = {
   emailVerified: boolean;
   createdAt: string;
   updatedAt: string;
+  role: null | string;
+  banned: null | boolean;
+  banReason: string;
+  banExpires: string;
 };
 
 export type Session = {

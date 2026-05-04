@@ -107,12 +107,20 @@ export function LoginForm() {
 
         <Field>
           <Button type="submit">Login</Button>
-          <Link
-            href="/auth/register"
-            className={cn(buttonVariants({ variant: "outline" }))}
-          >
-            Register New Account
-          </Link>
+          <div className="grid grid-cols-2 gap-4">
+            <Link
+              href="/auth/verify-email"
+              className={cn(buttonVariants({ variant: "outline" }))}
+            >
+              Verify Email
+            </Link>
+            <Link
+              href="/auth/register"
+              className={cn(buttonVariants({ variant: "outline" }))}
+            >
+              Register New Account
+            </Link>
+          </div>
         </Field>
       </FieldGroup>
     </form>
