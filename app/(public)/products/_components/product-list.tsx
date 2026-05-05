@@ -1,13 +1,21 @@
 "use client";
 import { productsOptions } from "@/hooks/products";
 import { useQuery } from "@tanstack/react-query";
-import { LuSearch } from "react-icons/lu";
 import { ProductNotFound } from "./product-not-found";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductListLoading } from "./product-list-loading";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
 
 export const ProductList = () => {
   const { data, isLoading } = useQuery(productsOptions());
+  console.log(data);
   if (isLoading) {
     return <ProductListLoading />;
   }
@@ -16,9 +24,29 @@ export const ProductList = () => {
   }
 
   return (
-    <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(325px,350px))]   w-full">
-      {Array.from({ length: 15 }).map((_, i) => (
-        <Skeleton className="w-full h-64" key={`skeleton_${i}`} />
+    <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-5 w-full items-stretch">
+      {data.data.data.map((product) => (
+        <Link
+          href={`/products/${product.slug}`}
+          key={product.id}
+          title={product.name}
+        >
+          <Card className="transition-all duration-300 ease-in-out hover:translate-y-2 hover:shadow-xl h-full">
+            <CardHeader>
+              <img
+                className="object-cover w-full aspect-square"
+                src={product.images[0]}
+                alt={product.name}
+              />
+            </CardHeader>
+            <CardContent>
+              <h3>{product.name}</h3>
+              <h4 className="text-xl font-bold text-primary">
+                {product.currency.toUpperCase()} {product.price}
+              </h4>
+            </CardContent>
+          </Card>
+        </Link>
       ))}
     </div>
   );
