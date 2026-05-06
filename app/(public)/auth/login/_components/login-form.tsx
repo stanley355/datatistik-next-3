@@ -118,7 +118,7 @@ export function LoginForm() {
               href="/auth/register"
               className={cn(buttonVariants({ variant: "outline" }))}
             >
-              Register New Account
+              Register Account
             </Link>
           </div>
         </Field>

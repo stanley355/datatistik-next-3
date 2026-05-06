@@ -8,35 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuSearch, LuShoppingCart, LuUser, LuUserCog } from "react-icons/lu";
 import { NavigationSearchForm } from "./navigation-search-form";
-
-const UserMenuLinks = () => {
-  const session = useQuery(authGetSessionOptions());
-  if (!session.data || isAuthError(session.data)) {
-    return (
-      <Link
-        href={"/auth/login"}
-        className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "text-primary-foreground hidden sm:flex",
-        )}
-      >
-        <LuUser /> Login
-      </Link>
-    );
-  }
-
-  return (
-    <Link
-      href={"/account"}
-      className={cn(
-        buttonVariants({ variant: "ghost" }),
-        "text-primary-foreground hidden sm:flex",
-      )}
-    >
-      <LuUser /> Account
-    </Link>
-  );
-};
+import { NavigationAccountLink } from "./navigation-account-link";
 
 export const Navigation = () => {
   const pathname = usePathname();
@@ -73,7 +45,7 @@ export const Navigation = () => {
         >
           <LuShoppingCart />
         </Link>
-        <UserMenuLinks />
+        <NavigationAccountLink isBottomNavigation={false} />
       </div>
     </div>
   );
