@@ -9,6 +9,13 @@ import { toast } from "sonner";
 import { authSendVerificationEmail, isAuthError } from "@/lib/api";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const verifyEmailFormSchema = z.object({
   email: z.email().min(1, "Email can't be empty"),
@@ -43,45 +50,50 @@ export const VerifyEmailForm = () => {
   }
 
   return (
-    <div className="w-full ">
-      <h1 className="font-mono font-bold text-lg">
-        EMAIL VERIFICATION EXPIRED
-      </h1>
-      <p className="mb-4">Please enter your email for another verification</p>
+    <Card className="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle>EMAIL VERIFICATION EXPIRED</CardTitle>
+        <CardDescription>
+          Please enter your email for another verification
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form
+          className="flex flex-col gap-4 max-w-96"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <Input
+                  {...field}
+                  id="email"
+                  type="email"
+                  placeholder="email@email.com"
+                  required
+                  aria-invalid={fieldState.invalid}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
 
-      <form
-        className="flex flex-col gap-4 max-w-96"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <Controller
-          name="email"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
-                {...field}
-                id="email"
-                type="email"
-                placeholder="email@email.com"
-                required
-                aria-invalid={fieldState.invalid}
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-
-        <Field>
-          <Button type="submit">Send Verification Email</Button>
-          <Link
-            href="/auth/login"
-            className={cn(buttonVariants({ variant: "outline" }))}
-          >
-            Back to Login
-          </Link>
-        </Field>
-      </form>
-    </div>
+          <Field>
+            <Button type="submit">Send Verification Email</Button>
+            <Link
+              href="/auth/login"
+              className={cn(buttonVariants({ variant: "outline" }))}
+            >
+              Back to Login
+            </Link>
+          </Field>
+        </form>
+      </CardContent>
+    </Card>
   );
 };

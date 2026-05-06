@@ -1,21 +1,29 @@
 import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export const VerifyEmailSuccess = () => {
   return (
-    <div className="w-full ">
-      <h1 className="font-mono font-bold text-lg">
-        EMAIL VERIFIED SUCCESSFULLY
-      </h1>
-      <p className="mb-4">Please login to continue</p>
-
-      <Link
-        href="/auth/login"
-        className={cn(buttonVariants(), "w-full max-w-96")}
-      >
-        LOGIN
-      </Link>
-    </div>
+    <Card className="w-full max-w-lg">
+      <CardHeader>
+        <CardTitle>EMAIL VERIFIED SUCCESSFULLY</CardTitle>
+        <CardDescription>Please login to continue</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Link
+          href="/auth/login"
+          className={cn(buttonVariants(), "w-full max-w-48")}
+        >
+          LOGIN
+        </Link>
+      </CardContent>
+    </Card>
   );
 };

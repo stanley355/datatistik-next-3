@@ -46,43 +46,38 @@ export const ForgotPasswordForm = () => {
   }
 
   return (
-    <div className="w-full ">
-      <h1 className="font-mono font-bold text-lg">FORGOT PASSWORD</h1>
-      <p className="mb-4">Please enter your email for verification</p>
+    <form
+      className="flex flex-col gap-4 max-w-96"
+      onSubmit={form.handleSubmit(onSubmit)}
+    >
+      <Controller
+        name="email"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Input
+              {...field}
+              id="email"
+              type="email"
+              placeholder="email@email.com"
+              required
+              aria-invalid={fieldState.invalid}
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
 
-      <form
-        className="flex flex-col gap-4 max-w-96"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <Controller
-          name="email"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
-                {...field}
-                id="email"
-                type="email"
-                placeholder="email@email.com"
-                required
-                aria-invalid={fieldState.invalid}
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-
-        <Field>
-          <Button type="submit">Send Reset Password Link</Button>
-          <Link
-            href="/auth/login"
-            className={cn(buttonVariants({ variant: "outline" }))}
-          >
-            Back to Login
-          </Link>
-        </Field>
-      </form>
-    </div>
+      <Field>
+        <Button type="submit">Send Reset Password Link</Button>
+        <Link
+          href="/auth/login"
+          className={cn(buttonVariants({ variant: "outline" }))}
+        >
+          Back to Login
+        </Link>
+      </Field>
+    </form>
   );
 };

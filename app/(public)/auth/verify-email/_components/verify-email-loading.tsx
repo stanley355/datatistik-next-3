@@ -1,9 +1,17 @@
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 export const VerifyEmailLoading = () => {
   return (
-    <div className="w-full ">
-      <h1 className="font-mono font-bold text-lg">DELIFUNDS</h1>
-
-      <p>Verifying your email...</p>
-    </div>
+    <Card className="w-full max-w-lg">
+      <CardHeader>
+        <CardTitle>DELIFUNDS</CardTitle>
+        <CardDescription>Verifying your email...</CardDescription>
+      </CardHeader>
+    </Card>
   );
 };
