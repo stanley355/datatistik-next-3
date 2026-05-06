@@ -15,7 +15,6 @@ import Link from "next/link";
 
 export const ProductList = () => {
   const { data, isLoading } = useQuery(productsOptions());
-  console.log(data);
   if (isLoading) {
     return <ProductListLoading />;
   }

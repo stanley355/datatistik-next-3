@@ -1,14 +1,13 @@
 "use client";
-import { ThemeToggle } from "@/components/custom-ui/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { authGetSessionOptions } from "@/hooks/auth";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { LuUser, LuUserCog } from "react-icons/lu";
+import { usePathname } from "next/navigation";
+import { LuSearch, LuShoppingCart, LuUser, LuUserCog } from "react-icons/lu";
+import { NavigationSearchForm } from "./navigation-search-form";
 
 const UserMenuLinks = () => {
   const session = useQuery(authGetSessionOptions());
@@ -16,7 +15,10 @@ const UserMenuLinks = () => {
     return (
       <Link
         href={"/auth/login"}
-        className={cn(buttonVariants({ variant: "ghost" }))}
+        className={cn(
+          buttonVariants({ variant: "ghost" }),
+          "text-primary-foreground hidden sm:flex",
+        )}
       >
         <LuUser /> Login
       </Link>
@@ -24,43 +26,54 @@ const UserMenuLinks = () => {
   }
 
   return (
-    <div className="flex items-center gap-4">
-      {session.data.user.role === "admin" && (
-        <Link
-          href={"/admin"}
-          className={cn(buttonVariants({ variant: "ghost" }))}
-        >
-          <LuUserCog /> Admin
-        </Link>
+    <Link
+      href={"/account"}
+      className={cn(
+        buttonVariants({ variant: "ghost" }),
+        "text-primary-foreground hidden sm:flex",
       )}
-      <Link
-        href={"/account"}
-        className={cn(buttonVariants({ variant: "ghost" }))}
-      >
-        <LuUser /> Account
-      </Link>
-    </div>
+    >
+      <LuUser /> Account
+    </Link>
   );
 };
 
 export const Navigation = () => {
-  const isMobile = useIsMobile();
-
+  const pathname = usePathname();
+  if (pathname === "/search") {
+    return <></>;
+  }
   return (
-    <div className="border-b">
-      <div className="flex items-center justify-between container mx-auto">
-        <Link href="/" className="p-2 font-bold text-lg font-mono">
+    <div className="shadow bg-primary fixed top-0 left-0 w-full p-2 z-10">
+      <div className="container mx-auto flex items-center justify-between gap-2 ">
+        <Link
+          href="/search"
+          className="bg-background rounded p-2 flex items-center gap-2 flex-1 sm:hidden"
+        >
+          <LuSearch className="text-xl" />
+          <span className="text-sm text-muted-foreground">
+            Search Delifunds
+          </span>
+        </Link>
+        <Link
+          href="/"
+          title="DELIFUNDS"
+          className="text-primary-foreground font-bold text-2xl font-mono hidden sm:contents"
+        >
           DELIFUNDS
         </Link>
-
-        {isMobile ? (
-          <SidebarTrigger />
-        ) : (
-          <div className="flex items-center gap-4">
-            <UserMenuLinks />
-            <ThemeToggle />
-          </div>
-        )}
+        <NavigationSearchForm />
+        <Link
+          href="/products/carts"
+          title="My Cart"
+          className={cn(
+            buttonVariants({ size: "icon", variant: "ghost" }),
+            "text-primary-foreground",
+          )}
+        >
+          <LuShoppingCart />
+        </Link>
+        <UserMenuLinks />
       </div>
     </div>
   );
