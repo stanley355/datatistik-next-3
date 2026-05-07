@@ -1,14 +1,51 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { createUserSearch } from "@/lib/api/user_search";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
 import { LuSearch } from "react-icons/lu";
+import z from "zod";
+
+const searchFormSchema = z.object({
+  keyword: z.string().optional(),
+});
 
 export const NavigationSearchForm = () => {
+  const form = useForm<z.infer<typeof searchFormSchema>>({
+    resolver: zodResolver(searchFormSchema),
+    defaultValues: {
+      keyword: "",
+    },
+  });
+
+  function onSubmit(data: z.infer<typeof searchFormSchema>) {
+    try {
+      if (data.keyword) {
+        createUserSearch(data.keyword);
+      }
+      return;
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
-    <form className="hidden sm:flex bg-background rounded flex-1 border">
-      <Input
-        type="text"
-        placeholder="Search Delifunds"
-        className="border-none focus-visible:ring-transparent placeholder:text-sm"
+    <form
+      className="hidden sm:flex bg-background rounded flex-1 border"
+      onSubmit={form.handleSubmit(onSubmit)}
+    >
+      <Controller
+        name="keyword"
+        control={form.control}
+        render={({ field }) => (
+          <Input
+            {...field}
+            id="keyword"
+            name="keyword"
+            type="text"
+            placeholder="Search Delifunds"
+            className="border-none focus-visible:ring-transparent placeholder:text-sm"
+          />
+        )}
       />
       <Button type="submit" size="icon" variant="ghost">
         <LuSearch />

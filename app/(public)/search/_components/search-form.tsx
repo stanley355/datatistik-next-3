@@ -19,7 +19,7 @@ export const SearchForm = () => {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof searchFormSchema>) {
+  function onSubmit(data: z.infer<typeof searchFormSchema>) {
     try {
       if (data.keyword) {
         createUserSearch(data.keyword);
