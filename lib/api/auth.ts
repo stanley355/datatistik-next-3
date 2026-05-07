@@ -1,5 +1,5 @@
 import { env } from "../env";
-import { Session, User } from "../types";
+import type { Session, User } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_BETTER_AUTH_URL + "/api/auth";
 
