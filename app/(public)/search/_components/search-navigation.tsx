@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { LuArrowLeft, LuSearch } from "react-icons/lu";
+import { LuArrowLeft } from "react-icons/lu";
+import { SearchForm } from "./search-form";
 
 export const SearchNavigation = () => {
   const router = useRouter();
@@ -17,22 +17,7 @@ export const SearchNavigation = () => {
           <LuArrowLeft />
         </Button>
 
-        <form className="contents">
-          <Input
-            type="text"
-            placeholder="Search Delifunds"
-            className="border-none focus-visible:ring-transparent"
-          />
-
-          <Button
-            type="button"
-            onClick={() => router.back()}
-            size="icon"
-            variant="link"
-          >
-            <LuSearch />
-          </Button>
-        </form>
+        <SearchForm />
       </div>
     </div>
   );
