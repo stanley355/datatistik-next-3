@@ -1,12 +1,9 @@
 "use client";
 import { buttonVariants } from "@/components/ui/button";
-import { authGetSessionOptions } from "@/hooks/auth";
-import { isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LuSearch, LuShoppingCart, LuUser, LuUserCog } from "react-icons/lu";
+import { LuSearch, LuShoppingCart } from "react-icons/lu";
 import { NavigationSearchForm } from "./navigation-search-form";
 import { NavigationAccountLink } from "./navigation-account-link";
 
