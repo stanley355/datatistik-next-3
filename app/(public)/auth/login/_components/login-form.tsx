@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authGetSessionOptions } from "@/hooks/auth";
-import { authGetSession, authSignIn, isAuthError } from "@/lib/api";
+import { authSignIn, isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";

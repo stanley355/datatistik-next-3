@@ -51,7 +51,7 @@ export const NavigationSearchForm = () => {
             name="keyword"
             type="text"
             placeholder="Search Delifunds"
-            className="border-none focus-visible:ring-transparent placeholder:text-sm"
+            className="bg-background border-none focus-visible:ring-transparent placeholder:text-sm"
           />
         )}
       />

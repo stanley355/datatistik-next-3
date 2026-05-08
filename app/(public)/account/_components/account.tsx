@@ -1,5 +1,6 @@
 "use client";
 import { SomethingWrongCard } from "@/components/custom-ui/something-wrong-card";
+import { ThemeToggle } from "@/components/custom-ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,9 +32,12 @@ export const Account = () => {
   }
   return (
     <Card className="w-full max-w-lg">
-      <CardHeader>
-        <CardTitle className="font-mono">ACCOUNT</CardTitle>
-        <CardDescription>Manage and protect your account</CardDescription>
+      <CardHeader className="flex justify-between">
+        <div>
+          <CardTitle className="font-mono">ACCOUNT</CardTitle>
+          <CardDescription>Manage and protect your account</CardDescription>
+        </div>
+        <ThemeToggle />
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div>
