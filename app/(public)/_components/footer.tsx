@@ -110,12 +110,14 @@ export const Footer = (props: Props) => {
   const visibleSections = (sections ?? []).slice(0, MAX_SECTIONS);
 
   return (
-    <footer className="py-16 px-4 lg:px-0">
+    <footer className="py-16 px-4 lg:px-0 border-t">
       <div className="container mx-auto ">
         <div className="flex flex-col gap-8 md:flex-row pb-8 border-b">
           <div className="max-w-96">
             <h4 className="font-mono font-extrabold text-xl">DELIFUNDS</h4>
-            <h5 className="mb-4">Delivering wholesale products to Indonesia</h5>
+            <h5 className="mb-4 text-sm">
+              Delivering wholesale products to Indonesia
+            </h5>
 
             <div className="mb-4">
               <h6 className="font-mono font-semibold">China Office</h6>
