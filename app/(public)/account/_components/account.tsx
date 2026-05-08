@@ -30,7 +30,7 @@ export const Account = () => {
     return <SomethingWrongCard />;
   }
   return (
-    <Card className="w-full">
+    <Card className="w-full max-w-lg">
       <CardHeader>
         <CardTitle className="font-mono">ACCOUNT</CardTitle>
         <CardDescription>Manage and protect your account</CardDescription>

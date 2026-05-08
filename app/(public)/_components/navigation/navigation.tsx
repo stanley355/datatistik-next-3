@@ -13,7 +13,7 @@ export const Navigation = () => {
     return <></>;
   }
   return (
-    <div className="shadow bg-primary fixed top-0 left-0 w-full p-2 z-10">
+    <header className="shadow bg-primary fixed top-0 left-0 w-full p-2 z-10">
       <div className="container mx-auto flex items-center justify-between gap-2 ">
         <Link
           href="/search"
@@ -44,6 +44,6 @@ export const Navigation = () => {
         </Link>
         <NavigationAccountLink isBottomNavigation={false} />
       </div>
-    </div>
+    </header>
   );
 };

@@ -24,7 +24,7 @@ export const Categories = () => {
   };
 
   return (
-    <Card>
+    <Card className="container mx-auto">
       <CardHeader>
         <CardTitle>CATEGORIES</CardTitle>
       </CardHeader>

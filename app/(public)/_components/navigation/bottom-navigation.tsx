@@ -31,7 +31,7 @@ export const BottomNavigation = () => {
         Cart
       </Link>
       <Link
-        href="/notifications"
+        href="/products"
         title="Notifications"
         className={cn(
           buttonVariants({ variant: "ghost" }),
