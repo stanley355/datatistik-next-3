@@ -7,7 +7,7 @@ import { NavigationAccountLink } from "./navigation-account-link";
 
 export const BottomNavigation = () => {
   return (
-    <div className="grid grid-cols-4 gap-4 sm:hidden fixed bottom-0 left-0 border-t w-full place-items-center p-2">
+    <div className="grid grid-cols-4 gap-4 sm:hidden fixed bottom-0 left-0 border-t w-full place-items-center p-2 bg-background z-10">
       <Link
         href="/"
         title="Home"

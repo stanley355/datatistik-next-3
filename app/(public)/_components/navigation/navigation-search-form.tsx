@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { authGetSessionOptions } from "@/hooks/auth";
+import { authGetSession, isAuthError } from "@/lib/api";
 import { createUserSearch } from "@/lib/api/user_search";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
 import { Controller, useForm } from "react-hook-form";
 import { LuSearch } from "react-icons/lu";
 import z from "zod";
@@ -11,6 +14,7 @@ const searchFormSchema = z.object({
 });
 
 export const NavigationSearchForm = () => {
+  const session = useQuery(authGetSessionOptions());
   const form = useForm<z.infer<typeof searchFormSchema>>({
     resolver: zodResolver(searchFormSchema),
     defaultValues: {
@@ -18,10 +22,14 @@ export const NavigationSearchForm = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof searchFormSchema>) {
+  async function onSubmit(data: z.infer<typeof searchFormSchema>) {
     try {
       if (data.keyword) {
-        createUserSearch(data.keyword);
+        if (session.data && !isAuthError(session.data) && session?.data.user) {
+          createUserSearch(data.keyword, session?.data.user.id);
+        } else {
+          createUserSearch(data.keyword);
+        }
       }
       return;
     } catch (err) {
