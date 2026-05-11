@@ -6,10 +6,8 @@ ARG NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 # Set the working directory inside the container
 WORKDIR /app
 
-COPY bun.lock .
-COPY package.json .
-RUN bun install
 COPY . .
+RUN bun install
 RUN bun run build
 
 FROM node:22-alpine as runner
