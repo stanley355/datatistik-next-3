@@ -1,4 +1,4 @@
-FROM node:22-alpine as builder
+FROM oven/bun:1.3 AS builder
 
 ARG NEXT_PUBLIC_BETTER_AUTH_URL=$NEXT_PUBLIC_BETTER_AUTH_URL
 ARG NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
@@ -10,8 +10,7 @@ COPY . .
 RUN bun install
 RUN bun run build
 
-FROM node:22-alpine as runner
-
+FROM oven/bun:1.3-slim AS runner
 WORKDIR /app
 
 COPY --from=builder /app/package.json .
