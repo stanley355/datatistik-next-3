@@ -1,3 +1,6 @@
+import { CATEGORIES } from "@/lib/constant/categories";
+import { LuCopyright } from "react-icons/lu";
+
 export const Footer = () => {
   return (
     <footer className="py-16 px-4 lg:px-0 border-t">

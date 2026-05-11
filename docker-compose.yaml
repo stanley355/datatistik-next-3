@@ -1,0 +1,14 @@
+services:
+  delifunds-next:
+    container_name: delifunds-next
+    image: 355355355/delifunds-next
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    networks:
+      - docker-delifunds
+networks:
+  docker-delifunds:
+    driver: bridge
