@@ -9,6 +9,8 @@ export async function proxy(request: NextRequest) {
     cookie: request.headers.get("cookie"),
   });
 
+  console.log("is Session error: ", isAuthError(session));
+  console.log("session: ", session);
   if (!session || isAuthError(session)) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
