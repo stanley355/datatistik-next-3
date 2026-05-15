@@ -10,7 +10,7 @@ export const ProductSettings = () => {
   return (
     <div className="grid grid-cols-2 max-w-96 gap-4">
       <NativeSelect
-        defaultValue="CN"
+        defaultValue="EN"
         onChange={(e) => setLanguage(e.target.value as "CN" | "EN")}
         className="w-full"
       >

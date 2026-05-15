@@ -10,7 +10,7 @@ type ProductStore = {
 // 2. Apply the interface to the create function
 export const useProducts = create<ProductStore>((set) => ({
   currency: "RMB",
-  language: "CN",
+  language: "EN",
   setCurrency: (newCurrency) => set({ currency: newCurrency }),
   setLanguage: (newLanguage) => set({ language: newLanguage }),
 }));
