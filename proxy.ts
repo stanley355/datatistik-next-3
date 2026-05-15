@@ -8,6 +8,7 @@ export async function proxy(request: NextRequest) {
     cookie: request.headers.get("cookie"),
   });
 
+  console.log("Headers: ", request.cookies.getAll());
   console.log("Cookie: ", request.headers.get("cookie"));
   console.log("session: ", session);
   console.log("is Session error: ", isAuthError(session));
