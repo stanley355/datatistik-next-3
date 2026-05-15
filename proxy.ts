@@ -4,13 +4,13 @@ import { authGetSession, isAuthError } from "@/lib/api";
 
 export async function proxy(request: NextRequest) {
   // Check for the user session
-  // const allHeaders = request.headers;
   const session = await authGetSession({
     cookie: request.headers.get("cookie"),
   });
 
-  console.log("is Session error: ", isAuthError(session));
+  console.log("Cookie: ", request.headers.get("cookie"));
   console.log("session: ", session);
+  console.log("is Session error: ", isAuthError(session));
   if (!session || isAuthError(session)) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
