@@ -1,4 +1,5 @@
 import { CATEGORIES } from "@/lib/constant/categories";
+import Link from "next/link";
 import { LuCopyright } from "react-icons/lu";
 
 export const Footer = () => {
@@ -30,13 +31,18 @@ export const Footer = () => {
           <div className="flex flex-col gap-4">
             <h4 className="font-mono font-semibold">Products</h4>
 
-            <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-5">
               {CATEGORIES.map((cat) => (
-                <li key={cat.label} className="underline">
+                <Link
+                  title={cat.label}
+                  href="/products"
+                  key={cat.label}
+                  className="underline"
+                >
                   {cat.label}
-                </li>
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
