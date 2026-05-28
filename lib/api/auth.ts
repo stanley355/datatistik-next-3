@@ -9,7 +9,10 @@ type AuthErrorRes = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isAuthError = (res: any): res is AuthErrorRes => {
-  return (res as AuthErrorRes).message !== undefined && !("user" in res);
+  if (res) {
+    return (res as AuthErrorRes).message !== undefined && !("user" in res);
+  }
+  return false;
 };
 
 type AuthSignUpEmailParams = {

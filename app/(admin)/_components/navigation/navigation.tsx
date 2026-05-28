@@ -8,21 +8,9 @@ import { isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { LuUser, LuUserCog } from "react-icons/lu";
+import { LuBoxes, LuUser, LuUserCog } from "react-icons/lu";
 
 const UserMenuLinks = () => {
-  const session = useQuery(authGetSessionOptions());
-  if (!session.data || isAuthError(session.data)) {
-    return (
-      <Link
-        href={"/auth/login"}
-        className={cn(buttonVariants({ variant: "ghost" }))}
-      >
-        <LuUser /> Login
-      </Link>
-    );
-  }
-
   return (
     <div className="flex items-center gap-4">
       <Link
@@ -30,6 +18,12 @@ const UserMenuLinks = () => {
         className={cn(buttonVariants({ variant: "ghost" }))}
       >
         <LuUserCog /> Admin
+      </Link>
+      <Link
+        href={"/admin/products"}
+        className={cn(buttonVariants({ variant: "ghost" }))}
+      >
+        <LuBoxes /> Products
       </Link>
       <Link
         href={"/account"}

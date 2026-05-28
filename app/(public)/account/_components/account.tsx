@@ -1,7 +1,7 @@
 "use client";
 import { SomethingWrongCard } from "@/components/custom-ui/something-wrong-card";
 import { ThemeToggle } from "@/components/custom-ui/theme-toggle";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/card";
 import { authGetSessionOptions } from "@/hooks/auth";
 import { authSignOut, isAuthError } from "@/lib/api";
+import { cn } from "@/lib/utils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export const Account = () => {
@@ -30,6 +32,7 @@ export const Account = () => {
   if (!session.data || isAuthError(session.data)) {
     return <SomethingWrongCard />;
   }
+
   return (
     <Card className="w-full max-w-lg">
       <CardHeader className="flex justify-between">
@@ -59,9 +62,23 @@ export const Account = () => {
           </p>
         </div>
 
-        <Button className="w-fit" onClick={onLogoutClick}>
-          Logout
-        </Button>
+        <div className="flex items-center gap-4">
+          {session.data.user.role === "admin" && (
+            <Link
+              href="/admin"
+              className={cn(buttonVariants({ variant: "secondary" }))}
+            >
+              Admin
+            </Link>
+          )}
+          <Button
+            className="w-fit"
+            variant="destructive"
+            onClick={onLogoutClick}
+          >
+            Logout
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

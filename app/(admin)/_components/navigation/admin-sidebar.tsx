@@ -15,15 +15,11 @@ import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { LucideX } from "lucide-react";
 import Link from "next/link";
-import { LuUser, LuUserCog } from "react-icons/lu";
+import { LuBoxes, LuUser, LuUserCog } from "react-icons/lu";
 
 export function AdminSidebar() {
   const isMobile = useIsMobile();
-
   const { setOpen, setOpenMobile } = useSidebar();
-  const session = useQuery(authGetSessionOptions());
-  const isLoggedIn =
-    session.data && !isAuthError(session.data) && session.data?.session;
 
   const closeSidebar = () => {
     setOpen(false);
@@ -55,12 +51,20 @@ export function AdminSidebar() {
           ADMIN
         </Link>
         <Link
-          href={isLoggedIn ? "/account" : "/auth/login"}
+          href="/admin/products"
+          className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
+          onClick={closeSidebar}
+        >
+          <LuBoxes />
+          PRODUCTS
+        </Link>
+        <Link
+          href="/account"
           className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
           onClick={closeSidebar}
         >
           <LuUser />
-          {isLoggedIn ? "ACCOUNT" : "LOGIN"}
+          ACCOUNT
         </Link>
       </SidebarContent>
       <SidebarFooter>

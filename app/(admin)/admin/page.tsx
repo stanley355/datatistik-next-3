@@ -1,3 +1,5 @@
+import { Admin } from "../_components/admin";
+
 export default function Page() {
-  return <div></div>;
+  return <Admin />;
 }
