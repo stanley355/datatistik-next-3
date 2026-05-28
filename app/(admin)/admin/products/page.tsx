@@ -1,3 +1,5 @@
+import { Products } from "./_components";
+
 export default function Page() {
-  return <>Product</>;
+  return <Products />;
 }

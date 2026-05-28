@@ -8,11 +8,8 @@ import {
   SidebarHeader,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { authGetSessionOptions } from "@/hooks/auth";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import { LucideX } from "lucide-react";
 import Link from "next/link";
 import { LuBoxes, LuUser, LuUserCog } from "react-icons/lu";
@@ -25,7 +22,9 @@ export function AdminSidebar() {
     setOpen(false);
     setOpenMobile(false);
   };
+
   if (!isMobile) return <></>;
+
   return (
     <Sidebar>
       <SidebarHeader className="flex items-center justify-between">

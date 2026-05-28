@@ -2,11 +2,8 @@
 import { ThemeToggle } from "@/components/custom-ui/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { authGetSessionOptions } from "@/hooks/auth";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { LuBoxes, LuUser, LuUserCog } from "react-icons/lu";
 
