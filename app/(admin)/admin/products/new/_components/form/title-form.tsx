@@ -21,7 +21,10 @@ export const TitleForm = ({ form }: TitleFormProps) => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="cn_title">Title (CN) </FieldLabel>
+            <div className="flex items-center gap-2">
+              <FieldLabel htmlFor="cn_title">Title (CN) </FieldLabel>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </div>
             <Input
               {...field}
               id="cn_title"
@@ -29,7 +32,6 @@ export const TitleForm = ({ form }: TitleFormProps) => {
               placeholder="Chinese Title"
               autoComplete="off"
             />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
       />
@@ -38,7 +40,10 @@ export const TitleForm = ({ form }: TitleFormProps) => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="en_title">Title (EN) </FieldLabel>
+            <div className="flex items-center gap-2">
+              <FieldLabel htmlFor="en_title">Title (EN) </FieldLabel>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </div>
             <Input
               {...field}
               id="en_title"
@@ -46,7 +51,6 @@ export const TitleForm = ({ form }: TitleFormProps) => {
               placeholder="English Title"
               autoComplete="off"
             />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
       />
@@ -55,7 +59,10 @@ export const TitleForm = ({ form }: TitleFormProps) => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="id_title">Title (ID) </FieldLabel>
+            <div className="flex items-center gap-2">
+              <FieldLabel htmlFor="id_title">Title (ID) </FieldLabel>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </div>
             <Input
               {...field}
               id="id_title"
@@ -63,7 +70,6 @@ export const TitleForm = ({ form }: TitleFormProps) => {
               placeholder="Indonesian Title"
               autoComplete="off"
             />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
       />

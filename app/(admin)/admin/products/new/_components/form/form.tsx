@@ -10,11 +10,15 @@ import {
 } from "@/components/ui/accordion";
 import { TitleForm } from "./title-form";
 import { DescriptionForm } from "./description-form";
+import { PriceForm } from "./price-form";
 
 export const ProductForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      is_available: true,
+      price: 0,
+    },
   });
   return (
     <form>
@@ -39,6 +43,17 @@ export const ProductForm = () => {
           </AccordionTrigger>
           <AccordionContent className="p-4">
             <DescriptionForm form={form} />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem
+          value="price"
+          className="border border-primary rounded-lg"
+        >
+          <AccordionTrigger className="border border-primary p-4 rounded-lg">
+            PRICE
+          </AccordionTrigger>
+          <AccordionContent className="p-4">
+            <PriceForm form={form} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

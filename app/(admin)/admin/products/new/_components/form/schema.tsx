@@ -9,4 +9,6 @@ const localizationSchema = z.object({
 export const formSchema = z.object({
   title: localizationSchema,
   description: localizationSchema,
+  is_available: z.boolean(),
+  price: z.number().min(1)
 });

@@ -21,7 +21,10 @@ export const DescriptionForm = ({ form }: DescriptionFormProps) => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="cn_title">Description (CN) </FieldLabel>
+            <div className="flex items-center gap-2">
+              <FieldLabel htmlFor="cn_title">Description (CN) </FieldLabel>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </div>
             <Textarea
               {...field}
               id="cn_description"
@@ -29,7 +32,6 @@ export const DescriptionForm = ({ form }: DescriptionFormProps) => {
               placeholder="Chinese Description"
               autoComplete="off"
             />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
       />
@@ -38,7 +40,12 @@ export const DescriptionForm = ({ form }: DescriptionFormProps) => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="en_description">Description (EN) </FieldLabel>
+            <div className="flex items-center gap-2">
+              <FieldLabel htmlFor="en_description">
+                Description (EN){" "}
+              </FieldLabel>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </div>
             <Textarea
               {...field}
               id="en_description"
@@ -46,7 +53,6 @@ export const DescriptionForm = ({ form }: DescriptionFormProps) => {
               placeholder="English Description"
               autoComplete="off"
             />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
       />
@@ -55,7 +61,12 @@ export const DescriptionForm = ({ form }: DescriptionFormProps) => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="id_description">Description (ID) </FieldLabel>
+            <div className="flex items-center gap-2">
+              <FieldLabel htmlFor="id_description">
+                Description (ID){" "}
+              </FieldLabel>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </div>
             <Textarea
               {...field}
               id="id_description"
@@ -63,7 +74,6 @@ export const DescriptionForm = ({ form }: DescriptionFormProps) => {
               placeholder="Indonesian Description"
               autoComplete="off"
             />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
       />
