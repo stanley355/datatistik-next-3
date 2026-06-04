@@ -11,6 +11,7 @@ import {
 import { TitleForm } from "./title-form";
 import { DescriptionForm } from "./description-form";
 import { PriceForm } from "./price-form";
+import { OptionForm } from "./option-form";
 
 export const ProductForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -18,6 +19,7 @@ export const ProductForm = () => {
     defaultValues: {
       is_available: true,
       price: 0,
+      options: [],
     },
   });
   return (
@@ -50,10 +52,21 @@ export const ProductForm = () => {
           className="border border-primary rounded-lg"
         >
           <AccordionTrigger className="border border-primary p-4 rounded-lg">
-            PRICE
+            PRICE &amp; AVAILABILITY
           </AccordionTrigger>
           <AccordionContent className="p-4">
             <PriceForm form={form} />
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem
+          value="options"
+          className="border border-primary rounded-lg"
+        >
+          <AccordionTrigger className="border border-primary p-4 rounded-lg">
+            OPTIONS
+          </AccordionTrigger>
+          <AccordionContent className="p-4">
+            <OptionForm form={form} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>
