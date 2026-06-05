@@ -76,7 +76,7 @@ const OptionField = ({ form, optionIndex }: OptionFieldProps) => {
               en: "",
               cn: "",
               price_addition: 0,
-              image: undefined,
+              image_url: undefined,
             })
           }
         >
@@ -144,7 +144,7 @@ export const OptionForm = ({ form }: OptionFormProps) => {
                 en: "",
                 cn: "",
                 price_addition: 0,
-                image: undefined,
+                image_url: undefined,
               },
             ],
           })

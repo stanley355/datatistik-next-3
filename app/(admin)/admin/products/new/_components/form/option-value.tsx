@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { env } from "@/lib/env";
+import { OptionImageForm } from "./option-image-form";
 
 type OptionValueProps = {
   form: UseFormReturn<z.infer<typeof formSchema>>;
@@ -136,6 +137,11 @@ export const OptionValue = ({
             )}
           />
         </FieldGroup>
+        <OptionImageForm
+          form={form}
+          optionIndex={optionIndex}
+          valueIndex={valueIndex}
+        />
       </div>
     </div>
   );

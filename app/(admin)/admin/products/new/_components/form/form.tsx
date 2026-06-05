@@ -12,6 +12,7 @@ import { TitleForm } from "./title-form";
 import { DescriptionForm } from "./description-form";
 import { PriceForm } from "./price-form";
 import { OptionForm } from "./option-form";
+import { ImageForm } from "./image-form";
 
 export const ProductForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -20,56 +21,18 @@ export const ProductForm = () => {
       is_available: true,
       price: 0,
       options: [],
+      image_cover_number: 1,
+      image_urls: [],
     },
   });
   return (
-    <form>
-      <Accordion className="gap-4">
-        <AccordionItem
-          value="title"
-          className="border border-primary rounded-lg"
-        >
-          <AccordionTrigger className="border border-primary p-4 rounded-lg">
-            TITLE
-          </AccordionTrigger>
-          <AccordionContent className="p-4">
-            <TitleForm form={form} />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem
-          value="description"
-          className="border border-primary rounded-lg"
-        >
-          <AccordionTrigger className="border border-primary p-4 rounded-lg">
-            DESCRIPTION
-          </AccordionTrigger>
-          <AccordionContent className="p-4">
-            <DescriptionForm form={form} />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem
-          value="price"
-          className="border border-primary rounded-lg"
-        >
-          <AccordionTrigger className="border border-primary p-4 rounded-lg">
-            PRICE &amp; AVAILABILITY
-          </AccordionTrigger>
-          <AccordionContent className="p-4">
-            <PriceForm form={form} />
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem
-          value="options"
-          className="border border-primary rounded-lg"
-        >
-          <AccordionTrigger className="border border-primary p-4 rounded-lg">
-            OPTIONS
-          </AccordionTrigger>
-          <AccordionContent className="p-4">
-            <OptionForm form={form} />
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+    <form className="flex flex-col gap-8">
+      <TitleForm form={form} />
+      <DescriptionForm form={form} />
+      <PriceForm form={form} />
+      <ImageForm form={form} />
+
+      {/*<OptionForm form={form} />*/}
     </form>
   );
 };
