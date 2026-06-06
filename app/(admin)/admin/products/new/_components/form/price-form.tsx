@@ -40,6 +40,7 @@ export const PriceForm = ({ form }: PriceFormProps) => {
               aria-invalid={fieldState.invalid}
               placeholder="RMB Price"
               min={1}
+              onChange={(e) => field.onChange(parseInt(e.target.value))}
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>

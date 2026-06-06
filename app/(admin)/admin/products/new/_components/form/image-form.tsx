@@ -4,7 +4,8 @@ import { formSchema } from "./schema";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { LuTrash2 } from "react-icons/lu";
+import { LuImages, LuTrash2 } from "react-icons/lu";
+import { useRef } from "react";
 
 type ImageFormProps = {
   form: UseFormReturn<z.infer<typeof formSchema>>;
@@ -12,6 +13,7 @@ type ImageFormProps = {
 
 export const ImageForm = ({ form }: ImageFormProps) => {
   const images = form.watch("image_urls");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   return (
     <div>
       <p className="text-lg mb-4 font-bold font-mono">IMAGES*</p>
@@ -33,11 +35,12 @@ export const ImageForm = ({ form }: ImageFormProps) => {
                 )}
               </div>
               <Input
+                multiple
+                ref={fileInputRef}
+                aria-invalid={fieldState.invalid}
                 type="file"
                 id="image_urls"
                 accept="image/png, image/jpeg, image/jpg, image/webp"
-                aria-invalid={fieldState.invalid}
-                multiple
                 onChange={(e) => {
                   const fileList = e.target.files;
                   if (!fileList || fileList.length === 0) return;
@@ -46,6 +49,9 @@ export const ImageForm = ({ form }: ImageFormProps) => {
                     URL.createObjectURL(f),
                   );
                   field.onChange(fileUrls);
+                  if (fileInputRef.current) {
+                    fileInputRef.current.value = "";
+                  }
                 }}
               />
             </Field>
@@ -75,39 +81,47 @@ export const ImageForm = ({ form }: ImageFormProps) => {
                 placeholder="Image Cover Number"
                 min={1}
                 disabled={images && images?.length === 0}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    field.onChange(parseInt(e.target.value));
+                  }
+                }}
               />
             </Field>
           )}
         />
       </div>
 
-      <div className="flex flex-col gap-4 min-h-96">
-        <p className="font-bold text-sm font-mono">IMAGE PREVIEWS</p>
-        <div className="flex flex-wrap gap-4 ">
-          {images?.map((img, imgIndex) => (
-            <div key={img} className="flex flex-col gap-4 relative">
-              <img
-                src={img}
-                alt={img}
-                className="size-80 rounded object-cover aspect-square border"
-              />
+      {images.length > 0 && (
+        <div className="flex flex-col gap-4 ">
+          <p className="font-bold text-sm font-mono">IMAGE PREVIEWS</p>
+          <div className="flex flex-wrap gap-4 ">
+            {images?.map((img, imgIndex) => (
+              <div key={img} className="flex flex-col gap-4 relative">
+                <img
+                  src={img}
+                  alt={img}
+                  className="size-80 rounded object-cover aspect-square border"
+                />
 
-              <Button
-                variant="destructive"
-                size="icon"
-                className="absolute top-2 right-2"
-                onClick={() => {
-                  const newImages = [...images];
-                  newImages.splice(imgIndex, 1);
-                  form.setValue("image_urls", newImages);
-                }}
-              >
-                <LuTrash2 />
-              </Button>
-            </div>
-          ))}
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2"
+                  onClick={() => {
+                    const newImages = [...images];
+                    newImages.splice(imgIndex, 1);
+                    form.setValue("image_urls", newImages);
+                  }}
+                >
+                  <LuTrash2 />
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

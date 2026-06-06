@@ -1,34 +1,26 @@
 import z from "zod";
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpg",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-];
+const chineseLocalizationMissing = "Chinese localization is missing";
+const englishLocalizationMissing = "English localization is missing";
+const indoLocalizationMissing = "Indonesian localization is missing";
+
 const localizationSchema = z.object({
-  id: z.string().min(1, "EN localization is missing"),
-  en: z.string().min(1, "ID localization is missing"),
-  cn: z.string().min(1, "CN localization is missing"),
+  cn: z.string().min(1, chineseLocalizationMissing),
+  en: z.string().min(1, englishLocalizationMissing),
+  id: z.string().min(1, indoLocalizationMissing),
 });
 
-// const imageSchema = z.object({
-//   endpoint: z.string().min(1, "Image is missing"),
-//   bucket: z.string().min(1, "Image is missing"),
-//   key: z.string().min(1, "Image is missing"),
-// });
-
 const optionValueSchema = z.object({
-  id: z.string().min(1, "EN localization is missing"),
-  en: z.string().min(1, "ID localization is missing"),
-  cn: z.string().min(1, "CN localization is missing"),
+  cn: z.string().min(1, chineseLocalizationMissing),
+  en: z.string().min(1, englishLocalizationMissing),
+  id: z.string().min(1, indoLocalizationMissing),
   price_addition: z.number().min(0, "Additional Price can't be negative"),
   image_url: z.string().optional(),
 });
 
 const optionSchema = z.object({
-  id: z.string().min(1, "EN localization is missing"),
-  en: z.string().min(1, "ID localization is missing"),
-  cn: z.string().min(1, "CN localization is missing"),
+  cn: z.string().min(1, chineseLocalizationMissing),
+  en: z.string().min(1, englishLocalizationMissing),
+  id: z.string().min(1, indoLocalizationMissing),
   values: z.array(optionValueSchema).min(1, "Option Value is missing"),
 });
 
