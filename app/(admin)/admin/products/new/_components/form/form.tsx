@@ -13,7 +13,11 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-export const ProductForm = () => {
+type ProductForm = {
+  onSubmit: (data: z.infer<typeof formSchema>) => Promise<boolean>;
+};
+
+export const ProductForm = (props: ProductForm) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,27 +39,18 @@ export const ProductForm = () => {
       image_urls: [],
     },
   });
-  function onSubmit(data: z.infer<typeof formSchema>) {
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     if (data.image_cover_number > data.image_urls.length) {
       toast.error("Image cover number can't be bigger than total image count");
       return;
     }
-    console.log(data);
-    // toast("You submitted the following values:", {
-    //   description: (
-    //     <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-    //       <code>{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    //   position: "bottom-right",
-    //   classNames: {
-    //     content: "flex flex-col gap-2",
-    //   },
-    //   style: {
-    //     "--border-radius": "calc(var(--radius)  + 4px)",
-    //   } as React.CSSProperties,
-    // })
+    const product = await props.onSubmit(data);
+    if (product) {
+      form.reset();
+    }
   }
+
   return (
     <form
       className="flex flex-col gap-8"

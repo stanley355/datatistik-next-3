@@ -1,5 +1,5 @@
 import { env } from "../env";
-import { Product, ApiPagination } from "../types";
+import { Product, ApiPagination, ProductLocalization, S3Image } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/products";
 export const findProducts = async (): Promise<
@@ -11,6 +11,33 @@ export const findProducts = async (): Promise<
       headers: {
         "Content-Type": "application/json",
       },
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+type CreateProductParam = {
+  created_by_id: string;
+  price: number;
+  title: ProductLocalization;
+  description: ProductLocalization;
+  image_urls: S3Image[];
+  image_cover_number: number;
+  source_url?: string;
+};
+
+export const createProduct = async (
+  param: CreateProductParam,
+): Promise<ApiPagination<Product> | undefined> => {
+  try {
+    const res = await fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(param),
     });
     return await res.json();
   } catch (err) {

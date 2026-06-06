@@ -4,7 +4,7 @@ import { formSchema } from "./schema";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { LuImages, LuTrash2 } from "react-icons/lu";
+import { LuTrash2 } from "react-icons/lu";
 import { useRef } from "react";
 
 type ImageFormProps = {

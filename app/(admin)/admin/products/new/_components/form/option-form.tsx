@@ -1,12 +1,6 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
-import { LuPlus, LuSave, LuTrash } from "react-icons/lu";
+import { LuPlus, LuTrash } from "react-icons/lu";
 import { formSchema } from "./schema";
 import z from "zod";
 import { OptionValue } from "./option-value";
