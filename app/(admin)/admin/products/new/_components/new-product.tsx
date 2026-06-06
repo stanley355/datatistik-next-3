@@ -1,19 +1,27 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { formSchema, ProductForm } from "./form";
 import { createProductOptions } from "@/hooks/products";
 import { uploadImagesOptions } from "@/hooks/s3";
 import z from "zod";
 import { toast } from "sonner";
+import { authGetSessionOptions } from "@/hooks/auth";
+import { isAuthError } from "@/lib/api";
 
 export const NewProduct = () => {
+  const session = useQuery(authGetSessionOptions());
   const createProduct = useMutation(createProductOptions());
   const uploadImage = useMutation(uploadImagesOptions());
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Uploading images");
     try {
-      const productToast = toast.loading("Uploading images");
+      if (!session.data || isAuthError(session.data)) {
+        toast.error("Your session has expired, please refresh and login");
+        return false;
+      }
+
       const imageFiles = await Promise.all(
         data.image_urls.map(async (url, index) => {
           const response = await fetch(url);
@@ -22,11 +30,42 @@ export const NewProduct = () => {
           return new File([blob], `${index}.${imageType}`, { type: blob.type });
         }),
       );
-      const images_url = await uploadImage.mutateAsync(imageFiles);
-      // console.log(images);
 
-      return false;
+      const images = await uploadImage.mutateAsync(imageFiles);
+
+      if (!images?.data) {
+        toast.error("Fail to upload images, please contact support", {
+          id: toastId,
+        });
+        return false;
+      }
+
+      toast.loading("Uploading products", { id: toastId });
+
+      const productParam: Parameters<typeof createProduct.mutateAsync>[0] = {
+        created_by_id: session.data.user.id,
+        title: data.title,
+        description: data.description,
+        price: data.price,
+        source_url: data.source_url,
+        is_available: data.is_available,
+        image_cover_number: data.image_cover_number,
+        image_urls: images.data,
+      };
+
+      const product = await createProduct.mutateAsync(productParam);
+
+      if (!product?.data) {
+        toast.error("Fail to create products, please contact support", {
+          id: toastId,
+        });
+        return false;
+      }
+
+      toast.success("Product created successfully", { id: toastId });
+      return true;
     } catch (err) {
+      toast.error("Something went wrong, please try again", { id: toastId });
       console.error(err);
       return false;
     }
@@ -34,7 +73,10 @@ export const NewProduct = () => {
 
   return (
     <div className="container mx-auto p-2 lg:px-0">
-      <ProductForm onSubmit={handleSubmit} />
+      <ProductForm
+        isLoading={createProduct.isPending || uploadImage.isPending}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 };

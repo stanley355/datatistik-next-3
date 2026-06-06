@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 type ProductForm = {
+  isLoading: boolean;
   onSubmit: (data: z.infer<typeof formSchema>) => Promise<boolean>;
 };
 
@@ -63,7 +64,11 @@ export const ProductForm = (props: ProductForm) => {
         >
           <LuChevronLeft />
         </Link>
-        <Button className="flex-1 max-w-48" type="submit">
+        <Button
+          className="flex-1 max-w-48"
+          type="submit"
+          disabled={props.isLoading}
+        >
           <LuSave /> SAVE
         </Button>
       </div>
