@@ -5,6 +5,7 @@ import {
   ProductLocalization,
   S3Image,
   Api,
+  ProductOption,
 } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/products";
@@ -33,6 +34,7 @@ type CreateProductParam = {
   image_urls: S3Image[];
   image_cover_number: number;
   source_url?: string;
+  options?: ProductOption[];
 };
 
 export const createProduct = async (

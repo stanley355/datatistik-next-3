@@ -1,8 +1,8 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { formSchema, ProductForm } from "./form";
-import { createProductOptions } from "@/hooks/products";
+import { createProductOptions, findProductOptions } from "@/hooks/products";
 import { uploadImagesOptions } from "@/hooks/s3";
 import z from "zod";
 import { toast } from "sonner";
@@ -10,6 +10,7 @@ import { authGetSessionOptions } from "@/hooks/auth";
 import { isAuthError } from "@/lib/api";
 
 export const NewProduct = () => {
+  const queryClient = useQueryClient();
   const session = useQuery(authGetSessionOptions());
   const createProduct = useMutation(createProductOptions());
   const uploadImage = useMutation(uploadImagesOptions());
@@ -51,6 +52,7 @@ export const NewProduct = () => {
         is_available: data.is_available,
         image_cover_number: data.image_cover_number,
         image_urls: images.data,
+        options: data.options,
       };
 
       const product = await createProduct.mutateAsync(productParam);
@@ -62,6 +64,9 @@ export const NewProduct = () => {
         return false;
       }
 
+      queryClient.invalidateQueries({
+        queryKey: findProductOptions().queryKey,
+      });
       toast.success("Product created successfully", { id: toastId });
       return true;
     } catch (err) {

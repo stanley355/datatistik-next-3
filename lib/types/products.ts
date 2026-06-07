@@ -22,6 +22,5 @@ export type ProductOption = ProductLocalization & {
 };
 
 export type ProductOptionValue = ProductLocalization & {
-  image_url: string;
   price_addition: number;
 };
