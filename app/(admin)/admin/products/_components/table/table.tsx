@@ -13,12 +13,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useRouter } from "next/navigation";
 
 type ProductsTableProps = {
   products?: Product[];
 };
 
 export const ProductsTable = ({ products }: ProductsTableProps) => {
+  const router = useRouter();
   const table = useReactTable({
     data: products ?? [],
     columns: COLUMNS,
@@ -52,6 +54,8 @@ export const ProductsTable = ({ products }: ProductsTableProps) => {
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                onClick={() => router.push(`/products/${row.original.id}`)}
+                className="cursor-pointer"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

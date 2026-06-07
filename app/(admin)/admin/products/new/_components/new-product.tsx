@@ -77,7 +77,7 @@ export const NewProduct = () => {
   };
 
   return (
-    <div className="container mx-auto p-2 lg:px-0">
+    <div className="container mx-auto p-4 lg:px-0">
       <ProductForm
         isLoading={createProduct.isPending || uploadImage.isPending}
         onSubmit={handleSubmit}

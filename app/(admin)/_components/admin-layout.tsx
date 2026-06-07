@@ -8,7 +8,7 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       <AdminSidebar />
       <div className="flex flex-col w-full">
         <Navigation />
-        <main className="p-2 w-full flex-1">{children}</main>
+        <main className="w-full flex-1">{children}</main>
       </div>
     </SidebarProvider>
   );
