@@ -1,4 +1,4 @@
-import { PublicLayout } from "@/app/(public)/_components/public-layout";
+import { PublicLayout } from "@/app/(public)/[language]/_components/public-layout";
 import React from "react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
