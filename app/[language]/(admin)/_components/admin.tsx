@@ -1,4 +1,5 @@
 "use client";
+import { LoadingLogo } from "@/components/custom-ui/loading-logo";
 import { SomethingWrongCard } from "@/components/custom-ui/something-wrong-card";
 import { buttonVariants } from "@/components/ui/button";
 import { authGetSessionOptions } from "@/hooks/auth";
@@ -10,6 +11,9 @@ import Link from "next/link";
 export const Admin = () => {
   const session = useQuery(authGetSessionOptions());
 
+  if (session.isLoading) {
+    return <LoadingLogo />;
+  }
   if (!session.data || isAuthError(session.data)) {
     return <SomethingWrongCard />;
   }
