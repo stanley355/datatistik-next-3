@@ -1,4 +1,5 @@
 "use client";
+import { LoadingLogo } from "@/components/custom-ui/loading-logo";
 import { SomethingWrongCard } from "@/components/custom-ui/something-wrong-card";
 import { ThemeToggle } from "@/components/custom-ui/theme-toggle";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { authGetSessionOptions } from "@/hooks/auth";
+import { useLanguage } from "@/hooks/language";
 import { authSignOut, isAuthError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,6 +30,10 @@ export const Account = () => {
     });
     router.push("/");
   };
+
+  if (session.isLoading) {
+    return <LoadingLogo />;
+  }
 
   if (!session.data || isAuthError(session.data)) {
     return <SomethingWrongCard />;

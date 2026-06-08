@@ -1,7 +1,12 @@
 import { LANGUAGES } from "@/lib/constant/languages";
 import { usePathname, useRouter } from "next/navigation";
 
-export const useLanguage = () => {
+type UseLanguageReturn = {
+  language: (typeof LANGUAGES)[number];
+  setLanguage: (newLanguage: (typeof LANGUAGES)[number]) => void;
+};
+
+export const useLanguage = (): UseLanguageReturn => {
   const router = useRouter();
   const pathname = usePathname();
   const [_, currentLanguage] = pathname.split("/");
