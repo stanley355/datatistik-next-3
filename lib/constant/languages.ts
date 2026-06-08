@@ -1,1 +1,1 @@
-export const SUPPORTED_LANGUAGES = ["id", "en", "cn"];
+export const LANGUAGES = ["id", "en", "cn"];
