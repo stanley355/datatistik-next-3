@@ -1,20 +1,12 @@
 "use client";
 import { TAOBAO_PRODUCTS } from "@/lib/constant/taobao-products";
 import Link from "next/link";
-import { useProducts } from "../_hooks/use-products";
 import { useQuery } from "@tanstack/react-query";
 import { authGetSessionOptions } from "@/hooks/auth";
 import { isAuthError } from "@/lib/api";
 import { createUserSearch } from "@/lib/api/user_search";
 
-const formatIdrPrice = (price: string) => {
-  const idrPrice = parseInt(price) * 2000;
-  return idrPrice.toLocaleString("id-ID");
-};
-
 export const ProductList = () => {
-  const { language, currency } = useProducts();
-
   const session = useQuery(authGetSessionOptions());
 
   const onLinkClick = async (keyword: string) => {
@@ -45,13 +37,9 @@ export const ProductList = () => {
           />
 
           <div>
-            <p className="text-sm">
-              {language === "CN" ? product.title : product.title_en}
-            </p>
+            <p className="text-sm">{product.title}</p>
             <p className="text-lg text-primary font-bold">
-              {currency === "RMB"
-                ? `RMB ${product.price}`
-                : `IDR ${formatIdrPrice(product.price)}`}
+              {`RMB ${product.price}`}
             </p>
           </div>
         </Link>

@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/language";
 
 export const DynamicProduct = () => {
-  const { setAppLanguage } = useLanguage();
+  const { setLanguage } = useLanguage();
   return (
     <div>
-      <Button onClick={() => setAppLanguage("en")}>hai</Button>
+      <Button onClick={() => setLanguage("id")}>hai</Button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { LANGUAGES } from "@/lib/constant/languages";
+import { LANGUAGES } from "@/lib/types/languages";
 import { usePathname, useRouter } from "next/navigation";
 
 type UseLanguageReturn = {
@@ -9,7 +9,8 @@ type UseLanguageReturn = {
 export const useLanguage = (): UseLanguageReturn => {
   const router = useRouter();
   const pathname = usePathname();
-  const [_, currentLanguage] = pathname.split("/");
+  const [_, languagePath] = pathname.split("/");
+  const currentLanguage = languagePath as (typeof LANGUAGES)[number];
 
   const setLanguage = (newLanguage: (typeof LANGUAGES)[number]) => {
     const newPathname = pathname.split("/");

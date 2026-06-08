@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authGetSession, isAuthError } from "@/lib/api";
 import Negotiator from "negotiator";
 import { match } from "@formatjs/intl-localematcher";
-import { LANGUAGES } from "./lib/constant/languages";
+import { LANGUAGES } from "./lib/types/languages";
 
 const defaultLocale = "id";
 const protectedRoutes = ["/account", "/admin"];
@@ -19,7 +19,8 @@ function getBrowserLocale(request: NextRequest): string {
   try {
     // Match the browser's preferences against your supported locales
     return match(languages, LANGUAGES, defaultLocale);
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error("[proxy] getBrowserLocale: ", error);
     return defaultLocale;
   }
 }
