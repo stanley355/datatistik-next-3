@@ -14,7 +14,7 @@ export const env = createEnv({
     NEXT_PUBLIC_BETTER_AUTH_URL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
-    NEXT_PUBLIC_RMB_IDR: Number(process.env.NEXT_PUBLIC_RMD_IDR)
+    NEXT_PUBLIC_RMB_IDR: Number(process.env.NEXT_PUBLIC_RMB_IDR),
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   // experimental__runtimeEnv: {
