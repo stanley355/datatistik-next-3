@@ -1,11 +1,11 @@
 import { env } from "../env";
-import { UserSearch } from "../types";
+import { Api, UserSearch } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/user-search";
 export const createUserSearch = async (
   keyword: string,
   user_id?: string,
-): Promise<UserSearch | undefined> => {
+): Promise<Api<UserSearch> | undefined> => {
   try {
     const res = await fetch(baseUrl, {
       method: "POST",
