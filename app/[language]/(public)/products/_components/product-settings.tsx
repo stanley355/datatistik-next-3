@@ -3,26 +3,42 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
+import { useCurrency } from "@/hooks/currency";
+import { useLanguage } from "@/hooks/language";
+import { CURRENCIES } from "@/lib/types/currencies";
+import { LANGUAGES } from "@/lib/types/languages";
 
 export const ProductSettings = () => {
-  // const { setCurrency, setLanguage } = useProducts();
+  const { productLanguage, setProductLanguage } = useLanguage();
+  const { currency, setCurrency } = useCurrency();
   return (
     <div className="grid grid-cols-2 max-w-96 gap-4">
       <NativeSelect
-        defaultValue="EN"
-        // onChange={(e) => setLanguage(e.target.value as "CN" | "EN")}
+        defaultValue={currency}
         className="w-full"
+        onChange={(e) =>
+          setCurrency(e.target.value as (typeof CURRENCIES)[number])
+        }
       >
-        <NativeSelectOption value="CN">Language: CN</NativeSelectOption>
-        <NativeSelectOption value="EN">Language: EN</NativeSelectOption>
+        {CURRENCIES.map((currency) => (
+          <NativeSelectOption key={currency} value={currency}>
+            CURRENCY: {currency}
+          </NativeSelectOption>
+        ))}
       </NativeSelect>
+
       <NativeSelect
-        defaultValue="RMB"
-        // onChange={(e) => setCurrency(e.target.value as "RMB" | "IDR")}
-        className="w-full"
+        defaultValue={productLanguage}
+        className="w-full "
+        onChange={(e) =>
+          setProductLanguage(e.target.value as (typeof LANGUAGES)[number])
+        }
       >
-        <NativeSelectOption value="RMB">Currency: RMB</NativeSelectOption>
-        <NativeSelectOption value="IDR">Currency: IDR</NativeSelectOption>
+        {LANGUAGES.map((lang) => (
+          <NativeSelectOption key={lang} value={lang}>
+            NAME: {lang.toUpperCase()}
+          </NativeSelectOption>
+        ))}
       </NativeSelect>
     </div>
   );

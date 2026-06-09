@@ -15,7 +15,8 @@ export const formatToAsiaJakartaTime = (date: string) => {
   return format(jakartaDate, "yyyy-MM-dd HH:mm");
 };
 
-const rmbToIdr = (price: number) => {
+export const rmbToIdr = (price: number) => {
   const idrPrice = price * env.NEXT_PUBLIC_RMB_IDR;
-  return idrPrice.toLocaleString("id-ID");
+  const format = idrPrice.toLocaleString("id-ID");
+  return `Rp${format}`;
 };

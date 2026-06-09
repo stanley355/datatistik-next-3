@@ -1,3 +1,5 @@
+import { S3Image } from "./s3";
+
 export type Product = {
   id: number;
   created_at: string;
@@ -8,7 +10,7 @@ export type Product = {
   title: ProductLocalization;
   description: ProductLocalization;
   options: ProductOption[];
-  image_urls: string[];
+  image_urls: S3Image[];
 };
 
 export type ProductLocalization = {

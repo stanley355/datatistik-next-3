@@ -1,6 +1,6 @@
 import { LANGUAGES } from "@/lib/types/languages";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type LanguageType = (typeof LANGUAGES)[number];
 
@@ -37,11 +37,54 @@ export const useLanguage = (): UseLanguageReturn => {
     },
   );
 
-  // 3. Setter function that updates both state and localStorage
+  // 3. Sync localStorage changes (cross-tab and same-page)
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent | CustomEvent) => {
+      let newValue: string | null = null;
+
+      // Handle standard cross-tab storage event
+      if (event instanceof StorageEvent) {
+        if (event.key !== "productLanguage") return;
+        newValue = event.newValue;
+      }
+      // Handle same-tab custom event
+      else {
+        newValue = event.detail;
+      }
+
+      if (newValue && LANGUAGES.includes(newValue as LanguageType)) {
+        setProductLanguageState(newValue as LanguageType);
+      }
+    };
+
+    // Listen to cross-tab updates
+    window.addEventListener("storage", handleStorageChange);
+    // Listen to same-tab updates
+    window.addEventListener(
+      "local-storage-productLanguage",
+      handleStorageChange as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener(
+        "local-storage-productLanguage",
+        handleStorageChange as EventListener,
+      );
+    };
+  }, []);
+
+  // 4. Setter function that updates state, localStorage, and dispatches the custom event
   const setProductLanguage = (newLanguage: LanguageType) => {
     setProductLanguageState(newLanguage);
     if (typeof window !== "undefined") {
       localStorage.setItem("productLanguage", newLanguage);
+
+      // Dispatch custom event so other components on the SAME page update instantly
+      const event = new CustomEvent("local-storage-productLanguage", {
+        detail: newLanguage,
+      });
+      window.dispatchEvent(event);
     }
   };
 

@@ -9,6 +9,7 @@ import {
 } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/products";
+
 export const findProducts = async (): Promise<
   ApiPagination<Product[]> | undefined
 > => {
@@ -48,6 +49,22 @@ export const createProduct = async (
       },
       body: JSON.stringify(param),
       credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const findProductById = async (
+  id: number,
+): Promise<Api<Product> | undefined> => {
+  try {
+    const res = await fetch(baseUrl + `/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     return await res.json();
   } catch (err) {
