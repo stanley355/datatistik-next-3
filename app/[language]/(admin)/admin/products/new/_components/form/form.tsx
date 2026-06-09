@@ -17,6 +17,7 @@ import { Product } from "@/lib/types";
 type ProductForm = {
   isLoading: boolean;
   onSubmit: (data: z.infer<typeof productFormSchema>) => Promise<boolean>;
+  resetAfterSuccess: boolean;
   product?: Product | null;
 };
 
@@ -54,7 +55,7 @@ export const ProductForm = (props: ProductForm) => {
       return;
     }
     const product = await props.onSubmit(data);
-    if (product) {
+    if (product && props.resetAfterSuccess) {
       form.reset();
     }
   }

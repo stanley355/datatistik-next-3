@@ -81,6 +81,7 @@ export const NewProduct = () => {
       <ProductForm
         isLoading={createProduct.isPending || uploadImage.isPending}
         onSubmit={handleSubmit}
+        resetAfterSuccess
       />
     </div>
   );
