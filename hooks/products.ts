@@ -2,6 +2,7 @@ import {
   createProduct,
   findProductById,
   findProducts,
+  updateProduct,
 } from "@/lib/api/products";
 import {
   mutationOptions,
@@ -46,5 +47,21 @@ export const findProductByIdOptions = (
     ...options,
     queryKey: ["product-by-id", id],
     queryFn: () => findProductById(id),
+  });
+};
+
+type UpdateProductData = Awaited<ReturnType<typeof updateProduct>>;
+type UpdateProductParams = Parameters<typeof updateProduct>[1];
+export const updateProductOptions = (
+  options?: Partial<
+    UseMutationOptions<UpdateProductData, unknown, UpdateProductParams>
+  >,
+) => {
+  return mutationOptions({
+    mutationKey: ["update-product"],
+    mutationFn: async (params: UpdateProductParams & { id: number }) => {
+      return await updateProduct(params.id, params);
+    },
+    ...options,
   });
 };

@@ -24,7 +24,7 @@ const optionSchema = z.object({
   values: z.array(optionValueSchema).min(1, "Option Value is missing"),
 });
 
-export const formSchema = z.object({
+export const productFormSchema = z.object({
   title: localizationSchema,
   description: localizationSchema,
   is_available: z.boolean(),

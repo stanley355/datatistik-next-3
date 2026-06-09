@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { formSchema } from "./schema";
+import { productFormSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TitleForm } from "./title-form";
 import { DescriptionForm } from "./description-form";
@@ -12,36 +12,43 @@ import { LuChevronLeft, LuSave } from "react-icons/lu";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { Product } from "@/lib/types";
 
 type ProductForm = {
   isLoading: boolean;
-  onSubmit: (data: z.infer<typeof formSchema>) => Promise<boolean>;
+  onSubmit: (data: z.infer<typeof productFormSchema>) => Promise<boolean>;
+  product?: Product | null;
 };
 
 export const ProductForm = (props: ProductForm) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof productFormSchema>>({
+    resolver: zodResolver(productFormSchema),
     defaultValues: {
       title: {
-        cn: "",
-        en: "",
-        id: "",
+        cn: props.product?.title.cn ?? "",
+        en: props.product?.title.en ?? "",
+        id: props.product?.title.id ?? "",
       },
       description: {
-        cn: "",
-        en: "",
-        id: "",
+        cn: props.product?.description.cn ?? "",
+        en: props.product?.description.en ?? "",
+        id: props?.product?.description.id ?? "",
       },
-      price: 0,
-      source_url: "",
-      is_available: true,
-      options: [],
-      image_cover_number: 1,
-      image_urls: [],
+      price: props.product?.price ?? 0,
+      source_url: props.product?.source_url ?? "",
+      is_available: props.product?.is_available ?? true,
+      options: props.product?.options ?? [],
+      image_cover_number: props.product?.image_cover_number ?? 1,
+      image_urls:
+        props.product && props.product?.image_urls?.length > 0
+          ? props.product.image_urls.map((url) =>
+              [url.endpoint, url.bucket, url.key].join("/"),
+            )
+          : [],
     },
   });
 
-  async function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof productFormSchema>) {
     if (data.image_cover_number > data.image_urls.length) {
       toast.error("Image cover number can't be bigger than total image count");
       return;

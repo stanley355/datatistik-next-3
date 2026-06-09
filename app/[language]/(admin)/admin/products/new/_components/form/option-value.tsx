@@ -1,5 +1,5 @@
 import { Controller, UseFormReturn } from "react-hook-form";
-import { formSchema } from "./schema";
+import { productFormSchema } from "./schema";
 import z from "zod";
 import {
   Field,
@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { LuX } from "react-icons/lu";
 
 type OptionValueProps = {
-  form: UseFormReturn<z.infer<typeof formSchema>>;
+  form: UseFormReturn<z.infer<typeof productFormSchema>>;
   optionIndex: number;
   valueIndex: number;
   onRemoveClick: () => void;
@@ -135,7 +135,13 @@ export const OptionValue = ({
                 aria-invalid={fieldState.invalid}
                 placeholder="RMB Price Addition"
                 min={0}
-                onChange={(e) => field.onChange(parseInt(e.target.value))}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    field.onChange(parseInt(e.target.value));
+                  } else {
+                    field.onChange(0);
+                  }
+                }}
               />
             </Field>
           )}

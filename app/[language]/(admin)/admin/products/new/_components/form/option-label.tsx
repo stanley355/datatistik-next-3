@@ -1,5 +1,5 @@
 import { Controller, UseFormReturn } from "react-hook-form";
-import { formSchema } from "./schema";
+import { productFormSchema } from "./schema";
 import z from "zod";
 import {
   Field,
@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 type OptionLabelProps = {
-  form: UseFormReturn<z.infer<typeof formSchema>>;
+  form: UseFormReturn<z.infer<typeof productFormSchema>>;
   optionIndex: number;
 };
 

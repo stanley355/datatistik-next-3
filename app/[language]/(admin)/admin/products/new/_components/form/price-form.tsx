@@ -6,13 +6,13 @@ import {
 } from "@/components/ui/field";
 import { Controller, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { formSchema } from "./schema";
+import { productFormSchema } from "./schema";
 import { Input } from "@/components/ui/input";
 import { env } from "@/lib/env";
 import { Checkbox } from "@/components/ui/checkbox";
 
 type PriceFormProps = {
-  form: UseFormReturn<z.infer<typeof formSchema>>;
+  form: UseFormReturn<z.infer<typeof productFormSchema>>;
 };
 
 export const PriceForm = ({ form }: PriceFormProps) => {
@@ -40,7 +40,13 @@ export const PriceForm = ({ form }: PriceFormProps) => {
               aria-invalid={fieldState.invalid}
               placeholder="RMB Price"
               min={1}
-              onChange={(e) => field.onChange(parseInt(e.target.value))}
+              onChange={(e) => {
+                if (e.target.value) {
+                  field.onChange(parseInt(e.target.value));
+                } else {
+                  field.onChange(0);
+                }
+              }}
             />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>

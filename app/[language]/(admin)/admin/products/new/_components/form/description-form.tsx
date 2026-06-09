@@ -6,11 +6,11 @@ import {
 } from "@/components/ui/field";
 import { Controller, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { formSchema } from "./schema";
+import { productFormSchema } from "./schema";
 import { Textarea } from "@/components/ui/textarea";
 
 type DescriptionFormProps = {
-  form: UseFormReturn<z.infer<typeof formSchema>>;
+  form: UseFormReturn<z.infer<typeof productFormSchema>>;
 };
 
 export const DescriptionForm = ({ form }: DescriptionFormProps) => {

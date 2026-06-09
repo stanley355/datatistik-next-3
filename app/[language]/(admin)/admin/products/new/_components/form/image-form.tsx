@@ -1,6 +1,6 @@
 import { Controller, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import { formSchema } from "./schema";
+import { productFormSchema } from "./schema";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { LuTrash2 } from "react-icons/lu";
 import { useRef } from "react";
 
 type ImageFormProps = {
-  form: UseFormReturn<z.infer<typeof formSchema>>;
+  form: UseFormReturn<z.infer<typeof productFormSchema>>;
 };
 
 export const ImageForm = ({ form }: ImageFormProps) => {
@@ -48,7 +48,12 @@ export const ImageForm = ({ form }: ImageFormProps) => {
                   const fileUrls = filesArray.map((f) =>
                     URL.createObjectURL(f),
                   );
-                  field.onChange(fileUrls);
+                  if (field.value.length > 0) {
+                    const newFileUrls = [...field.value, ...fileUrls];
+                    field.onChange(newFileUrls);
+                  } else {
+                    field.onChange(fileUrls);
+                  }
                   if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                   }

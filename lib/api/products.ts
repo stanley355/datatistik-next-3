@@ -71,3 +71,34 @@ export const findProductById = async (
     console.error(err);
   }
 };
+
+type UpdateProductParam = {
+  created_by_id: string;
+  price: number;
+  is_available: boolean;
+  title: ProductLocalization;
+  description: ProductLocalization;
+  image_urls: S3Image[];
+  image_cover_number: number;
+  source_url?: string;
+  options?: ProductOption[];
+};
+
+export const updateProduct = async (
+  productId: number,
+  param: UpdateProductParam,
+): Promise<Api<Product> | undefined> => {
+  try {
+    const res = await fetch(baseUrl + `/${productId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(param),
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};

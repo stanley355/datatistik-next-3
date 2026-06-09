@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { LuPlus, LuTrash } from "react-icons/lu";
-import { formSchema } from "./schema";
+import { productFormSchema } from "./schema";
 import z from "zod";
 import { OptionValue } from "./option-value";
 import { OptionLabel } from "./option-label";
 
 type OptionFormProps = {
-  form: UseFormReturn<z.infer<typeof formSchema>>;
+  form: UseFormReturn<z.infer<typeof productFormSchema>>;
 };
 
 type OptionFieldProps = Pick<OptionFormProps, "form"> & { optionIndex: number };

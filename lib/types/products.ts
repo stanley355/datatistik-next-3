@@ -11,6 +11,8 @@ export type Product = {
   description: ProductLocalization;
   options: ProductOption[];
   image_urls: S3Image[];
+  image_cover_number: number;
+  source_url?: string;
 };
 
 export type ProductLocalization = {

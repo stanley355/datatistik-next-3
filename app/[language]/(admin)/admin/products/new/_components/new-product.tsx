@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { formSchema, ProductForm } from "./form";
+import { ProductForm, productFormSchema } from "./form";
 import { createProductOptions, findProductOptions } from "@/hooks/products";
 import { uploadImagesOptions } from "@/hooks/s3";
 import z from "zod";
@@ -15,7 +15,7 @@ export const NewProduct = () => {
   const createProduct = useMutation(createProductOptions());
   const uploadImage = useMutation(uploadImagesOptions());
 
-  const handleSubmit = async (data: z.infer<typeof formSchema>) => {
+  const handleSubmit = async (data: z.infer<typeof productFormSchema>) => {
     const toastId = toast.loading("Uploading images");
     try {
       if (!session.data || isAuthError(session.data)) {

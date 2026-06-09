@@ -1,8 +1,11 @@
 "use client";
 
+import { buttonVariants } from "@/components/ui/button";
 import { Product } from "@/lib/types";
-import { formatToAsiaJakartaTime } from "@/lib/utils";
+import { cn, formatToAsiaJakartaTime } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
+import { LuEye, LuPen } from "react-icons/lu";
 
 export const COLUMNS: ColumnDef<Product>[] = [
   {
@@ -62,6 +65,28 @@ export const COLUMNS: ColumnDef<Product>[] = [
         );
       }
       return "-";
+    },
+  },
+  {
+    accessorKey: "action",
+    header: "",
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center gap-4">
+          <Link
+            href={`/products/${row.original.id}`}
+            className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
+          >
+            <LuEye />
+          </Link>
+          <Link
+            href={`/admin/products/${row.original.id}`}
+            className={cn(buttonVariants({ variant: "outline", size: "icon" }))}
+          >
+            <LuPen />
+          </Link>
+        </div>
+      );
     },
   },
 ];
