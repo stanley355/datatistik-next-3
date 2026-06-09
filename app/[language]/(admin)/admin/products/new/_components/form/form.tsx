@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { productFormSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TitleForm } from "./title-form";
+import { TitleForm } from "../../title-form";
 import { DescriptionForm } from "./description-form";
 import { PriceForm } from "./price-form";
 import { OptionForm } from "./option-form";

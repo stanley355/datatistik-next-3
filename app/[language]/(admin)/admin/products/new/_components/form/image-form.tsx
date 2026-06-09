@@ -1,3 +1,4 @@
+"use client";
 import { Controller, UseFormReturn } from "react-hook-form";
 import z from "zod";
 import { productFormSchema } from "./schema";
