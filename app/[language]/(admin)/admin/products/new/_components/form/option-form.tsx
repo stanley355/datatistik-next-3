@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { LuPlus, LuTrash } from "react-icons/lu";
