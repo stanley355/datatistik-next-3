@@ -11,9 +11,6 @@ import { buttonVariants } from "@/components/ui/button";
 export const Products = () => {
   const products = useQuery(findProductOptions());
 
-  if (products.isLoading) {
-    return <LoadingLogo className="mx-auto" />;
-  }
   return (
     <div className="container mx-auto p-4 lg:px-0 flex flex-col gap-4">
       <Link
@@ -23,7 +20,11 @@ export const Products = () => {
         <LuPlus />
         Add Product
       </Link>
-      <ProductsTable products={products.data?.data?.data} />
+      {products.isLoading ? (
+        <LoadingLogo />
+      ) : (
+        <ProductsTable products={products.data?.data?.data} />
+      )}
     </div>
   );
 };

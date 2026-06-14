@@ -8,7 +8,7 @@ export default async function Page({ params }: PageProps) {
   const { slug } = await params;
   const [productId] = slug.split("-");
   return (
-    <div className="container mx-auto  mt-12 min-h-screen">
+    <div className="container mx-auto mt-12 min-h-screen">
       <DynamicProduct id={parseInt(productId)} />
     </div>
   );

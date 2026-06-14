@@ -12,17 +12,19 @@ type DynamicProductImagesProps = {
 
 export const DynamicProductImages = ({ images }: DynamicProductImagesProps) => {
   return (
-    <Carousel className="w-full relative">
+    <Carousel className="w-full relative shadow">
       <CarouselContent>
         {images.map((img, index) => (
           <CarouselItem key={index}>
-            <img
-              src={[img.endpoint, img.bucket, img.key].join("/")}
-              alt="Product Image"
-              width={400}
-              height={400}
-              className="w-full max-h-64 object-cover aspect-square"
-            />
+            <div className="p-2">
+              <img
+                src={[img.endpoint, img.bucket, img.key].join("/")}
+                alt="Product Image"
+                width={400}
+                height={400}
+                className="w-full max-h-64 object-cover aspect-square"
+              />
+            </div>
           </CarouselItem>
         ))}
       </CarouselContent>

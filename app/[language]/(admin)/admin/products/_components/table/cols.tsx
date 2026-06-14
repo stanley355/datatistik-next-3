@@ -13,6 +13,29 @@ export const COLUMNS: ColumnDef<Product>[] = [
     header: "ID",
   },
   {
+    accessorKey: "title",
+    header: "Title",
+    cell: ({ row }) => {
+      return <div>{row.original.title.id}</div>;
+    },
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
+    cell: ({ row }) => {
+      return <div>RMB {row.original.price / 100}</div>;
+    },
+  },
+  {
+    accessorKey: "is_available",
+    header: "Status",
+    cell: ({ row }) => {
+      return (
+        <div>{row.original.is_available ? "AVAILABLE" : "NOT AVAILABLE"}</div>
+      );
+    },
+  },
+  {
     accessorKey: "created_at",
     header: "Created",
     cell: ({ row }) => {
@@ -32,20 +55,6 @@ export const COLUMNS: ColumnDef<Product>[] = [
           {formatToAsiaJakartaTime(row.original.updated_at)} (Asia/Jakarta)
         </div>
       );
-    },
-  },
-  {
-    accessorKey: "title",
-    header: "Title",
-    cell: ({ row }) => {
-      return <div>{row.original.title.id}</div>;
-    },
-  },
-  {
-    accessorKey: "price",
-    header: "Price",
-    cell: ({ row }) => {
-      return <div>RMB {row.original.price / 100}</div>;
     },
   },
   {
