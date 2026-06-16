@@ -4,6 +4,9 @@ import { useLanguage } from "@/hooks/language";
 import { Product, ProductOptionValue } from "@/lib/types";
 import { rmbToIdr } from "@/lib/utils";
 import { useMemo, useState } from "react";
+import { ProductDescription } from "./product-description";
+import { LuShoppingCart } from "react-icons/lu";
+import { sendGAEvent } from "@next/third-parties/google";
 
 type DynamicProductDetailsProps = {
   product: Product;
@@ -36,8 +39,8 @@ export const DynamicProductDetails = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-lg text-primary font-semibold">{price}</p>
-      <h1 className="text-xl font-bold">{product.title[productLanguage]}</h1>
+      <p className="text-xl text-primary font-semibold">{price}</p>
+      <h1 className="text-lg font-bold">{product.title[productLanguage]}</h1>
 
       <div className="flex flex-col gap-4 my-4">
         {product.options.map((option, optionIndex) => (
@@ -70,9 +73,29 @@ export const DynamicProductDetails = ({
         ))}
       </div>
 
-      <p className="whitespace-pre-wrap">
-        {product.description[productLanguage]}
-      </p>
+      <ProductDescription
+        className="lg:hidden"
+        description={product.description}
+      />
+
+      <div className="grid grid-cols-2 gap-4 lg:max-w-96">
+        <Button
+          variant="secondary"
+          onClick={() => {
+            sendGAEvent(`buy_product_${product.id}`);
+          }}
+        >
+          <LuShoppingCart /> Buy
+        </Button>
+        <Button
+          variant="default"
+          onClick={() => {
+            sendGAEvent(`add_to_cart_product_${product.id}`);
+          }}
+        >
+          <LuShoppingCart /> Add to Cart
+        </Button>
+      </div>
     </div>
   );
 };
