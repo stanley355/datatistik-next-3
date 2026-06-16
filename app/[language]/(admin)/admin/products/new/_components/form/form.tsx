@@ -36,10 +36,18 @@ export const ProductForm = (props: ProductForm) => {
         en: props.product?.description.en ?? "",
         id: props?.product?.description.id ?? "",
       },
-      price: props.product?.price ?? 0,
+      price: props.product?.price ? props.product.price / 100 : 0,
       source_url: props.product?.source_url ?? "",
       is_available: props.product?.is_available ?? true,
-      options: props.product?.options ?? [],
+      options: props.product?.options
+        ? props.product.options.map((opt) => ({
+            ...opt,
+            values: opt.values.map((val) => ({
+              ...val,
+              price_addition: val.price_addition / 100,
+            })),
+          }))
+        : [],
       image_cover_number: props.product?.image_cover_number ?? 1,
       image_urls:
         props.product && props.product?.image_urls?.length > 0

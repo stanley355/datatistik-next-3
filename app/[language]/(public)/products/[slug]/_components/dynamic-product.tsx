@@ -1,9 +1,7 @@
 "use client";
 
 import { LoadingLogo } from "@/components/custom-ui/loading-logo";
-import { SomethingWrongCard } from "@/components/custom-ui/something-wrong-card";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { useLanguage } from "@/hooks/language";
+import { buttonVariants } from "@/components/ui/button";
 import { findProductByIdOptions } from "@/hooks/products";
 import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -12,6 +10,7 @@ import Link from "next/link";
 import { ProductSettings } from "../../_components";
 import { DynamicProductImages } from "./images";
 import { DynamicProductDetails } from "./details";
+import { ProductDescription } from "./product-description";
 
 const ProductNotFound = () => {
   return (
@@ -52,12 +51,22 @@ export const DynamicProduct = ({ id }: DynamicProductProps) => {
     return <ProductNotFound />;
   }
   return (
-    <div className="flex flex-col">
-      <DynamicProductImages images={product.data.data.image_urls} />
-      <div className="p-4 flex flex-col gap-4">
-        <ProductSettings />
-        <DynamicProductDetails product={product.data.data} />
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col lg:grid grid-cols-2 gap-4 lg:py-4">
+        <DynamicProductImages
+          coverIndex={2}
+          images={product.data.data.image_urls}
+        />
+        <div className="p-4 flex flex-col gap-4">
+          <ProductSettings />
+          <DynamicProductDetails product={product.data.data} />
+        </div>
       </div>
+
+      <ProductDescription
+        className="hidden lg:flex"
+        description={product.data.data.description}
+      />
     </div>
   );
 };
