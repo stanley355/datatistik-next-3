@@ -1,10 +1,6 @@
 "use client";
 import { Label } from "@/components/ui/label";
 import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/components/ui/native-select";
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -15,8 +11,13 @@ import { useCurrency } from "@/hooks/currency";
 import { useLanguage } from "@/hooks/language";
 import { CURRENCIES } from "@/lib/types/currencies";
 import { LANGUAGES } from "@/lib/types/languages";
+import { cn } from "@/lib/utils";
 
-export const ProductSettings = () => {
+type ProductSettingsProps = {
+  className?: string;
+};
+
+export const ProductSettings = ({ className }: ProductSettingsProps) => {
   const { productLanguage, setProductLanguage } = useLanguage();
   const { currency, setCurrency } = useCurrency();
   const CURRENCY_OPTIONS = CURRENCIES.map((curr) => ({
@@ -28,7 +29,7 @@ export const ProductSettings = () => {
     value: lang,
   }));
   return (
-    <div className="grid grid-cols-2 max-w-96 gap-4">
+    <div className={cn("w-full grid grid-cols-2 max-w-96 gap-4", className)}>
       <div className="flex flex-col gap-1">
         <Label>CURRENCY</Label>
         <Select

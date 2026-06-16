@@ -12,12 +12,13 @@ import {
 } from "@tanstack/react-query";
 
 export const findProductOptions = (
+  params?: Parameters<typeof findProducts>[0],
   options?: Partial<UseQueryOptions<Awaited<ReturnType<typeof findProducts>>>>,
 ) => {
   return queryOptions({
     ...options,
     queryKey: ["products"],
-    queryFn: () => findProducts(),
+    queryFn: () => findProducts(params),
   });
 };
 

@@ -7,14 +7,20 @@ import {
   Api,
   ProductOption,
 } from "../types";
+import qs from "qs";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/products";
 
-export const findProducts = async (): Promise<
-  ApiPagination<Product[]> | undefined
-> => {
+type FindProductsParams = {
+  is_available?: boolean;
+};
+
+export const findProducts = async (
+  params?: FindProductsParams,
+): Promise<ApiPagination<Product[]> | undefined> => {
+  const queryParams = qs.stringify(params, { addQueryPrefix: true });
   try {
-    const res = await fetch(baseUrl, {
+    const res = await fetch(baseUrl + queryParams, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
