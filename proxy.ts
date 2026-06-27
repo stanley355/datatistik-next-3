@@ -6,7 +6,7 @@ import { match } from "@formatjs/intl-localematcher";
 import { LANGUAGES } from "./lib/types/languages";
 
 const defaultLocale = "id";
-const protectedRoutes = ["/account", "/admin"];
+const protectedRoutes = ["/account", "/admin", "/products/carts"];
 
 function getBrowserLocale(request: NextRequest): string {
   // Convert Next.js headers to a plain object for Negotiator

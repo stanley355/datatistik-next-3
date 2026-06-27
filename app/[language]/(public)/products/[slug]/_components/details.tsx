@@ -1,12 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { useCurrency } from "@/hooks/currency";
 import { useLanguage } from "@/hooks/language";
-import { Product, ProductOptionValue } from "@/lib/types";
+import type { Product, ProductOptionValue } from "@/lib/types";
 import { rmbToIdr } from "@/lib/utils";
 import { useMemo, useState } from "react";
 import { ProductDescription } from "./product-description";
-import { LuShoppingCart } from "react-icons/lu";
+import { LuMinus, LuPlus, LuShoppingCart } from "react-icons/lu";
 import { sendGAEvent } from "@next/third-parties/google";
+import { toast } from "sonner";
+import { authGetSession, isAuthError } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { ProductOptions } from "./product-options";
+import { createCart } from "@/lib/api/carts";
 
 type DynamicProductDetailsProps = {
   product: Product;
@@ -15,11 +20,13 @@ type DynamicProductDetailsProps = {
 export const DynamicProductDetails = ({
   product,
 }: DynamicProductDetailsProps) => {
+  const router = useRouter();
   const { productLanguage } = useLanguage();
   const { currency } = useCurrency();
   const [selectedOptionValues, setSelectedOptionValues] = useState<
     Record<number, ProductOptionValue>
   >({});
+  const [quantity, setQuantity] = useState(1);
 
   const price = useMemo(() => {
     const basePrice = product.price;
@@ -37,46 +44,76 @@ export const DynamicProductDetails = ({
     return `RMB${finalPrice.toLocaleString("zh-CN")}`;
   }, [currency, product.price, selectedOptionValues]);
 
+  const onAddClick = async () => {
+    try {
+      const session = await authGetSession();
+
+      if (!isAuthError(session) && session?.user.id) {
+        const selectedOptions = Object.values(selectedOptionValues);
+        if (selectedOptions.length !== product.options.length) {
+          toast.warning("Please select product option");
+          return;
+        }
+        const cartPayload: Parameters<typeof createCart>[0] = {
+          user_id: session.user.id,
+          product_id: product.id,
+          amount: quantity,
+          options: selectedOptions.map((val, index) => ({
+            id: product.options[index].id,
+            en: product.options[index].en,
+            cn: product.options[index].cn,
+            value: val,
+          })),
+        };
+        createCart(cartPayload);
+        toast.success("Product added to cart");
+        return;
+      }
+
+      toast.warning("Please login to continue!");
+      router.push("/auth/login");
+      return;
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong, please try again");
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <p className="text-xl text-primary font-semibold">{price}</p>
-      <h1 className="text-lg font-bold">{product.title[productLanguage]}</h1>
+      <h1 className="text-lg font-bold mb-4">
+        {product.title[productLanguage]}
+      </h1>
 
-      <div className="flex flex-col gap-4 my-4">
-        {product.options.map((option, optionIndex) => (
-          <div
-            key={`option_${optionIndex}`}
-            className="flex items-center gap-4"
-          >
-            <p className="capitalize min-w-24">{option[productLanguage]}:</p>
-            <span className="flex flex-wrap gap-4">
-              {option.values.map((val, index) => (
-                <Button
-                  key={`val_${index}`}
-                  variant={
-                    selectedOptionValues[optionIndex] &&
-                    selectedOptionValues[optionIndex].en === val.en
-                      ? "default"
-                      : "outline"
-                  }
-                  onClick={() => {
-                    const newVal = { ...selectedOptionValues };
-                    newVal[optionIndex] = val;
-                    setSelectedOptionValues(newVal);
-                  }}
-                >
-                  {val[productLanguage]}
-                </Button>
-              ))}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      <ProductDescription
-        className="lg:hidden"
-        description={product.description}
+      <ProductOptions
+        productLanguage={productLanguage}
+        options={product.options}
+        selectedOptionValues={selectedOptionValues}
+        setSelectedOptionValues={setSelectedOptionValues}
       />
+
+      <div className="flex items-center gap-4 my-4">
+        <p className="min-w-24">Quantity: </p>
+        <div className="flex items-center gap-8 ">
+          <Button
+            size="icon"
+            variant="outline"
+            disabled={quantity <= 1}
+            onClick={() => setQuantity((q) => q - 1)}
+          >
+            <LuMinus />
+          </Button>
+          <span>{quantity}</span>
+          <Button
+            size="icon"
+            variant="outline"
+            onClick={() => setQuantity((q) => q + 1)}
+          >
+            <LuPlus />
+          </Button>
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 gap-4 lg:max-w-96">
         <Button
@@ -91,11 +128,17 @@ export const DynamicProductDetails = ({
           variant="default"
           onClick={() => {
             sendGAEvent(`add_to_cart_product_${product.id}`);
+            onAddClick();
           }}
         >
           <LuShoppingCart /> Add to Cart
         </Button>
       </div>
+
+      <ProductDescription
+        className="lg:hidden"
+        description={product.description}
+      />
     </div>
   );
 };
