@@ -21,13 +21,15 @@ export const NavigationAccountLink = ({
         href={"/auth/login"}
         title="Login"
         className={cn(
-          buttonVariants({ variant: "ghost" }),
-          isBottomNavigation
-            ? "flex-col"
-            : "text-primary-foreground hidden sm:flex",
+          buttonVariants({
+            variant: "ghost",
+            size: isBottomNavigation ? "icon-lg" : "default",
+          }),
+          isBottomNavigation ? "" : "text-primary-foreground hidden sm:flex",
         )}
       >
-        <LuUser /> Login
+        <LuUser />
+        {!isBottomNavigation && "Login"}
       </Link>
     );
   }
