@@ -4,8 +4,13 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { LuHouse, LuShoppingCart } from "react-icons/lu";
 import { NavigationAccountLink } from "./navigation-account-link";
+import { usePathname } from "next/navigation";
 
 export const BottomNavigation = () => {
+  const pathname = usePathname();
+  if (pathname.includes("/cart")) {
+    return <></>;
+  }
   return (
     <div className="grid grid-cols-3 gap-4 sm:hidden fixed bottom-4 left-[50%] -translate-x-[50%] border w-[90%] rounded-full place-items-center bg-background z-10">
       <Link

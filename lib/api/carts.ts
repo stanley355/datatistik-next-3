@@ -1,14 +1,21 @@
 import { env } from "../env";
-import { Api, Cart, ProductLocalization, ProductOptionValue } from "../types";
+import {
+  Api,
+  ApiPagination,
+  Cart,
+  CartOption,
+  Product,
+  ProductLocalization,
+  ProductOptionValue,
+} from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/carts";
 
-type CreateCartOption = ProductLocalization & { value: ProductOptionValue };
 type CreateCartSchema = {
   user_id: string;
   product_id: number;
   amount: number;
-  options: CreateCartOption[];
+  options: CartOption[];
 };
 
 export const createCart = async (
@@ -21,6 +28,24 @@ export const createCart = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify(params),
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export type CartJoinProduct = [Cart, Product];
+export const findUserCart = async (
+  userId: string,
+): Promise<ApiPagination<CartJoinProduct[]> | undefined> => {
+  try {
+    const res = await fetch(baseUrl + `/user/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
       credentials: "include",
     });
     return await res.json();
