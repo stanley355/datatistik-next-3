@@ -1,4 +1,4 @@
-import { findUserCart, removeCart } from "@/lib/api";
+import { findUserCart, removeCart, updateCart } from "@/lib/api";
 import {
   mutationOptions,
   queryOptions,
@@ -25,6 +25,22 @@ export const removeCartOptions = (
     mutationKey: ["remove-cart"],
     mutationFn: async (cartId: string) => {
       return await removeCart(cartId);
+    },
+    ...options,
+  });
+};
+
+type UpdateCartParams = { cartId: string; amount: number };
+type UpdateCartData = Awaited<ReturnType<typeof updateCart>>;
+export const updateCartOptions = (
+  options?: Partial<
+    UseMutationOptions<UpdateCartData, unknown, UpdateCartParams>
+  >,
+) => {
+  return mutationOptions({
+    mutationKey: ["update-cart"],
+    mutationFn: async (params: UpdateCartParams) => {
+      return await updateCart(params.cartId, { amount: params.amount });
     },
     ...options,
   });

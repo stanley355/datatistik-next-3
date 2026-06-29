@@ -2,7 +2,11 @@
 import { EmptyCart } from "./empty";
 import { authGetSessionOptions } from "@/hooks/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { findCartByUserOptions, removeCartOptions } from "@/hooks/carts";
+import {
+  findCartByUserOptions,
+  removeCartOptions,
+  updateCartOptions,
+} from "@/hooks/carts";
 import { LoadingLogo } from "@/components/custom-ui/loading-logo";
 import { isAuthError } from "@/lib/api";
 import { useLanguage } from "@/hooks/language";
@@ -47,6 +51,8 @@ export const Carts = () => {
     }),
   );
 
+  const updateCart = useMutation(updateCartOptions());
+
   if (session.isLoading || cart.isLoading) {
     return (
       <div className="container mx-auto min-h-screen flex items-start justify-center mt-16 p-4">
@@ -88,6 +94,9 @@ export const Carts = () => {
                 }
               }}
               onRemoveClick={(cartId) => removeCart.mutate(cartId)}
+              onUpdateAmount={(cartId, amount) =>
+                updateCart.mutate({ cartId, amount })
+              }
             />
           ))}
         </div>

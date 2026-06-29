@@ -11,8 +11,8 @@ import { Cart } from "@/lib/types";
 import { CURRENCIES } from "@/lib/types/currencies";
 import { LANGUAGES } from "@/lib/types/languages";
 import { rmbToIdr } from "@/lib/utils";
-import { useMemo } from "react";
-import { LuTrash2 } from "react-icons/lu";
+import { useMemo, useOptimistic, useState } from "react";
+import { LuMinus, LuPlus, LuTrash2 } from "react-icons/lu";
 
 type CartProductProps = {
   cartJoinProduct: CartJoinProduct;
@@ -20,6 +20,7 @@ type CartProductProps = {
   currency: (typeof CURRENCIES)[number];
   onCheckedChange: (c: boolean) => void;
   onRemoveClick: (cartId: string) => void;
+  onUpdateAmount: (cartId: string, newAmount: number) => void;
 };
 
 export const CartProduct = ({
@@ -28,7 +29,9 @@ export const CartProduct = ({
   currency,
   onCheckedChange,
   onRemoveClick,
+  onUpdateAmount,
 }: CartProductProps) => {
+  const [quantity, setQuantity] = useState(cartJoinProduct[0].amount);
   const cartImage = cartJoinProduct[1].image_urls;
   const coverImage = [
     cartImage[0].endpoint,
@@ -46,10 +49,10 @@ export const CartProduct = ({
     const finalPrice = basePrice + optionValuesPrice;
 
     if (currency === "IDR") {
-      return rmbToIdr(finalPrice / 100);
+      return rmbToIdr((finalPrice * quantity) / 100);
     }
-    return `RMB${finalPrice.toLocaleString("zh-CN")}`;
-  }, [currency, cartJoinProduct]);
+    return `RMB${(finalPrice * quantity).toLocaleString("zh-CN")}`;
+  }, [currency, cartJoinProduct, quantity]);
 
   return (
     <Card>
@@ -88,7 +91,33 @@ export const CartProduct = ({
         </ul>
       </CardContent>
       <CardFooter>
-        <p className="text-lg text-primary font-semibold">{price}</p>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-4">
+            <Button
+              size="icon"
+              variant="outline"
+              disabled={quantity <= 1}
+              onClick={() => {
+                setQuantity((q) => q - 1);
+                onUpdateAmount(cartJoinProduct[0].id, quantity - 1);
+              }}
+            >
+              <LuMinus />
+            </Button>
+            <span>{quantity}</span>
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={() => {
+                setQuantity((q) => q + 1);
+                onUpdateAmount(cartJoinProduct[0].id, quantity + 1);
+              }}
+            >
+              <LuPlus />
+            </Button>
+          </div>
+          <p className="text-lg text-primary font-semibold">{price}</p>
+        </div>
         <Checkbox
           className="size-6 ml-auto border-primary"
           onCheckedChange={onCheckedChange}

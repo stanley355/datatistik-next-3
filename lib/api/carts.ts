@@ -11,7 +11,7 @@ type CreateCartSchema = {
 };
 
 export const createCart = async (
-  params?: CreateCartSchema,
+  params: CreateCartSchema,
 ): Promise<Api<Cart> | undefined> => {
   try {
     const res = await fetch(baseUrl, {
@@ -55,6 +55,29 @@ export const removeCart = async (
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+type UpdateCartSchema = {
+  amount: number;
+};
+
+export const updateCart = async (
+  cartId: string,
+  params: UpdateCartSchema,
+): Promise<Api<Cart> | undefined> => {
+  try {
+    const res = await fetch(baseUrl + `/${cartId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
       credentials: "include",
     });
     return await res.json();
