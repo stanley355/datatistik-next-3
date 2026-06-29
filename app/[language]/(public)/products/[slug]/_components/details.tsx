@@ -12,12 +12,16 @@ import { authGetSession, isAuthError } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { ProductOptions } from "./product-options";
 import { createCart } from "@/lib/api/carts";
+import { useQueryClient } from "@tanstack/react-query";
+import { findCartByUserOptions } from "@/hooks/carts";
 
 type DynamicProductDetailsProps = {
+  session: Awaited<ReturnType<typeof authGetSession>>;
   product: Product;
 };
 
 export const DynamicProductDetails = ({
+  session,
   product,
 }: DynamicProductDetailsProps) => {
   const router = useRouter();
@@ -27,6 +31,7 @@ export const DynamicProductDetails = ({
     Record<number, ProductOptionValue>
   >({});
   const [quantity, setQuantity] = useState(1);
+  const queryClient = useQueryClient();
 
   const price = useMemo(() => {
     const basePrice = product.price;
@@ -46,8 +51,6 @@ export const DynamicProductDetails = ({
 
   const onAddClick = async () => {
     try {
-      const session = await authGetSession();
-
       if (!isAuthError(session) && session?.user.id) {
         const selectedOptions = Object.values(selectedOptionValues);
         if (selectedOptions.length !== product.options.length) {
@@ -65,7 +68,12 @@ export const DynamicProductDetails = ({
             value: val,
           })),
         };
-        createCart(cartPayload);
+        const savedCart = await createCart(cartPayload);
+        if (savedCart?.data?.id) {
+          queryClient.invalidateQueries({
+            queryKey: findCartByUserOptions(String(session.user.id)).queryKey,
+          });
+        }
         toast.success("Product added to cart");
         return;
       }

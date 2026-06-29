@@ -11,6 +11,7 @@ import { ProductSettings } from "../../_components";
 import { DynamicProductImages } from "./images";
 import { DynamicProductDetails } from "./details";
 import { ProductDescription } from "./product-description";
+import { authGetSessionOptions } from "@/hooks/auth";
 
 const ProductNotFound = () => {
   return (
@@ -42,6 +43,7 @@ type DynamicProductProps = {
 };
 
 export const DynamicProduct = ({ id }: DynamicProductProps) => {
+  const session = useQuery(authGetSessionOptions());
   const product = useQuery(findProductByIdOptions(id));
   if (product.isLoading) {
     return <LoadingLogo />;
@@ -59,7 +61,10 @@ export const DynamicProduct = ({ id }: DynamicProductProps) => {
         />
         <div className="p-4 flex flex-col gap-4">
           <ProductSettings />
-          <DynamicProductDetails product={product.data.data} />
+          <DynamicProductDetails
+            session={session.data}
+            product={product.data.data}
+          />
         </div>
       </div>
 

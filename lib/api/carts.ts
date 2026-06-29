@@ -1,13 +1,5 @@
 import { env } from "../env";
-import {
-  Api,
-  ApiPagination,
-  Cart,
-  CartOption,
-  Product,
-  ProductLocalization,
-  ProductOptionValue,
-} from "../types";
+import { Api, ApiPagination, Cart, CartOption, Product } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/carts";
 
@@ -19,7 +11,7 @@ type CreateCartSchema = {
 };
 
 export const createCart = async (
-  params?: CreateCartSchema,
+  params: CreateCartSchema,
 ): Promise<Api<Cart> | undefined> => {
   try {
     const res = await fetch(baseUrl, {
@@ -46,6 +38,46 @@ export const findUserCart = async (
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const removeCart = async (
+  cartId: string,
+): Promise<Api<Cart> | undefined> => {
+  try {
+    const res = await fetch(baseUrl + `/${cartId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+type UpdateCartSchema = {
+  amount: number;
+};
+
+export const updateCart = async (
+  cartId: string,
+  params: UpdateCartSchema,
+): Promise<Api<Cart> | undefined> => {
+  try {
+    const res = await fetch(baseUrl + `/${cartId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
       credentials: "include",
     });
     return await res.json();
