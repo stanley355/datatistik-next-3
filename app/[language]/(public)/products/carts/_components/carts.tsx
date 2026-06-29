@@ -1,8 +1,8 @@
 "use client";
 import { EmptyCart } from "./empty";
 import { authGetSessionOptions } from "@/hooks/auth";
-import { useQuery } from "@tanstack/react-query";
-import { findCartByUserOptions } from "@/hooks/carts";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { findCartByUserOptions, removeCartOptions } from "@/hooks/carts";
 import { LoadingLogo } from "@/components/custom-ui/loading-logo";
 import { isAuthError } from "@/lib/api";
 import { useLanguage } from "@/hooks/language";
@@ -12,11 +12,17 @@ import { Button } from "@/components/ui/button";
 import { LuArrowLeft } from "react-icons/lu";
 import { useState } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const Carts = () => {
+  const router = useRouter();
+
   const [selectedCart, setSelectedCart] = useState<string[]>([]);
   const { productLanguage } = useLanguage();
   const { currency } = useCurrency();
+
+  const queryClient = useQueryClient();
   const session = useQuery(authGetSessionOptions());
   const user = !isAuthError(session.data) ? session.data?.user : null;
   const cart = useQuery(
@@ -24,6 +30,23 @@ export const Carts = () => {
       enabled: !!user?.id,
     }),
   );
+
+  const removeCart = useMutation(
+    removeCartOptions({
+      onSuccess: () => {
+        toast.success("Item removed from cart");
+
+        queryClient.invalidateQueries({
+          queryKey: findCartByUserOptions(String(user?.id)).queryKey,
+        });
+      },
+      onError: (err) => {
+        toast.error("Fail to remove from cart, please try again");
+        console.error(err);
+      },
+    }),
+  );
+
   if (session.isLoading || cart.isLoading) {
     return (
       <div className="container mx-auto min-h-screen flex items-start justify-center mt-16 p-4">
@@ -37,7 +60,11 @@ export const Carts = () => {
     return (
       <div className="container mx-auto min-h-screen mt-16 p-4 flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <Button variant="outline" size="icon-lg">
+          <Button
+            variant="outline"
+            size="icon-lg"
+            onClick={() => router.back()}
+          >
             <LuArrowLeft />
           </Button>
           <h1 className="font-bold text-lg">CART</h1>
@@ -60,6 +87,7 @@ export const Carts = () => {
                   setSelectedCart(oldSet);
                 }
               }}
+              onRemoveClick={(cartId) => removeCart.mutate(cartId)}
             />
           ))}
         </div>

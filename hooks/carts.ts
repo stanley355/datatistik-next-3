@@ -1,5 +1,10 @@
-import { findUserCart } from "@/lib/api";
-import { queryOptions, UseQueryOptions } from "@tanstack/react-query";
+import { findUserCart, removeCart } from "@/lib/api";
+import {
+  mutationOptions,
+  queryOptions,
+  UseMutationOptions,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 
 export const findCartByUserOptions = (
   userId: string,
@@ -9,5 +14,18 @@ export const findCartByUserOptions = (
     ...options,
     queryKey: ["user-cart", userId],
     queryFn: () => findUserCart(userId),
+  });
+};
+
+type RemoveCartData = Awaited<ReturnType<typeof removeCart>>;
+export const removeCartOptions = (
+  options?: Partial<UseMutationOptions<RemoveCartData, unknown, string>>,
+) => {
+  return mutationOptions({
+    mutationKey: ["remove-cart"],
+    mutationFn: async (cartId: string) => {
+      return await removeCart(cartId);
+    },
+    ...options,
   });
 };

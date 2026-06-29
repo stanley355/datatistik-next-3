@@ -1,13 +1,5 @@
 import { env } from "../env";
-import {
-  Api,
-  ApiPagination,
-  Cart,
-  CartOption,
-  Product,
-  ProductLocalization,
-  ProductOptionValue,
-} from "../types";
+import { Api, ApiPagination, Cart, CartOption, Product } from "../types";
 
 const baseUrl = env.NEXT_PUBLIC_API_URL + "/carts";
 
@@ -43,6 +35,23 @@ export const findUserCart = async (
   try {
     const res = await fetch(baseUrl + `/user/${userId}`, {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const removeCart = async (
+  cartId: string,
+): Promise<Api<Cart> | undefined> => {
+  try {
+    const res = await fetch(baseUrl + `/${cartId}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
