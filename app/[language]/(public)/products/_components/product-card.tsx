@@ -14,7 +14,7 @@ export const ProductCard = ({ product, onLinkClick }: ProductCardProps) => {
   const { productLanguage } = useLanguage();
   const { currency } = useCurrency();
   const title = product.title[productLanguage];
-  const coverImage = product.image_urls[product.image_cover_number];
+  const coverImage = product.image_urls[product.image_cover_number - 1];
   return (
     <Link
       title={title}
