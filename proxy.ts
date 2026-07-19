@@ -35,34 +35,34 @@ export async function proxy(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
   // If it doesn't have a locale prefix, immediately force-redirect to /en
-  if (!pathnameHasLocale) {
-    request.nextUrl.pathname = `/en${pathname}`;
-    return NextResponse.redirect(request.nextUrl);
-  }
-
   // if (!pathnameHasLocale) {
-  //   const referer = request.headers.get("referer");
-  //   let detectedLocale = defaultLocale;
-
-  //   if (referer) {
-  //     const refererUrl = new URL(referer);
-  //     // Extract locale from referer pathname (e.g., "/en/admin" -> "en")
-  //     const refererLocale = LANGUAGES.find(
-  //       (locale) =>
-  //         refererUrl.pathname.startsWith(`/${locale}/`) ||
-  //         refererUrl.pathname === `/${locale}`,
-  //     );
-  //     if (refererLocale) {
-  //       detectedLocale = refererLocale;
-  //     }
-  //   } else {
-  //     // external link fallback
-  //     detectedLocale = getBrowserLocale(request);
-  //   }
-  //   // Redirect if there is no locale (prefixes with default 'id')
-  //   request.nextUrl.pathname = `/${detectedLocale}${pathname}`;
+  //   request.nextUrl.pathname = `/en${pathname}`;
   //   return NextResponse.redirect(request.nextUrl);
   // }
+
+  if (!pathnameHasLocale) {
+    const referer = request.headers.get("referer");
+    let detectedLocale = defaultLocale;
+
+    if (referer) {
+      const refererUrl = new URL(referer);
+      // Extract locale from referer pathname (e.g., "/en/admin" -> "en")
+      const refererLocale = LANGUAGES.find(
+        (locale) =>
+          refererUrl.pathname.startsWith(`/${locale}/`) ||
+          refererUrl.pathname === `/${locale}`,
+      );
+      if (refererLocale) {
+        detectedLocale = refererLocale;
+      }
+    } else {
+      // external link fallback
+      detectedLocale = getBrowserLocale(request);
+    }
+    // Redirect if there is no locale (prefixes with default 'id')
+    request.nextUrl.pathname = `/${detectedLocale}${pathname}`;
+    return NextResponse.redirect(request.nextUrl);
+  }
 
   // ---------------------------------------------------------
   // 2. Session & Auth Check (Applies only to specific pages)
