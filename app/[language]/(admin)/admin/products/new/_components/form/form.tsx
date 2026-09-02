@@ -1,28 +1,32 @@
 "use client";
-import { useForm } from "react-hook-form";
-import z from "zod";
-import { productFormSchema } from "./schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { TitleForm } from "./title-form";
-import { DescriptionForm } from "./description-form";
-import { PriceForm } from "./price-form";
-import { OptionForm } from "./option-form";
-import { ImageForm } from "./image-form";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { LuChevronLeft, LuSave } from "react-icons/lu";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { toast } from "sonner";
-import { Product } from "@/lib/types";
 
-type ProductForm = {
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { LuArrowLeft, LuLoaderCircle, LuPackagePlus, LuSave } from "react-icons/lu";
+import { toast } from "sonner";
+import type z from "zod";
+
+import { Button, buttonVariants } from "@/components/ui/button";
+import type { Product } from "@/lib/types";
+import { cn } from "@/lib/utils";
+
+import { FormSection } from "./form-section";
+import { ImageForm } from "./image-form";
+import { LocalizationForm } from "./localization-form";
+import { OptionForm } from "./option-form";
+import { PriceForm } from "./price-form";
+import { productFormSchema } from "./schema";
+import { getUnitFormValue } from "./unit-form-utils";
+
+type ProductFormProps = {
   isLoading: boolean;
   onSubmit: (data: z.infer<typeof productFormSchema>) => Promise<boolean>;
   resetAfterSuccess: boolean;
   product?: Product | null;
 };
 
-export const ProductForm = (props: ProductForm) => {
+export const ProductForm = (props: ProductFormProps) => {
   const form = useForm<z.infer<typeof productFormSchema>>({
     resolver: zodResolver(productFormSchema),
     defaultValues: {
@@ -36,6 +40,7 @@ export const ProductForm = (props: ProductForm) => {
         en: props.product?.description.en ?? "",
         id: props?.product?.description.id ?? "",
       },
+      unit: getUnitFormValue(props.product?.unit),
       price: props.product?.price ? props.product.price / 100 : 0,
       source_url: props.product?.source_url ?? "",
       is_available: props.product?.is_available ?? true,
@@ -69,31 +74,99 @@ export const ProductForm = (props: ProductForm) => {
     }
   }
 
+  const isEditing = Boolean(props.product);
+  const isBusy = props.isLoading || form.formState.isSubmitting;
+
   return (
     <form
-      className="flex flex-col gap-8"
+      className="space-y-6 pb-10"
       onSubmit={form.handleSubmit(onSubmit)}
+      noValidate
     >
-      <div className="flex items-center justify-between">
-        <Link
-          href="/admin/products"
-          className={cn(buttonVariants({ size: "icon", variant: "outline" }))}
-        >
-          <LuChevronLeft />
-        </Link>
-        <Button
-          className="flex-1 max-w-48"
-          type="submit"
-          disabled={props.isLoading}
-        >
-          <LuSave /> SAVE
-        </Button>
+      <div className="sticky top-0 z-20 -mx-4 border-b bg-background/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/85">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <Link
+              href="/admin/products"
+              aria-label="Back to products"
+              className={cn(
+                buttonVariants({ size: "icon", variant: "outline" }),
+                "shrink-0",
+              )}
+            >
+              <LuArrowLeft />
+            </Link>
+            <div className="min-w-0">
+              <p className="truncate font-mono text-[0.6875rem] font-semibold tracking-[0.16em] text-primary uppercase">
+                Product catalog
+              </p>
+              <h1 className="truncate text-xl font-semibold tracking-tight sm:text-2xl">
+                {isEditing ? "Edit product" : "Create product"}
+              </h1>
+            </div>
+          </div>
+
+          <Button type="submit" size="lg" disabled={isBusy}>
+            {isBusy ? (
+              <LuLoaderCircle className="animate-spin motion-reduce:animate-none" />
+            ) : isEditing ? (
+              <LuSave />
+            ) : (
+              <LuPackagePlus />
+            )}
+            <span className="hidden sm:inline">
+              {isBusy
+                ? isEditing
+                  ? "Saving changes"
+                  : "Creating product"
+                : isEditing
+                  ? "Save changes"
+                  : "Create product"}
+            </span>
+            <span className="sm:hidden">
+              {isBusy ? "Saving" : isEditing ? "Save" : "Create"}
+            </span>
+          </Button>
+        </div>
       </div>
-      <TitleForm form={form} />
-      <DescriptionForm form={form} />
-      <PriceForm form={form} />
-      <ImageForm form={form} />
-      <OptionForm form={form} />
+
+      <div className="mx-auto grid max-w-7xl items-start gap-6 xl:grid-cols-[minmax(0,1.55fr)_minmax(20rem,0.8fr)]">
+        <div className="space-y-6">
+          <FormSection
+            eyebrow="Storefront copy"
+            title="Translations"
+            description="Write the product title and description in every storefront language. Keep details consistent across all three versions."
+          >
+            <LocalizationForm form={form} />
+          </FormSection>
+
+          <FormSection
+            eyebrow="Variants"
+            title="Product options"
+            description="Add only the choices customers need, such as size or color. Each option value can adjust the base price."
+          >
+            <OptionForm form={form} />
+          </FormSection>
+        </div>
+
+        <div className="space-y-6">
+          <FormSection
+            eyebrow="Commercial"
+            title="Price and availability"
+            description="Set the RMB price, source reference, and whether customers can order this product."
+          >
+            <PriceForm form={form} />
+          </FormSection>
+
+          <FormSection
+            eyebrow="Media"
+            title="Product images"
+            description="Upload images in storefront order, then choose the cover customers see first."
+          >
+            <ImageForm form={form} />
+          </FormSection>
+        </div>
+      </div>
     </form>
   );
 };

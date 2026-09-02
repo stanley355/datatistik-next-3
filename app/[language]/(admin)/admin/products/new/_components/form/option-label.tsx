@@ -1,7 +1,9 @@
 "use client";
-import { Controller, UseFormReturn } from "react-hook-form";
-import { productFormSchema } from "./schema";
-import z from "zod";
+
+import { Controller } from "react-hook-form";
+import type { UseFormReturn } from "react-hook-form";
+import type z from "zod";
+
 import {
   Field,
   FieldError,
@@ -10,87 +12,57 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
+import { productFormSchema } from "./schema";
+
 type OptionLabelProps = {
   form: UseFormReturn<z.infer<typeof productFormSchema>>;
   optionIndex: number;
 };
 
+const languages = [
+  { key: "cn", name: "Chinese", placeholder: "e.g. 颜色" },
+  { key: "en", name: "English", placeholder: "e.g. Color" },
+  { key: "id", name: "Indonesian", placeholder: "e.g. Warna" },
+] as const;
+
 export const OptionLabel = ({ form, optionIndex }: OptionLabelProps) => {
   return (
-    <>
-      <p className="font-mono font-semibold">Labels</p>
-      <FieldGroup className="grid md:grid-cols-3 gap-4">
-        <Controller
-          name={`options.${optionIndex}.cn`}
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <div className="flex items-center gap-2">
-                <FieldLabel htmlFor={`options.${optionIndex}.cn`}>
-                  CHINESE
-                </FieldLabel>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </div>
-              <Input
-                {...field}
-                id={`options.${optionIndex}.cn`}
-                aria-invalid={fieldState.invalid}
-                placeholder="Chinese Label"
-                autoComplete="off"
-              />
-            </Field>
-          )}
-        />
-        <Controller
-          name={`options.${optionIndex}.en`}
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <div className="flex items-center gap-2">
-                <FieldLabel htmlFor={`options.${optionIndex}.en`}>
-                  ENGLISH
-                </FieldLabel>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </div>
-              <Input
-                {...field}
-                id={`options.${optionIndex}.en`}
-                aria-invalid={fieldState.invalid}
-                placeholder="English Label"
-                autoComplete="off"
-              />
-            </Field>
-          )}
-        />
+    <div className="space-y-3">
+      <div>
+        <h4 className="font-medium">Option name</h4>
+        <p className="text-sm text-muted-foreground">
+          Name this customer choice in every storefront language.
+        </p>
+      </div>
 
-        <Controller
-          name={`options.${optionIndex}.id`}
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <div className="flex items-center gap-2">
-                <FieldLabel htmlFor={`options.${optionIndex}.id`}>
-                  INDONESIAN
-                </FieldLabel>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </div>
-              <Input
-                {...field}
-                id={`options.${optionIndex}.cn`}
-                aria-invalid={fieldState.invalid}
-                placeholder="Indonesian Label"
-                autoComplete="off"
-              />
-            </Field>
-          )}
-        />
+      <FieldGroup className="grid gap-4 md:grid-cols-3">
+        {languages.map((language) => {
+          const fieldId = `option-${optionIndex}-${language.key}`;
+
+          return (
+            <Controller
+              key={language.key}
+              name={`options.${optionIndex}.${language.key}`}
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={fieldId}>{language.name}</FieldLabel>
+                  <Input
+                    {...field}
+                    id={fieldId}
+                    aria-invalid={fieldState.invalid}
+                    placeholder={language.placeholder}
+                    autoComplete="off"
+                  />
+                  {fieldState.invalid ? (
+                    <FieldError errors={[fieldState.error]} />
+                  ) : null}
+                </Field>
+              )}
+            />
+          );
+        })}
       </FieldGroup>
-    </>
+    </div>
   );
 };

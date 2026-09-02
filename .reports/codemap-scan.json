@@ -1,0 +1,1026 @@
+{
+  "codemap_dir": "docs/CODEMAPS",
+  "codemaps": {
+    "architecture.md": {
+      "exists": false
+    },
+    "backend.md": {
+      "exists": false
+    },
+    "data.md": {
+      "exists": false
+    },
+    "dependencies.md": {
+      "exists": false
+    },
+    "frontend.md": {
+      "exists": false
+    }
+  },
+  "dependency_delta": {
+    "added": [
+      "@base-ui/react",
+      "@formatjs/intl-localematcher",
+      "@hookform/resolvers",
+      "@next/third-parties",
+      "@t3-oss/env-nextjs",
+      "@tailwindcss/postcss",
+      "@tanstack/react-query",
+      "@tanstack/react-table",
+      "@types/negotiator",
+      "@types/node",
+      "@types/qs",
+      "@types/react",
+      "@types/react-dom",
+      "class-variance-authority",
+      "clsx",
+      "date-fns",
+      "embla-carousel-react",
+      "eslint",
+      "eslint-config-next",
+      "husky",
+      "lucide-react",
+      "negotiator",
+      "next",
+      "next-themes",
+      "qs",
+      "react",
+      "react-dom",
+      "react-hook-form",
+      "react-icons",
+      "shadcn",
+      "sonner",
+      "tailwind-merge",
+      "tailwindcss",
+      "tw-animate-css",
+      "typescript",
+      "zod",
+      "zustand"
+    ],
+    "removed": []
+  },
+  "diff": {
+    "added": [
+      ".github/workflows/main.yaml",
+      "Dockerfile",
+      "README.md",
+      "app/[language]/(admin)/_components/admin-layout.tsx",
+      "app/[language]/(admin)/_components/admin.tsx",
+      "app/[language]/(admin)/_components/navigation/admin-sidebar.tsx",
+      "app/[language]/(admin)/_components/navigation/index.ts",
+      "app/[language]/(admin)/_components/navigation/navigation.tsx",
+      "app/[language]/(admin)/admin/page.tsx",
+      "app/[language]/(admin)/admin/products/[id]/_components/edit-product.tsx",
+      "app/[language]/(admin)/admin/products/[id]/page.tsx",
+      "app/[language]/(admin)/admin/products/_components/index.ts",
+      "app/[language]/(admin)/admin/products/_components/products.tsx",
+      "app/[language]/(admin)/admin/products/_components/table/cols.tsx",
+      "app/[language]/(admin)/admin/products/_components/table/index.ts",
+      "app/[language]/(admin)/admin/products/_components/table/table.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/description-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/image-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/index.ts",
+      "app/[language]/(admin)/admin/products/new/_components/form/option-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/option-label.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/option-value.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/price-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/schema.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/title-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/index.ts",
+      "app/[language]/(admin)/admin/products/new/_components/new-product.tsx",
+      "app/[language]/(admin)/admin/products/new/page.tsx",
+      "app/[language]/(admin)/admin/products/page.tsx",
+      "app/[language]/(admin)/layout.tsx",
+      "app/[language]/(public)/_components/footer.tsx",
+      "app/[language]/(public)/_components/navigation/bottom-navigation.tsx",
+      "app/[language]/(public)/_components/navigation/index.ts",
+      "app/[language]/(public)/_components/navigation/navigation-account-link.tsx",
+      "app/[language]/(public)/_components/navigation/navigation-search-form.tsx",
+      "app/[language]/(public)/_components/navigation/navigation.tsx",
+      "app/[language]/(public)/_components/public-layout.tsx",
+      "app/[language]/(public)/account/_components/account.tsx",
+      "app/[language]/(public)/account/_components/index.ts",
+      "app/[language]/(public)/account/page.tsx",
+      "app/[language]/(public)/auth/forgot-password/_components/forgot-password-form.tsx",
+      "app/[language]/(public)/auth/forgot-password/_components/index.ts",
+      "app/[language]/(public)/auth/forgot-password/page.tsx",
+      "app/[language]/(public)/auth/login/_components/index.ts",
+      "app/[language]/(public)/auth/login/_components/login-form.tsx",
+      "app/[language]/(public)/auth/login/_components/login.tsx",
+      "app/[language]/(public)/auth/login/page.tsx",
+      "app/[language]/(public)/auth/register/_components/index.ts",
+      "app/[language]/(public)/auth/register/_components/register-card.tsx",
+      "app/[language]/(public)/auth/register/_components/register-form.tsx",
+      "app/[language]/(public)/auth/register/_libs/form-schema.ts",
+      "app/[language]/(public)/auth/register/page.tsx",
+      "app/[language]/(public)/auth/reset-password/_components/index.ts",
+      "app/[language]/(public)/auth/reset-password/_components/reset-password-form.tsx",
+      "app/[language]/(public)/auth/reset-password/_components/reset-password.tsx",
+      "app/[language]/(public)/auth/reset-password/page.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/index.ts",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email-form.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email-loading.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email-success.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email.tsx",
+      "app/[language]/(public)/auth/verify-email/page.tsx",
+      "app/[language]/(public)/home/_components/categories.tsx",
+      "app/[language]/(public)/home/_components/hero.tsx",
+      "app/[language]/(public)/home/_components/home.tsx",
+      "app/[language]/(public)/home/_components/index.ts",
+      "app/[language]/(public)/layout.tsx",
+      "app/[language]/(public)/page.tsx",
+      "app/[language]/(public)/products/[slug]/_components/details.tsx",
+      "app/[language]/(public)/products/[slug]/_components/dynamic-product.tsx",
+      "app/[language]/(public)/products/[slug]/_components/images.tsx",
+      "app/[language]/(public)/products/[slug]/_components/index.ts",
+      "app/[language]/(public)/products/[slug]/_components/product-description.tsx",
+      "app/[language]/(public)/products/[slug]/_components/product-options.tsx",
+      "app/[language]/(public)/products/[slug]/page.tsx",
+      "app/[language]/(public)/products/_components/index.ts",
+      "app/[language]/(public)/products/_components/product-card.tsx",
+      "app/[language]/(public)/products/_components/product-list.tsx",
+      "app/[language]/(public)/products/_components/product-settings.tsx",
+      "app/[language]/(public)/products/carts/_components/cart-product.tsx",
+      "app/[language]/(public)/products/carts/_components/carts.tsx",
+      "app/[language]/(public)/products/carts/_components/empty.tsx",
+      "app/[language]/(public)/products/carts/_components/index.ts",
+      "app/[language]/(public)/products/carts/page.tsx",
+      "app/[language]/(public)/products/page.tsx",
+      "app/[language]/(public)/search/_components/index.ts",
+      "app/[language]/(public)/search/_components/search-form.tsx",
+      "app/[language]/(public)/search/_components/search-navigation.tsx",
+      "app/[language]/(public)/search/_components/search-suggestion.tsx",
+      "app/[language]/(public)/search/_components/search.tsx",
+      "app/[language]/(public)/search/page.tsx",
+      "app/globals.css",
+      "app/layout.tsx",
+      "app/page.tsx",
+      "components.json",
+      "components/custom-ui/loading-logo.tsx",
+      "components/custom-ui/something-wrong-card.tsx",
+      "components/custom-ui/theme-toggle.tsx",
+      "components/providers/tanstack-query-provider.tsx",
+      "components/providers/theme-provider.tsx",
+      "components/ui/accordion.tsx",
+      "components/ui/button.tsx",
+      "components/ui/card.tsx",
+      "components/ui/carousel.tsx",
+      "components/ui/checkbox.tsx",
+      "components/ui/dropdown-menu.tsx",
+      "components/ui/field.tsx",
+      "components/ui/input.tsx",
+      "components/ui/label.tsx",
+      "components/ui/native-select.tsx",
+      "components/ui/select.tsx",
+      "components/ui/separator.tsx",
+      "components/ui/sheet.tsx",
+      "components/ui/sidebar.tsx",
+      "components/ui/skeleton.tsx",
+      "components/ui/sonner.tsx",
+      "components/ui/table.tsx",
+      "components/ui/textarea.tsx",
+      "components/ui/tooltip.tsx",
+      "docker-compose.yaml",
+      "eslint.config.mjs",
+      "hooks/auth.ts",
+      "hooks/carts.ts",
+      "hooks/currency.ts",
+      "hooks/language.ts",
+      "hooks/products.ts",
+      "hooks/s3.ts",
+      "hooks/use-mobile.ts",
+      "lib/api/auth.ts",
+      "lib/api/carts.ts",
+      "lib/api/index.ts",
+      "lib/api/products.ts",
+      "lib/api/s3.ts",
+      "lib/api/user_search.ts",
+      "lib/constant/categories.ts",
+      "lib/constant/taobao-products.ts",
+      "lib/env.ts",
+      "lib/types/api.ts",
+      "lib/types/auth.ts",
+      "lib/types/carts.ts",
+      "lib/types/currencies.ts",
+      "lib/types/index.ts",
+      "lib/types/languages.ts",
+      "lib/types/products.ts",
+      "lib/types/s3.ts",
+      "lib/types/user-search.ts",
+      "lib/utils.ts",
+      "next.config.ts",
+      "package.json",
+      "postcss.config.mjs",
+      "proxy.ts",
+      "skills-lock.json",
+      "tsconfig.json"
+    ],
+    "diff_percent": 0,
+    "initial": true,
+    "modified": [],
+    "removed": [],
+    "requires_approval": false
+  },
+  "files_scanned": 154,
+  "generated_date": "2026-09-02",
+  "packages": {
+    "datatistik-next-3": {
+      "dependencies": [
+        "@base-ui/react",
+        "@formatjs/intl-localematcher",
+        "@hookform/resolvers",
+        "@next/third-parties",
+        "@t3-oss/env-nextjs",
+        "@tailwindcss/postcss",
+        "@tanstack/react-query",
+        "@tanstack/react-table",
+        "@types/negotiator",
+        "@types/node",
+        "@types/qs",
+        "@types/react",
+        "@types/react-dom",
+        "class-variance-authority",
+        "clsx",
+        "date-fns",
+        "embla-carousel-react",
+        "eslint",
+        "eslint-config-next",
+        "husky",
+        "lucide-react",
+        "negotiator",
+        "next",
+        "next-themes",
+        "qs",
+        "react",
+        "react-dom",
+        "react-hook-form",
+        "react-icons",
+        "shadcn",
+        "sonner",
+        "tailwind-merge",
+        "tailwindcss",
+        "tw-animate-css",
+        "typescript",
+        "zod",
+        "zustand"
+      ],
+      "path": "package.json",
+      "scripts": [
+        "build",
+        "dev",
+        "lint",
+        "prepare",
+        "start"
+      ],
+      "workspace_dependencies": []
+    }
+  },
+  "project_shape": "single-js-app",
+  "root": "C:/Users/USER/Documents/github/datatistik-next-3",
+  "signals": {
+    "component_files": [
+      "app/[language]/(admin)/_components/admin-layout.tsx",
+      "app/[language]/(admin)/_components/admin.tsx",
+      "app/[language]/(admin)/_components/navigation/admin-sidebar.tsx",
+      "app/[language]/(admin)/_components/navigation/navigation.tsx",
+      "app/[language]/(admin)/admin/page.tsx",
+      "app/[language]/(admin)/admin/products/[id]/_components/edit-product.tsx",
+      "app/[language]/(admin)/admin/products/[id]/page.tsx",
+      "app/[language]/(admin)/admin/products/_components/products.tsx",
+      "app/[language]/(admin)/admin/products/_components/table/cols.tsx",
+      "app/[language]/(admin)/admin/products/_components/table/table.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/description-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/image-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/option-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/option-label.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/option-value.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/price-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/schema.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/form/title-form.tsx",
+      "app/[language]/(admin)/admin/products/new/_components/new-product.tsx",
+      "app/[language]/(admin)/admin/products/new/page.tsx",
+      "app/[language]/(admin)/admin/products/page.tsx",
+      "app/[language]/(admin)/layout.tsx",
+      "app/[language]/(public)/_components/footer.tsx",
+      "app/[language]/(public)/_components/navigation/bottom-navigation.tsx",
+      "app/[language]/(public)/_components/navigation/navigation-account-link.tsx",
+      "app/[language]/(public)/_components/navigation/navigation-search-form.tsx",
+      "app/[language]/(public)/_components/navigation/navigation.tsx",
+      "app/[language]/(public)/_components/public-layout.tsx",
+      "app/[language]/(public)/account/_components/account.tsx",
+      "app/[language]/(public)/account/page.tsx",
+      "app/[language]/(public)/auth/forgot-password/_components/forgot-password-form.tsx",
+      "app/[language]/(public)/auth/forgot-password/page.tsx",
+      "app/[language]/(public)/auth/login/_components/login-form.tsx",
+      "app/[language]/(public)/auth/login/_components/login.tsx",
+      "app/[language]/(public)/auth/login/page.tsx",
+      "app/[language]/(public)/auth/register/_components/register-card.tsx",
+      "app/[language]/(public)/auth/register/_components/register-form.tsx",
+      "app/[language]/(public)/auth/register/page.tsx",
+      "app/[language]/(public)/auth/reset-password/_components/reset-password-form.tsx",
+      "app/[language]/(public)/auth/reset-password/_components/reset-password.tsx",
+      "app/[language]/(public)/auth/reset-password/page.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email-form.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email-loading.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email-success.tsx",
+      "app/[language]/(public)/auth/verify-email/_components/verify-email.tsx",
+      "app/[language]/(public)/auth/verify-email/page.tsx",
+      "app/[language]/(public)/home/_components/categories.tsx",
+      "app/[language]/(public)/home/_components/hero.tsx",
+      "app/[language]/(public)/home/_components/home.tsx",
+      "app/[language]/(public)/layout.tsx",
+      "app/[language]/(public)/page.tsx",
+      "app/[language]/(public)/products/[slug]/_components/details.tsx",
+      "app/[language]/(public)/products/[slug]/_components/dynamic-product.tsx",
+      "app/[language]/(public)/products/[slug]/_components/images.tsx",
+      "app/[language]/(public)/products/[slug]/_components/product-description.tsx",
+      "app/[language]/(public)/products/[slug]/_components/product-options.tsx",
+      "app/[language]/(public)/products/[slug]/page.tsx",
+      "app/[language]/(public)/products/_components/product-card.tsx",
+      "app/[language]/(public)/products/_components/product-list.tsx",
+      "app/[language]/(public)/products/_components/product-settings.tsx",
+      "app/[language]/(public)/products/carts/_components/cart-product.tsx",
+      "app/[language]/(public)/products/carts/_components/carts.tsx",
+      "app/[language]/(public)/products/carts/_components/empty.tsx",
+      "app/[language]/(public)/products/carts/page.tsx",
+      "app/[language]/(public)/products/page.tsx",
+      "app/[language]/(public)/search/_components/search-form.tsx",
+      "app/[language]/(public)/search/_components/search-navigation.tsx",
+      "app/[language]/(public)/search/_components/search-suggestion.tsx",
+      "app/[language]/(public)/search/_components/search.tsx",
+      "app/[language]/(public)/search/page.tsx",
+      "app/layout.tsx",
+      "app/page.tsx",
+      "components/custom-ui/loading-logo.tsx",
+      "components/custom-ui/something-wrong-card.tsx",
+      "components/custom-ui/theme-toggle.tsx",
+      "components/providers/tanstack-query-provider.tsx",
+      "components/providers/theme-provider.tsx",
+      "components/ui/accordion.tsx",
+      "components/ui/button.tsx",
+      "components/ui/card.tsx",
+      "components/ui/carousel.tsx",
+      "components/ui/checkbox.tsx",
+      "components/ui/dropdown-menu.tsx",
+      "components/ui/field.tsx",
+      "components/ui/input.tsx",
+      "components/ui/label.tsx",
+      "components/ui/native-select.tsx",
+      "components/ui/select.tsx",
+      "components/ui/separator.tsx",
+      "components/ui/sheet.tsx",
+      "components/ui/sidebar.tsx",
+      "components/ui/skeleton.tsx",
+      "components/ui/sonner.tsx",
+      "components/ui/table.tsx",
+      "components/ui/textarea.tsx",
+      "components/ui/tooltip.tsx"
+    ],
+    "data_files": [],
+    "entry_points": [
+      "app/[language]/(admin)/_components/navigation/index.ts",
+      "app/[language]/(admin)/admin/products/_components/index.ts",
+      "app/[language]/(admin)/admin/products/_components/table/index.ts",
+      "app/[language]/(admin)/admin/products/new/_components/form/index.ts",
+      "app/[language]/(admin)/admin/products/new/_components/index.ts",
+      "app/[language]/(public)/_components/navigation/index.ts",
+      "app/[language]/(public)/account/_components/index.ts",
+      "app/[language]/(public)/auth/forgot-password/_components/index.ts",
+      "app/[language]/(public)/auth/login/_components/index.ts",
+      "app/[language]/(public)/auth/register/_components/index.ts",
+      "app/[language]/(public)/auth/reset-password/_components/index.ts",
+      "app/[language]/(public)/auth/verify-email/_components/index.ts",
+      "app/[language]/(public)/home/_components/index.ts",
+      "app/[language]/(public)/products/[slug]/_components/index.ts",
+      "app/[language]/(public)/products/_components/index.ts",
+      "app/[language]/(public)/products/carts/_components/index.ts",
+      "app/[language]/(public)/search/_components/index.ts",
+      "lib/api/index.ts",
+      "lib/types/index.ts"
+    ],
+    "middleware_files": [],
+    "route_files": [],
+    "server_action_files": [],
+    "test_files": []
+  },
+  "source_fingerprints": {
+    ".github/workflows/main.yaml": {
+      "sha256": "76007fb445510f3f825ca354d7db9b866525d39b6bf8931ee7e2001c43ba6319",
+      "size": 989
+    },
+    "Dockerfile": {
+      "sha256": "c426d8a34febe80adb03facd078d7070d41835b98a772ca7d0b389aa60524043",
+      "size": 710
+    },
+    "README.md": {
+      "sha256": "3b3ed71ebf50e973209bc634f6849e8ecf235a6c0686c285e1f36af5caa1c2cc",
+      "size": 1486
+    },
+    "app/[language]/(admin)/_components/admin-layout.tsx": {
+      "sha256": "ea046747f266de34356ed1c9c7479ee243db2601aeb3c117e6e2600b524712e2",
+      "size": 463
+    },
+    "app/[language]/(admin)/_components/admin.tsx": {
+      "sha256": "bf537154e8db1c67aa873648ad863ea83fbebb4081eed25c6a315e3a2937fcb7",
+      "size": 981
+    },
+    "app/[language]/(admin)/_components/navigation/admin-sidebar.tsx": {
+      "sha256": "35b4e9b1aff2eb0dd0de452334a3129ef2933fec5f4f0d4be833eb5953aae6d5",
+      "size": 1981
+    },
+    "app/[language]/(admin)/_components/navigation/index.ts": {
+      "sha256": "6aa49eab645852d2af926f3eb2ebb9918be7a1d562243a579a41e7f1c32f79d3",
+      "size": 65
+    },
+    "app/[language]/(admin)/_components/navigation/navigation.tsx": {
+      "sha256": "b1441523b09f7d95f3c2ab3c69a40998aa35aaf1732f26820661a2a91c9dbc0e",
+      "size": 1514
+    },
+    "app/[language]/(admin)/admin/page.tsx": {
+      "sha256": "ac2dd6c1280c39a9410d30a78dc3569e4d04115abca683be1726f236770db9c5",
+      "size": 107
+    },
+    "app/[language]/(admin)/admin/products/[id]/_components/edit-product.tsx": {
+      "sha256": "11d07543593964b0c90f858c769fff541fcb08ac377e965fc37bbc6ca4dbc747",
+      "size": 4488
+    },
+    "app/[language]/(admin)/admin/products/[id]/page.tsx": {
+      "sha256": "b2f092b211cceb18c49937bd213e9409154229329d89a97154b7393df62b662c",
+      "size": 264
+    },
+    "app/[language]/(admin)/admin/products/_components/index.ts": {
+      "sha256": "d4e2bffea6f7417774bc766ac51d919668212018756dfc0594dd0b721899ed4d",
+      "size": 29
+    },
+    "app/[language]/(admin)/admin/products/_components/products.tsx": {
+      "sha256": "879bcacc3bac67dfc96c1426747967115cf309c88aab8cabcbafb3cf77bfb6e7",
+      "size": 910
+    },
+    "app/[language]/(admin)/admin/products/_components/table/cols.tsx": {
+      "sha256": "3b0f0d42e418702576c3118a23f6ab16662429c9485a0312c254b5343643f6d1",
+      "size": 2471
+    },
+    "app/[language]/(admin)/admin/products/_components/table/index.ts": {
+      "sha256": "daf8d9c858980946e9c7c60af2a4ed6eef8189a2cad8de0da39567264b2d2931",
+      "size": 26
+    },
+    "app/[language]/(admin)/admin/products/_components/table/table.tsx": {
+      "sha256": "9b53f6f584b6bbcecc9c1688dd24c38d1c7a86977ce4e72b4dec9fbbec7e37b3",
+      "size": 2047
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/description-form.tsx": {
+      "sha256": "cadaf7b6f4bbf0e28d8c6703538bec49884af9e0845231180bd1fed6a2ea0fe5",
+      "size": 2951
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/form.tsx": {
+      "sha256": "a1bf92ea247487b068a2fe3e98ec7ac08639a6caea881796f918bff22a5f5431",
+      "size": 3274
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/image-form.tsx": {
+      "sha256": "050a3d752ea280fddafa2255383a5b1199cda6b553a6a65721ec72ab55168ffb",
+      "size": 4760
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/index.ts": {
+      "sha256": "853f4b1254bd43fd0c896cabfae33bca2635f679a4893da85e9d7509ac6fc656",
+      "size": 52
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/option-form.tsx": {
+      "sha256": "c8ce6af39dca9a8cf5ffebb06efbe74edb16ece3b4c3f8867420d8e9e423e37f",
+      "size": 3337
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/option-label.tsx": {
+      "sha256": "2bb51c2af59c8838d837a7e7c6902c3e99b7e965f210f02eaf943aa2da478217",
+      "size": 3161
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/option-value.tsx": {
+      "sha256": "347452b714405a92f9d5df6428b1276e086c9771de0e187c65072be921b8d95a",
+      "size": 5271
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/price-form.tsx": {
+      "sha256": "18ed36f6402b26315410bbf3d26111d98b64c654df504a9783fdd6358f994d50",
+      "size": 3565
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/schema.tsx": {
+      "sha256": "268a32e803bc1e1ddfd49bceb84a1e21759dcaeac01ad1549c3d50efc4146a7f",
+      "size": 1455
+    },
+    "app/[language]/(admin)/admin/products/new/_components/form/title-form.tsx": {
+      "sha256": "f315532c0989b8b2ad3e79ea047ef34307fa73b9559e005fa3cea794a4295535",
+      "size": 2846
+    },
+    "app/[language]/(admin)/admin/products/new/_components/index.ts": {
+      "sha256": "9ec1f8d5a453f0f54c8c8bdeaf2e3cd96d0de4287286fc38dbfb17fb92e5f295",
+      "size": 57
+    },
+    "app/[language]/(admin)/admin/products/new/_components/new-product.tsx": {
+      "sha256": "b3a871e878908082e9023bd8609b43b3a333a692a24b57cd5c3ea3515890cc5e",
+      "size": 2937
+    },
+    "app/[language]/(admin)/admin/products/new/page.tsx": {
+      "sha256": "da059b496ca1d0c31b19964847b52738eabef8d91ebbcb20677718e6b45287a3",
+      "size": 110
+    },
+    "app/[language]/(admin)/admin/products/page.tsx": {
+      "sha256": "5a32008c1de5a34a9c1bd1352cf81465425b031478bf0b41337b42aefcb0c505",
+      "size": 106
+    },
+    "app/[language]/(admin)/layout.tsx": {
+      "sha256": "e33d088ba6701bd9ffe3c033270bbd9fdfef880ec2e51f4448b31d54587ca23d",
+      "size": 236
+    },
+    "app/[language]/(public)/_components/footer.tsx": {
+      "sha256": "cb04f201b6b500dca81202556b90730c2762b90790d441262e0124fd16408183",
+      "size": 2009
+    },
+    "app/[language]/(public)/_components/navigation/bottom-navigation.tsx": {
+      "sha256": "d3e139565ca7e94b44d3995e4f6c130b9843369d7d878fa8ece529f61457c0ef",
+      "size": 1091
+    },
+    "app/[language]/(public)/_components/navigation/index.ts": {
+      "sha256": "c6a80a294878c6b195fb9a7e0e6e13155d4f32f5089fc162442c3c94df3579b1",
+      "size": 69
+    },
+    "app/[language]/(public)/_components/navigation/navigation-account-link.tsx": {
+      "sha256": "6192d0473601d04f1b3cff780eff2c1cfd99b96de7078aadac9d8249ec977065",
+      "size": 1433
+    },
+    "app/[language]/(public)/_components/navigation/navigation-search-form.tsx": {
+      "sha256": "a983961955972e6f81e94dbf4d09fc24f54ae76f5a34359772df96795fd5706c",
+      "size": 1932
+    },
+    "app/[language]/(public)/_components/navigation/navigation.tsx": {
+      "sha256": "077cbb7f3a67f230c5d19a6b30f0dc815d3738ccb2c6b6cb3a44645d1724141a",
+      "size": 1619
+    },
+    "app/[language]/(public)/_components/public-layout.tsx": {
+      "sha256": "08564e6e5b404ba1cb048ce51ca25bd0327bfd11e049f0b1ae0ea74a6969bf15",
+      "size": 572
+    },
+    "app/[language]/(public)/account/_components/account.tsx": {
+      "sha256": "717b89ecc4031694be83979d1c0f0459a413658375a30cda4e67571ca821f700",
+      "size": 2770
+    },
+    "app/[language]/(public)/account/_components/index.ts": {
+      "sha256": "6e0740e16fa8e3842edaaba53a5fce30694d944c6c3f19586d4bdf19e8bbfe8e",
+      "size": 28
+    },
+    "app/[language]/(public)/account/page.tsx": {
+      "sha256": "91bdf82b59a4ba3fe8cb53df70f20c256dc5010c67b83c77ba8905b06c280e4f",
+      "size": 194
+    },
+    "app/[language]/(public)/auth/forgot-password/_components/forgot-password-form.tsx": {
+      "sha256": "df0230e09ed99b0bb6abcd1742ae95b027cccd109bf14c90ef37279f4fb70316",
+      "size": 2548
+    },
+    "app/[language]/(public)/auth/forgot-password/_components/index.ts": {
+      "sha256": "8384c067c2632af7d91c15765076468c2a682ec91728b026ca05c3bafe768d0c",
+      "size": 41
+    },
+    "app/[language]/(public)/auth/forgot-password/page.tsx": {
+      "sha256": "5f27f9a7fb64f477934fe3679399b0676b904f1baa23512e57b169c17393bf49",
+      "size": 703
+    },
+    "app/[language]/(public)/auth/login/_components/index.ts": {
+      "sha256": "b9b09f713e67e8fd91b4942bccfd87a26fcfb32b4cd9fe49d84b83281eeff629",
+      "size": 26
+    },
+    "app/[language]/(public)/auth/login/_components/login-form.tsx": {
+      "sha256": "3196b9ae4f4589a3a061f3cf3e45976690c45f157e28adcc691e592b5b1cf475",
+      "size": 4030
+    },
+    "app/[language]/(public)/auth/login/_components/login.tsx": {
+      "sha256": "deeb1b1c7cdfc466f281b52e0818cc4f6c6de0034fa953e2a881ddc48cf3efd6",
+      "size": 603
+    },
+    "app/[language]/(public)/auth/login/page.tsx": {
+      "sha256": "014bea84c2d7df3a48b308883998961253f816cccd6ba0b2d63810e439ec1c7f",
+      "size": 228
+    },
+    "app/[language]/(public)/auth/register/_components/index.ts": {
+      "sha256": "26084ab1fc032a84313d15e8a055840f9b4f4f1d42d0103ee97ccf1e62196bf1",
+      "size": 34
+    },
+    "app/[language]/(public)/auth/register/_components/register-card.tsx": {
+      "sha256": "ad8dac984bc676f36778030f51eb56b558937c0ce51ddcda4ca1dd9b54c12dd0",
+      "size": 550
+    },
+    "app/[language]/(public)/auth/register/_components/register-form.tsx": {
+      "sha256": "b615fed4ab7a791d4d1d873da7adaec9a004215f5bc97bda35ee438e60bf7c1d",
+      "size": 4570
+    },
+    "app/[language]/(public)/auth/register/_libs/form-schema.ts": {
+      "sha256": "b2e6d046e01fb724d0e18aeee388368e42ec0be8c598c73f608b302656dc3575",
+      "size": 539
+    },
+    "app/[language]/(public)/auth/register/page.tsx": {
+      "sha256": "3509ffddc115b45067b445d0254a66a34b6374db22162df8ebabd8e4559a4fba",
+      "size": 236
+    },
+    "app/[language]/(public)/auth/reset-password/_components/index.ts": {
+      "sha256": "514f8389bbf980c3b87104102a21ec6d725c75256001b0c942e04abcd260afb8",
+      "size": 35
+    },
+    "app/[language]/(public)/auth/reset-password/_components/reset-password-form.tsx": {
+      "sha256": "09a260ccd5817fdbc9860a67983e7ea7e8f9b1bb08010f3faca82277465956be",
+      "size": 3773
+    },
+    "app/[language]/(public)/auth/reset-password/_components/reset-password.tsx": {
+      "sha256": "3ac178c1c5c21faf5cf82fb046a2b458a74e1b239753ce362e85aa70ce3714d3",
+      "size": 604
+    },
+    "app/[language]/(public)/auth/reset-password/page.tsx": {
+      "sha256": "e0b2cfc2f2927bbeadd6b594f5207c920c08c9ed317751595ba34bbaae69286b",
+      "size": 458
+    },
+    "app/[language]/(public)/auth/verify-email/_components/index.ts": {
+      "sha256": "9aa3dbfaa0c3859fc1da539d14d7f50779562da3ae0609cb1c36a1a516332bcf",
+      "size": 74
+    },
+    "app/[language]/(public)/auth/verify-email/_components/verify-email-form.tsx": {
+      "sha256": "af4c818bddd34068ea3171da0adb439c079275ac6ef6d348239b018d3a702142",
+      "size": 3087
+    },
+    "app/[language]/(public)/auth/verify-email/_components/verify-email-loading.tsx": {
+      "sha256": "5ffac3ffd7a345f95398241c8aa5356490cfa1bf7abbf43b9f70652b3569e86a",
+      "size": 371
+    },
+    "app/[language]/(public)/auth/verify-email/_components/verify-email-success.tsx": {
+      "sha256": "6a519d0899685ca5167c355b8295004e994e454e3b29c01c07c52556643d95ea",
+      "size": 726
+    },
+    "app/[language]/(public)/auth/verify-email/_components/verify-email.tsx": {
+      "sha256": "7cca55fc347e8aed3bf8ed26ff3444a4a919258f3f9f32a206a4383f638f6f8f",
+      "size": 840
+    },
+    "app/[language]/(public)/auth/verify-email/page.tsx": {
+      "sha256": "4697a4d90b25e986f6ab8f83f662d17ca5054f23b5c56ed3d91fb4e7f8c06e79",
+      "size": 454
+    },
+    "app/[language]/(public)/home/_components/categories.tsx": {
+      "sha256": "76a6067b7e8f51b7b374f7d0bdd95333932e02bce8f109159761066a7c38acc4",
+      "size": 1658
+    },
+    "app/[language]/(public)/home/_components/hero.tsx": {
+      "sha256": "a8e3740e2a4f1120b11a1c6a9bfd52cd7f0890a4e139f47d25e803221ed0dae2",
+      "size": 1352
+    },
+    "app/[language]/(public)/home/_components/home.tsx": {
+      "sha256": "d0e6bab00e1c481fd0e209d43947e9f3ad700ea41c60bcb964976bf81b6d14bf",
+      "size": 687
+    },
+    "app/[language]/(public)/home/_components/index.ts": {
+      "sha256": "c769b808c283a41e6eec201dcc25ec988f22c7fc3c66a55cdd4517e84e47f135",
+      "size": 25
+    },
+    "app/[language]/(public)/layout.tsx": {
+      "sha256": "25fb1e8a32b181ac0a4bd278afc0bb9f4e1926f652e421ac01b98552303dc808",
+      "size": 224
+    },
+    "app/[language]/(public)/page.tsx": {
+      "sha256": "28e7ba344c604a81e2908bf7d043bf5858afa2ba987dffe4355853fe107bee3e",
+      "size": 103
+    },
+    "app/[language]/(public)/products/[slug]/_components/details.tsx": {
+      "sha256": "05231d24bb7840ed63208aa538e64bc711280c49d683176f027e21b6c7991dfb",
+      "size": 4983
+    },
+    "app/[language]/(public)/products/[slug]/_components/dynamic-product.tsx": {
+      "sha256": "047df190c5c1177db7333a2d7ccbb22f10922f2ab194da03dfd6150202a4fd96",
+      "size": 2334
+    },
+    "app/[language]/(public)/products/[slug]/_components/images.tsx": {
+      "sha256": "de54e0d5dba84d647464879e2ca770a06715f41a311f43ea73bd58a5f7b3e06c",
+      "size": 1924
+    },
+    "app/[language]/(public)/products/[slug]/_components/index.ts": {
+      "sha256": "60761d3495845fc4bfd21c2f9aaf2ab1e8f876a4001388a629ae2dff0aa3808b",
+      "size": 36
+    },
+    "app/[language]/(public)/products/[slug]/_components/product-description.tsx": {
+      "sha256": "3a87abc5038b38e6600811a25faeabdd96e6c8875777dd064d6687f21c66f63d",
+      "size": 610
+    },
+    "app/[language]/(public)/products/[slug]/_components/product-options.tsx": {
+      "sha256": "2cd3018ef70bfd70a59b811c7f24e2048a965692bf15908665600929f044db8a",
+      "size": 1883
+    },
+    "app/[language]/(public)/products/[slug]/page.tsx": {
+      "sha256": "263b603064647d5f9a0db10b650554550d1a4e3c981456fd126c4d2c8e58ad3a",
+      "size": 394
+    },
+    "app/[language]/(public)/products/_components/index.ts": {
+      "sha256": "2b17e8c58cee8cb838da5a3938460e8a04ae06c73d1dbd76f6a81955a7c3d553",
+      "size": 70
+    },
+    "app/[language]/(public)/products/_components/product-card.tsx": {
+      "sha256": "ac938744d87572c83d5f2c589b106b7fe264252a5dfed8951bb1279cd64b01f6",
+      "size": 1493
+    },
+    "app/[language]/(public)/products/_components/product-list.tsx": {
+      "sha256": "da381d864926dbad07bb97a2af8b6d89da644af80d29f506fefbe6c50b980e0e",
+      "size": 1622
+    },
+    "app/[language]/(public)/products/_components/product-settings.tsx": {
+      "sha256": "2d743d31f2e5607561abe28702a1d41de42324f1df5c6d30c7e0c3c429876cf6",
+      "size": 2399
+    },
+    "app/[language]/(public)/products/carts/_components/cart-product.tsx": {
+      "sha256": "e608b3226db7fd354e170df3738df820a28aa028ec16cb9f0cf18c1615980398",
+      "size": 4106
+    },
+    "app/[language]/(public)/products/carts/_components/carts.tsx": {
+      "sha256": "6be0e0260eb92a598900d2c4600f8c3aaf3e59eb95c12a17eaf70ad13a46713f",
+      "size": 4147
+    },
+    "app/[language]/(public)/products/carts/_components/empty.tsx": {
+      "sha256": "96877d6420d2f312926f5b2923cfadfd4668af9ed769d22604d75cf7e443b4df",
+      "size": 833
+    },
+    "app/[language]/(public)/products/carts/_components/index.ts": {
+      "sha256": "6e7728f48a78430b2e680c9fde55551552f1d7a8ecc2e20ae01840e459a14c62",
+      "size": 26
+    },
+    "app/[language]/(public)/products/carts/page.tsx": {
+      "sha256": "25bd6292cd6f5ae3a0752c517047fe5a24de6838d877b9a1bc6b4030f825bb77",
+      "size": 100
+    },
+    "app/[language]/(public)/products/page.tsx": {
+      "sha256": "0607ccbcf4170a9e2adfb79db8c883493027ea22c77672c3a04db2c2fa0962c6",
+      "size": 433
+    },
+    "app/[language]/(public)/search/_components/index.ts": {
+      "sha256": "2db9e760bb589475f73689c4a674183c7a379058a2ea69412d0be647986e40cb",
+      "size": 27
+    },
+    "app/[language]/(public)/search/_components/search-form.tsx": {
+      "sha256": "989fa0f14b507636db3ba27fd468cdbb080e15b92fba63e6c22d85ea4f8a5c85",
+      "size": 1900
+    },
+    "app/[language]/(public)/search/_components/search-navigation.tsx": {
+      "sha256": "747661e68cdac03b71e9c99bebd84efe2af4605e2a8cdb894e0bb10e9c5b14c7",
+      "size": 668
+    },
+    "app/[language]/(public)/search/_components/search-suggestion.tsx": {
+      "sha256": "bab4c648bd1589b1fa64be6819b9e76742f32496739774ab1803ff79d6e7f6ee",
+      "size": 516
+    },
+    "app/[language]/(public)/search/_components/search.tsx": {
+      "sha256": "b78450b29214fb6c8d652fd864d89a99cbe1c74ca165a9ffb7d8aac2a76a783c",
+      "size": 305
+    },
+    "app/[language]/(public)/search/page.tsx": {
+      "sha256": "3aaa91e2d7df3b38eea9a28d512693c20fbf786f1b05ca2522a01c4129287dc1",
+      "size": 102
+    },
+    "app/globals.css": {
+      "sha256": "ee3b96a9dc0ae4b23e6e962f4b65e911ef7c2eb36a497d14fa7db183907d6cfe",
+      "size": 7814
+    },
+    "app/layout.tsx": {
+      "sha256": "7c2748a0f03b7a688c8c1ff6e8d36070e43cc4a91f835a4d26614f819f99cc21",
+      "size": 1063
+    },
+    "app/page.tsx": {
+      "sha256": "d1fff62c5033450aa7f4b6f77c001ee233f296449f660bfdbd4f8719bf6259f6",
+      "size": 104
+    },
+    "components.json": {
+      "sha256": "b9e91c46e684703e17b8187a8721989a4461c2b2c64b1f55bfa1d567a80bf9bd",
+      "size": 541
+    },
+    "components/custom-ui/loading-logo.tsx": {
+      "sha256": "412b33d5bb9f8a18d15c643d20d098a2c1304a4704ca1473f6b408f8715346c5",
+      "size": 541
+    },
+    "components/custom-ui/something-wrong-card.tsx": {
+      "sha256": "05c4fa8ef80d5c0bed0382e2d964e6a3c9f2f31fdc1c099e659aac6700756518",
+      "size": 702
+    },
+    "components/custom-ui/theme-toggle.tsx": {
+      "sha256": "53115bc3472fa74470a6ff86050509be5f09b9598239cc1977b04d021ac4cfad",
+      "size": 1304
+    },
+    "components/providers/tanstack-query-provider.tsx": {
+      "sha256": "a15ce52f409787d0805b6eede7089d206a6c407f95866ffb8a331c5fc7c27e87",
+      "size": 1701
+    },
+    "components/providers/theme-provider.tsx": {
+      "sha256": "4b53cc521a72cea86b0df2674c7bb053e250ed436b76641f05f9a5ec50ee5498",
+      "size": 310
+    },
+    "components/ui/accordion.tsx": {
+      "sha256": "3e546e1154fe8cc2afc1c843e2510b549f86a699e03ee95d78e08fa577dcc120",
+      "size": 2960
+    },
+    "components/ui/button.tsx": {
+      "sha256": "abba6c1d80ef80ad72f1f5f42008675f47536cdc392d290024c8f982c4017aea",
+      "size": 3247
+    },
+    "components/ui/card.tsx": {
+      "sha256": "b63006d83cdc5f8a0153468a9eddeb9601dd62853e3688499404aeac6ceb1ed6",
+      "size": 2731
+    },
+    "components/ui/carousel.tsx": {
+      "sha256": "ce75e953dd4f789e82d61fad0e2a9bb8533e16fd3178f0b7834eadf76eda4731",
+      "size": 5563
+    },
+    "components/ui/checkbox.tsx": {
+      "sha256": "23dab5d8f596a4b789974f99c622078d64946eb349c273c94a6a661151db86be",
+      "size": 1396
+    },
+    "components/ui/dropdown-menu.tsx": {
+      "sha256": "932c0d3f73f42ad7a0903119b0162e5c98f6a8d0027fd3f25c46e73d233ace54",
+      "size": 8996
+    },
+    "components/ui/field.tsx": {
+      "sha256": "f8646e367385d706fe7261a261429f4e33cc96aa35f5bc21e4144d0115d254bf",
+      "size": 6249
+    },
+    "components/ui/input.tsx": {
+      "sha256": "379c3f3ee08d7498b19df36e59b22a2b1f26e9f34b9506e00cece233566634da",
+      "size": 1035
+    },
+    "components/ui/label.tsx": {
+      "sha256": "9662973c34f20f4a1e13103ae3d558e6a63a33593c98b2821b2fbe8de25b5099",
+      "size": 538
+    },
+    "components/ui/native-select.tsx": {
+      "sha256": "a07c21a1aa877473ef408f77435562a6edad30dc47e7f33b1020d29bd92ade40",
+      "size": 2102
+    },
+    "components/ui/select.tsx": {
+      "sha256": "e842f12023062e4a2da9ce57129a8c2abfa5f71e8ea92e8cdc6ff5f24c668207",
+      "size": 6812
+    },
+    "components/ui/separator.tsx": {
+      "sha256": "6f584fe7ab840824d05da0216f5b2c151c52026515b0bd6b6c2fdd5f95a96dbe",
+      "size": 570
+    },
+    "components/ui/sheet.tsx": {
+      "sha256": "2e9f42b23301d6f2a901c9c833f8b57c837acffe37575504db834467027f021d",
+      "size": 4534
+    },
+    "components/ui/sidebar.tsx": {
+      "sha256": "38b5bfd315a159024efa3300705d8713a8c1be4f25094cf9b861122e063dae3c",
+      "size": 22448
+    },
+    "components/ui/skeleton.tsx": {
+      "sha256": "6943aea99efa26e56d3d546bd7f41c8d4336bf56a258519e49248aa063f02ade",
+      "size": 288
+    },
+    "components/ui/sonner.tsx": {
+      "sha256": "a87b8badbf8196efa6648362face66527e143ad54e778d04b1d1e159b8609ec2",
+      "size": 1275
+    },
+    "components/ui/table.tsx": {
+      "sha256": "00961b6cbca3cf9145c965377efa20a746051860ea6940bda24aea48057e9d42",
+      "size": 2518
+    },
+    "components/ui/textarea.tsx": {
+      "sha256": "66e47d73bc8b65ee516a6697b71224dd5743db1266618b382b9e53ec8c879019",
+      "size": 835
+    },
+    "components/ui/tooltip.tsx": {
+      "sha256": "7fa132aa8be94a3cf05823fb40bbe0f762785f9a9e9a5917c0ea8a14a478da13",
+      "size": 2912
+    },
+    "docker-compose.yaml": {
+      "sha256": "b4c327e319ff17a2b7cab67acef4121e76636700fe1152c3a42c8a4500d94415",
+      "size": 281
+    },
+    "eslint.config.mjs": {
+      "sha256": "7a162d11ea04a22f32495a54150df1d229e6a55a3d6e966be63535a3b88c8844",
+      "size": 559
+    },
+    "hooks/auth.ts": {
+      "sha256": "f1cf450c078583dadd095fc1632ac5498bdcd8b7f7fbdc8b01eb2bcde0904314",
+      "size": 710
+    },
+    "hooks/carts.ts": {
+      "sha256": "43c06c112461dff3753a3501b9d5a38f79dd99ce16b9a2ba383144ef1f56a57f",
+      "size": 1334
+    },
+    "hooks/currency.ts": {
+      "sha256": "3b4609b5f2241db1e768b9cee17fa87d5b83558b8bd68ce42c2fafffcdbe7f3e",
+      "size": 2345
+    },
+    "hooks/language.ts": {
+      "sha256": "049f9e0d16777ddab5f82bc27f7710607e5110ca45141a60b1d4c5cda5851e1a",
+      "size": 3473
+    },
+    "hooks/products.ts": {
+      "sha256": "da4baa337ae687f7c07279f3623c140b4678b45be7da820616e35049a03b5589",
+      "size": 1830
+    },
+    "hooks/s3.ts": {
+      "sha256": "90cea98b5d45585d7e37de0590c6a7df4a49dc81aba133f38090719b94b9bc16",
+      "size": 570
+    },
+    "hooks/use-mobile.ts": {
+      "sha256": "d2377fbad5ad2bdf7fa896a68c36ac8bf4aa74a974b2061f77b41ae58d623001",
+      "size": 584
+    },
+    "lib/api/auth.ts": {
+      "sha256": "650cb8f33c1ce4d03443e1fa63b7731a647553c6bc9fce0bc777cd1da2184e3a",
+      "size": 4747
+    },
+    "lib/api/carts.ts": {
+      "sha256": "df6ed42d568da01924fdefd1f0a23d047bf8876e22fa76c04f2315c16b6e1ed8",
+      "size": 2026
+    },
+    "lib/api/index.ts": {
+      "sha256": "9e6ffd134c709291b6ed67f71e506e9da31869b8d2146a0b8574d649d6172a41",
+      "size": 135
+    },
+    "lib/api/products.ts": {
+      "sha256": "c18c003c30f6d7a97977207474ea59eab85333b30bc8f94d7d687ef354b181ec",
+      "size": 2530
+    },
+    "lib/api/s3.ts": {
+      "sha256": "0258637a42090f6fd224ffc72c20e445227d8b151963e5e0b086cab79486710f",
+      "size": 655
+    },
+    "lib/api/user_search.ts": {
+      "sha256": "f3024bbf48395c68cdbb062c1f57dc8b3b2c58e8ed3d2d1990902104f8aa6ed9",
+      "size": 553
+    },
+    "lib/constant/categories.ts": {
+      "sha256": "d75a4c91c4e34f1e907513b8f39eac1f204adad81d6819ab09404dac8c9c6789",
+      "size": 3357
+    },
+    "lib/constant/taobao-products.ts": {
+      "sha256": "2029c691092246dd088a6093cd2735d0bfd125464ade4c518681d3a8f09e9b10",
+      "size": 17120
+    },
+    "lib/env.ts": {
+      "sha256": "9b1bad0490560e2c9b7f70421ce78294a64f75a6ee4a782528818b40a10ff3cf",
+      "size": 901
+    },
+    "lib/types/api.ts": {
+      "sha256": "0f22d8e179633a238f36bcfeea701276da796d36ce8a7490e97e9d7238f91c5d",
+      "size": 332
+    },
+    "lib/types/auth.ts": {
+      "sha256": "af42d6e3d56f57f40912ebe2381e69b3bb3bfd7fc7c319d42d50ac62b682b7ef",
+      "size": 454
+    },
+    "lib/types/carts.ts": {
+      "sha256": "87989910d469e4bb6c127d94f99645fee70098cca9180df91eb13c0f431ad66f",
+      "size": 334
+    },
+    "lib/types/currencies.ts": {
+      "sha256": "89d5c989afb03467263e6b094c2e6ef37fecae92e0ff98c7d10082647640d664",
+      "size": 52
+    },
+    "lib/types/index.ts": {
+      "sha256": "0178d14c706191378639a3a1b3083ef1e2187711743e9807fdac073f26428df8",
+      "size": 159
+    },
+    "lib/types/languages.ts": {
+      "sha256": "8e3f20277d36cd4b1246989b32acaaee21e404dfc20cd53bc66d9c2931b56f09",
+      "size": 55
+    },
+    "lib/types/products.ts": {
+      "sha256": "07f987157f0ed74b4e540ed91fc3d7b868b5501520eb6697e4ae27e9abae8a31",
+      "size": 644
+    },
+    "lib/types/s3.ts": {
+      "sha256": "9635a3d8bfd367877e7a4d113d3ea7916a9662a82eb0aa0b0d4b604275095ad0",
+      "size": 85
+    },
+    "lib/types/user-search.ts": {
+      "sha256": "7cee40240ba990223e42efe13b9333fabe95675c96d51e403c1f722eb793b072",
+      "size": 140
+    },
+    "lib/utils.ts": {
+      "sha256": "5954ff6ee0c4bc11ff9349f5c5aacc53e24a5960d67f3a307f7fbc031bb7d3c8",
+      "size": 662
+    },
+    "next.config.ts": {
+      "sha256": "0b463f3e00c459327da766427791ded6e1b4c26ce4f71373f1126d365d0d9b56",
+      "size": 165
+    },
+    "package.json": {
+      "sha256": "06f203eeb11c65cb6d5b57f971f36f55c9bd9d8e4ff51dfcf6e39b706e06dcb5",
+      "size": 1565
+    },
+    "postcss.config.mjs": {
+      "sha256": "7b299d3d3b16699ddda397c0b2373b3af4f25f8fc9ccc9b3d9e64ef083bc1c21",
+      "size": 101
+    },
+    "proxy.ts": {
+      "sha256": "9472b2059e642f5de040ec3d9a93a6878651f4f763ebe1dc894bc3cfd11cbbfd",
+      "size": 3952
+    },
+    "skills-lock.json": {
+      "sha256": "8e255e1b4ba0ec38e3e485795a8d41575ff46a4be1a3a330d622ffbc67be344b",
+      "size": 545
+    },
+    "tsconfig.json": {
+      "sha256": "fbff01604d6cb54694be707f26e7a0eb21a6ef796b888c6a1dab1839fa7c6ccc",
+      "size": 700
+    }
+  }
+}

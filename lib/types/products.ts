@@ -13,6 +13,7 @@ export type Product = {
   image_urls: S3Image[];
   image_cover_number: number;
   source_url?: string;
+  unit?: ProductLocalization;
 };
 
 export type ProductLocalization = {

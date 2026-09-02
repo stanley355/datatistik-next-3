@@ -8,6 +8,7 @@ import z from "zod";
 import { toast } from "sonner";
 import { authGetSessionOptions } from "@/hooks/auth";
 import { isAuthError } from "@/lib/api";
+import { normalizeOptionalLocalization } from "./form/unit-form-utils";
 
 export const NewProduct = () => {
   const queryClient = useQueryClient();
@@ -27,7 +28,7 @@ export const NewProduct = () => {
         data.image_urls.map(async (url, index) => {
           const response = await fetch(url);
           const blob = await response.blob();
-          const [_, imageType] = blob.type.split("/");
+          const imageType = blob.type.split("/")[1];
           return new File([blob], `${index}.${imageType}`, { type: blob.type });
         }),
       );
@@ -47,6 +48,7 @@ export const NewProduct = () => {
         created_by_id: session.data.user.id,
         title: data.title,
         description: data.description,
+        unit: normalizeOptionalLocalization(data.unit),
         price: data.price,
         source_url: data.source_url,
         is_available: data.is_available,

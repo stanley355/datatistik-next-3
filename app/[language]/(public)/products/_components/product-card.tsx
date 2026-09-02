@@ -25,7 +25,7 @@ export const ProductCard = ({ product, onLinkClick }: ProductCardProps) => {
         <CardContent>
           <img
             alt={title}
-            src={[coverImage.endpoint, coverImage.bucket, coverImage.key].join(
+            src={[coverImage?.endpoint, coverImage?.bucket, coverImage?.key].join(
               "/",
             )}
             width={400}

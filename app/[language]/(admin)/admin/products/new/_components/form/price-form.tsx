@@ -1,16 +1,22 @@
 "use client";
+
+import { Controller } from "react-hook-form";
+import type { UseFormReturn } from "react-hook-form";
+import type z from "zod";
+
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Field,
+  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Controller, UseFormReturn } from "react-hook-form";
-import z from "zod";
-import { productFormSchema } from "./schema";
 import { Input } from "@/components/ui/input";
 import { env } from "@/lib/env";
-import { Checkbox } from "@/components/ui/checkbox";
+
+import { formatIdr } from "./price-form-utils";
+import { productFormSchema } from "./schema";
 
 type PriceFormProps = {
   form: UseFormReturn<z.infer<typeof productFormSchema>>;
@@ -18,87 +24,103 @@ type PriceFormProps = {
 
 export const PriceForm = ({ form }: PriceFormProps) => {
   const rmbIdr = env.NEXT_PUBLIC_RMB_IDR;
+
   return (
-    <FieldGroup className="grid lg:grid-cols-3 gap-4">
+    <FieldGroup className="gap-6">
       <Controller
         name="price"
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <div className="flex items-center gap-2 text-sm">
-              <FieldLabel htmlFor="price" className="font-mono font-bold">
-                RMB PRICE*
-              </FieldLabel>
-              <p className="font-serif">
-                (IDR: Rp{rmbIdr}, TOTAL: Rp
-                {(field.value * rmbIdr).toLocaleString()})
-              </p>
+            <FieldLabel htmlFor="product-price">Base price</FieldLabel>
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center font-mono text-sm font-semibold text-muted-foreground">
+                ¥
+              </span>
+              <Input
+                {...field}
+                className="pl-8 font-mono tabular-nums"
+                type="number"
+                id="product-price"
+                inputMode="numeric"
+                aria-invalid={fieldState.invalid}
+                placeholder="0"
+                min={1}
+                onChange={(event) => {
+                  field.onChange(
+                    event.target.value ? Number.parseInt(event.target.value) : 0,
+                  );
+                }}
+              />
             </div>
-            <Input
-              {...field}
-              type="number"
-              id="price"
-              aria-invalid={fieldState.invalid}
-              placeholder="RMB Price"
-              min={1}
-              onChange={(e) => {
-                if (e.target.value) {
-                  field.onChange(parseInt(e.target.value));
-                } else {
-                  field.onChange(0);
-                }
-              }}
-            />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            <FieldDescription className="font-serif tabular-nums">
+              ¥1 = Rp{formatIdr(rmbIdr)} · Estimated total Rp
+              {formatIdr(field.value * rmbIdr)}
+            </FieldDescription>
+            {fieldState.invalid ? (
+              <FieldError errors={[fieldState.error]} />
+            ) : null}
           </Field>
         )}
       />
+
       <Controller
         name="source_url"
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <div className="flex items-center gap-2 text-sm">
-              <FieldLabel htmlFor="source_url" className="font-bold font-mono">
-                LINK
-              </FieldLabel>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </div>
+            <FieldLabel htmlFor="product-source-url">Source link</FieldLabel>
             <Input
               {...field}
-              id="source_url"
+              id="product-source-url"
+              type="url"
+              inputMode="url"
               aria-invalid={fieldState.invalid}
-              placeholder="https://"
+              placeholder="https://supplier.example/product"
+              autoComplete="url"
             />
+            <FieldDescription>
+              Optional internal reference to the supplier listing.
+            </FieldDescription>
+            {fieldState.invalid ? (
+              <FieldError errors={[fieldState.error]} />
+            ) : null}
           </Field>
         )}
       />
+
       <Controller
         name="is_available"
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <div className="flex items-center gap-4">
-              <FieldLabel
-                htmlFor="is_available"
-                className="font-mono font-bold"
-              >
-                STATUS
-              </FieldLabel>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </div>
-            <div className="flex items-center gap-4">
-              <Checkbox
-                id="is_available"
-                name={field.name}
-                aria-invalid={fieldState.invalid}
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-              <FieldLabel htmlFor="is_available" className="font-normal">
-                {field.value ? "AVAILABLE" : "NOT AVAILABLE"}
-              </FieldLabel>
-            </div>
+            <FieldLabel
+              htmlFor="product-availability"
+              className="w-full cursor-pointer rounded-lg border bg-muted/20 p-4 transition-colors hover:bg-muted/40 has-data-checked:border-primary/30 has-data-checked:bg-primary/5 motion-reduce:transition-none"
+            >
+              <div className="flex items-start gap-3">
+                <Checkbox
+                  id="product-availability"
+                  name={field.name}
+                  aria-invalid={fieldState.invalid}
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <div className="space-y-1">
+                  <span className="block font-medium">
+                    {field.value ? "Available for order" : "Hidden from sale"}
+                  </span>
+                  <span className="block text-sm leading-relaxed font-normal text-muted-foreground">
+                    {field.value
+                      ? "Customers can find and add this product to their cart."
+                      : "The product remains in the catalog but cannot be ordered."}
+                  </span>
+                </div>
+              </div>
+            </FieldLabel>
+            {fieldState.invalid ? (
+              <FieldError errors={[fieldState.error]} />
+            ) : null}
           </Field>
         )}
       />

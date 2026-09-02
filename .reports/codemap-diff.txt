@@ -1,0 +1,154 @@
+Generated: 2026-09-02
+Files scanned: 154
+Codemap location: docs/CODEMAPS
+
+Diff status:
+- Initial generation: True
+- Diff percentage: 0%
+- Requires approval: False
+
+Files added:
+- .github/workflows/main.yaml
+- Dockerfile
+- README.md
+- app/[language]/(admin)/_components/admin-layout.tsx
+- app/[language]/(admin)/_components/admin.tsx
+- app/[language]/(admin)/_components/navigation/admin-sidebar.tsx
+- app/[language]/(admin)/_components/navigation/index.ts
+- app/[language]/(admin)/_components/navigation/navigation.tsx
+- app/[language]/(admin)/admin/page.tsx
+- app/[language]/(admin)/admin/products/[id]/_components/edit-product.tsx
+- app/[language]/(admin)/admin/products/[id]/page.tsx
+- app/[language]/(admin)/admin/products/_components/index.ts
+- app/[language]/(admin)/admin/products/_components/products.tsx
+- app/[language]/(admin)/admin/products/_components/table/cols.tsx
+- app/[language]/(admin)/admin/products/_components/table/index.ts
+- app/[language]/(admin)/admin/products/_components/table/table.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/description-form.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/form.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/image-form.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/index.ts
+- app/[language]/(admin)/admin/products/new/_components/form/option-form.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/option-label.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/option-value.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/price-form.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/schema.tsx
+- app/[language]/(admin)/admin/products/new/_components/form/title-form.tsx
+- app/[language]/(admin)/admin/products/new/_components/index.ts
+- app/[language]/(admin)/admin/products/new/_components/new-product.tsx
+- app/[language]/(admin)/admin/products/new/page.tsx
+- app/[language]/(admin)/admin/products/page.tsx
+- app/[language]/(admin)/layout.tsx
+- app/[language]/(public)/_components/footer.tsx
+- app/[language]/(public)/_components/navigation/bottom-navigation.tsx
+- app/[language]/(public)/_components/navigation/index.ts
+- app/[language]/(public)/_components/navigation/navigation-account-link.tsx
+- app/[language]/(public)/_components/navigation/navigation-search-form.tsx
+- app/[language]/(public)/_components/navigation/navigation.tsx
+- app/[language]/(public)/_components/public-layout.tsx
+- app/[language]/(public)/account/_components/account.tsx
+- app/[language]/(public)/account/_components/index.ts
+- app/[language]/(public)/account/page.tsx
+- app/[language]/(public)/auth/forgot-password/_components/forgot-password-form.tsx
+- app/[language]/(public)/auth/forgot-password/_components/index.ts
+- app/[language]/(public)/auth/forgot-password/page.tsx
+- app/[language]/(public)/auth/login/_components/index.ts
+- app/[language]/(public)/auth/login/_components/login-form.tsx
+- app/[language]/(public)/auth/login/_components/login.tsx
+- app/[language]/(public)/auth/login/page.tsx
+- app/[language]/(public)/auth/register/_components/index.ts
+- app/[language]/(public)/auth/register/_components/register-card.tsx
+- app/[language]/(public)/auth/register/_components/register-form.tsx
+- app/[language]/(public)/auth/register/_libs/form-schema.ts
+- app/[language]/(public)/auth/register/page.tsx
+- app/[language]/(public)/auth/reset-password/_components/index.ts
+- app/[language]/(public)/auth/reset-password/_components/reset-password-form.tsx
+- app/[language]/(public)/auth/reset-password/_components/reset-password.tsx
+- app/[language]/(public)/auth/reset-password/page.tsx
+- app/[language]/(public)/auth/verify-email/_components/index.ts
+- app/[language]/(public)/auth/verify-email/_components/verify-email-form.tsx
+- app/[language]/(public)/auth/verify-email/_components/verify-email-loading.tsx
+- app/[language]/(public)/auth/verify-email/_components/verify-email-success.tsx
+- app/[language]/(public)/auth/verify-email/_components/verify-email.tsx
+- app/[language]/(public)/auth/verify-email/page.tsx
+- app/[language]/(public)/home/_components/categories.tsx
+- app/[language]/(public)/home/_components/hero.tsx
+- app/[language]/(public)/home/_components/home.tsx
+- app/[language]/(public)/home/_components/index.ts
+- app/[language]/(public)/layout.tsx
+- app/[language]/(public)/page.tsx
+- app/[language]/(public)/products/[slug]/_components/details.tsx
+- app/[language]/(public)/products/[slug]/_components/dynamic-product.tsx
+- app/[language]/(public)/products/[slug]/_components/images.tsx
+- app/[language]/(public)/products/[slug]/_components/index.ts
+- app/[language]/(public)/products/[slug]/_components/product-description.tsx
+- app/[language]/(public)/products/[slug]/_components/product-options.tsx
+- app/[language]/(public)/products/[slug]/page.tsx
+- app/[language]/(public)/products/_components/index.ts
+- app/[language]/(public)/products/_components/product-card.tsx
+- app/[language]/(public)/products/_components/product-list.tsx
+- app/[language]/(public)/products/_components/product-settings.tsx
+
+Files removed:
+
+Files modified:
+
+Dependency changes:
+- Added: @base-ui/react
+- Added: @formatjs/intl-localematcher
+- Added: @hookform/resolvers
+- Added: @next/third-parties
+- Added: @t3-oss/env-nextjs
+- Added: @tailwindcss/postcss
+- Added: @tanstack/react-query
+- Added: @tanstack/react-table
+- Added: @types/negotiator
+- Added: @types/node
+- Added: @types/qs
+- Added: @types/react
+- Added: @types/react-dom
+- Added: class-variance-authority
+- Added: clsx
+- Added: date-fns
+- Added: embla-carousel-react
+- Added: eslint
+- Added: eslint-config-next
+- Added: husky
+- Added: lucide-react
+- Added: negotiator
+- Added: next
+- Added: next-themes
+- Added: qs
+- Added: react
+- Added: react-dom
+- Added: react-hook-form
+- Added: react-icons
+- Added: shadcn
+- Added: sonner
+- Added: tailwind-merge
+- Added: tailwindcss
+- Added: tw-animate-css
+- Added: typescript
+- Added: zod
+- Added: zustand
+
+Architecture signals:
+- Project shape: single-js-app
+- Route files: 0
+- Middleware files: 0
+- Server action files: 0
+- Schema/data files: 0
+
+Architecture changes:
+- Initial codemap generation; no previous source or codemap baseline existed.
+- App boundary: one Next.js App Router package with locale-prefixed public and admin route groups.
+- Routes: 16 page entry points (including the root redirect); no local API route handlers. `proxy.ts` provides locale negotiation and auth/role gating.
+- Services: typed clients call external auth, products, carts, S3 upload, and user-search endpoints.
+- Schema/migrations: none tracked; TypeScript transport types and Zod form/environment schemas are client contracts only.
+- Codemap set: architecture.md, backend.md, frontend.md, data.md, and dependencies.md generated in docs/CODEMAPS.
+
+Staleness warnings:
+- None
+
+Approval:
+- Not required because this is initial generation; no existing codemaps were overwritten.
