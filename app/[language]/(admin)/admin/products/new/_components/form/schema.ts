@@ -1,4 +1,5 @@
 import z from "zod";
+
 const chineseLocalizationMissing = "Chinese localization is missing";
 const englishLocalizationMissing = "English localization is missing";
 const indoLocalizationMissing = "Indonesian localization is missing";

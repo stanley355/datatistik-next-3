@@ -13,7 +13,8 @@ import z from "zod";
 import { toast } from "sonner";
 import { isAuthError } from "@/lib/api";
 import { LoadingLogo } from "@/components/custom-ui/loading-logo";
-import { S3Image } from "@/lib/types";
+import type { S3Image } from "@/lib/types";
+import { orderProductImages } from "../../new/_components/form/image-payload-utils";
 
 type EditProductProps = {
   id: number;
@@ -35,22 +36,8 @@ export const EditProduct = ({ id }: EditProductProps) => {
       }
 
       const currentImages = product?.data?.data?.image_urls ?? [];
-      const keptImagesUrls = data.image_urls.filter(
-        (url) => !url.includes("blob:"),
-      );
-      const existingImages = currentImages
-        .map((s3) => {
-          const previousImageUrl = [s3.endpoint, s3.bucket, s3.key].join("/");
-          if (keptImagesUrls.includes(previousImageUrl)) {
-            return s3;
-          } else {
-            return undefined;
-          }
-        })
-        .filter((img) => img !== undefined);
-
       const newImagesUrls = data.image_urls.filter((url) =>
-        url.includes("blob:"),
+        url.startsWith("blob:"),
       );
       let newImages: S3Image[] = [];
 
@@ -59,7 +46,7 @@ export const EditProduct = ({ id }: EditProductProps) => {
           newImagesUrls.map(async (url, index) => {
             const response = await fetch(url);
             const blob = await response.blob();
-            const [_, imageType] = blob.type.split("/");
+            const imageType = blob.type.split("/")[1];
             return new File([blob], `${index}.${imageType}`, {
               type: blob.type,
             });
@@ -77,7 +64,11 @@ export const EditProduct = ({ id }: EditProductProps) => {
         }
       }
 
-      const productImages = [...existingImages, ...newImages];
+      const productImages = orderProductImages(
+        data.image_urls,
+        currentImages,
+        newImages,
+      );
       toast.loading("Uploading products", { id: toastId });
 
       const productParam: Parameters<typeof updateProduct.mutateAsync>[0] = {
