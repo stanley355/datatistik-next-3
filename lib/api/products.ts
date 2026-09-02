@@ -38,6 +38,7 @@ type CreateProductParam = {
   is_available: boolean;
   title: ProductLocalization;
   description: ProductLocalization;
+  unit?: ProductLocalization;
   image_urls: S3Image[];
   image_cover_number: number;
   source_url?: string;
@@ -84,6 +85,7 @@ type UpdateProductParam = {
   is_available: boolean;
   title: ProductLocalization;
   description: ProductLocalization;
+  unit?: ProductLocalization;
   image_urls: S3Image[];
   image_cover_number: number;
   source_url?: string;

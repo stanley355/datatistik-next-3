@@ -15,6 +15,7 @@ import { isAuthError } from "@/lib/api";
 import { LoadingLogo } from "@/components/custom-ui/loading-logo";
 import type { S3Image } from "@/lib/types";
 import { orderProductImages } from "../../new/_components/form/image-payload-utils";
+import { normalizeOptionalLocalization } from "../../new/_components/form/unit-form-utils";
 
 type EditProductProps = {
   id: number;
@@ -76,6 +77,7 @@ export const EditProduct = ({ id }: EditProductProps) => {
         created_by_id: session.data.user.id,
         title: data.title,
         description: data.description,
+        unit: normalizeOptionalLocalization(data.unit),
         price: data.price,
         source_url: data.source_url,
         is_available: data.is_available,

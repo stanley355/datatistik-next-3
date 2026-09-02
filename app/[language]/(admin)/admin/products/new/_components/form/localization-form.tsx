@@ -6,6 +6,7 @@ import type z from "zod";
 
 import {
   Field,
+  FieldDescription,
   FieldError,
   FieldLabel,
   FieldLegend,
@@ -26,6 +27,7 @@ const languages = [
     code: "CN",
     name: "Chinese",
     titlePlaceholder: "e.g. 羊毛披肩式外套",
+    unitPlaceholder: "e.g. 件",
     descriptionPlaceholder: "Describe the product in Chinese.",
   },
   {
@@ -33,6 +35,7 @@ const languages = [
     code: "EN",
     name: "English",
     titlePlaceholder: "e.g. Wool cape coat",
+    unitPlaceholder: "e.g. piece",
     descriptionPlaceholder: "Describe the material, fit, and key details.",
   },
   {
@@ -40,6 +43,7 @@ const languages = [
     code: "ID",
     name: "Indonesian",
     titlePlaceholder: "e.g. Mantel cape wol",
+    unitPlaceholder: "e.g. buah",
     descriptionPlaceholder: "Jelaskan bahan, ukuran, dan detail utama.",
   },
 ] as const;
@@ -85,6 +89,35 @@ export const LocalizationForm = ({ form }: LocalizationFormProps) => {
                     {fieldState.invalid ? (
                       <FieldError errors={[fieldState.error]} />
                     ) : null}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name={`unit.${language.key}`}
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor={`product-unit-${language.key}`}>
+                      Unit
+                      <span className="font-normal text-muted-foreground">
+                        Optional
+                      </span>
+                    </FieldLabel>
+                    <Input
+                      {...field}
+                      id={`product-unit-${language.key}`}
+                      aria-invalid={fieldState.invalid}
+                      placeholder={language.unitPlaceholder}
+                      autoComplete="off"
+                    />
+                    {fieldState.invalid ? (
+                      <FieldError errors={[fieldState.error]} />
+                    ) : (
+                      <FieldDescription>
+                        Complete all three languages when used.
+                      </FieldDescription>
+                    )}
                   </Field>
                 )}
               />

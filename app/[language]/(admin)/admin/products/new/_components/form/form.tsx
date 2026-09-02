@@ -17,6 +17,7 @@ import { LocalizationForm } from "./localization-form";
 import { OptionForm } from "./option-form";
 import { PriceForm } from "./price-form";
 import { productFormSchema } from "./schema";
+import { getUnitFormValue } from "./unit-form-utils";
 
 type ProductFormProps = {
   isLoading: boolean;
@@ -39,6 +40,7 @@ export const ProductForm = (props: ProductFormProps) => {
         en: props.product?.description.en ?? "",
         id: props?.product?.description.id ?? "",
       },
+      unit: getUnitFormValue(props.product?.unit),
       price: props.product?.price ? props.product.price / 100 : 0,
       source_url: props.product?.source_url ?? "",
       is_available: props.product?.is_available ?? true,
