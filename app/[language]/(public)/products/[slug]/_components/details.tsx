@@ -89,7 +89,10 @@ export const DynamicProductDetails = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-xl text-primary font-semibold">{price}</p>
+      <div className="flex items-center gap-2 text-xl text-primary font-semibold">
+        <span >{price}</span>
+        {product?.unit?.[productLanguage] && <span>/ {product.unit[productLanguage]}</span>}
+      </div>
       <h1 className="text-lg font-bold mb-4">
         {product.title[productLanguage]}
       </h1>
