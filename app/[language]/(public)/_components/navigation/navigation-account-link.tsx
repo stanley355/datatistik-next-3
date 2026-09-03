@@ -15,7 +15,6 @@ export const NavigationAccountLink = ({
   isBottomNavigation,
 }: NavigationAccountLinkProps) => {
   const session = useQuery(authGetSessionOptions());
-  console.log(session.data)
   if (!session.data || isAuthError(session.data)) {
     return (
       <Link
