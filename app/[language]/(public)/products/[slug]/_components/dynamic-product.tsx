@@ -1,42 +1,24 @@
 "use client";
 
-import { LoadingLogo } from "@/components/custom-ui/loading-logo";
-import { buttonVariants } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { LuArrowLeft } from "react-icons/lu";
+
+import { authGetSessionOptions } from "@/hooks/auth";
+import { useLanguage } from "@/hooks/language";
 import { findProductByIdOptions } from "@/hooks/products";
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import Link from "next/link";
+
 import { ProductSettings } from "../../_components";
-import { DynamicProductImages } from "./images";
+import styles from "../product-detail.module.css";
 import { DynamicProductDetails } from "./details";
+import { DynamicProductImages } from "./images";
 import { ProductDescription } from "./product-description";
-import { authGetSessionOptions } from "@/hooks/auth";
-
-const ProductNotFound = () => {
-  return (
-    <div className="h-screen w-full flex items-center justify-center flex-col gap-4">
-      <Image
-        src="/images/delifunds.png"
-        alt="Product Not Found"
-        width={165}
-        height={165}
-        className={cn("aspect-square object-cover")}
-      />
-
-      <p className="text-xl font-bold">Product Not Found</p>
-      <div className="grid grid-cols-2 gap-4">
-        <Link href="/" className={cn(buttonVariants({ variant: "outline" }))}>
-          Back Home
-        </Link>
-
-        <Link href="/products" className={cn(buttonVariants({}))}>
-          Products
-        </Link>
-      </div>
-    </div>
-  );
-};
+import { normalizeCoverIndex } from "./product-detail-utils";
+import {
+  ProductDetailSkeleton,
+  ProductStateMessage,
+} from "./product-states";
 
 type DynamicProductProps = {
   id: number;
@@ -45,32 +27,83 @@ type DynamicProductProps = {
 export const DynamicProduct = ({ id }: DynamicProductProps) => {
   const session = useQuery(authGetSessionOptions());
   const product = useQuery(findProductByIdOptions(id));
+  const { productLanguage } = useLanguage();
+
   if (product.isLoading) {
-    return <LoadingLogo />;
+    return <ProductDetailSkeleton />;
   }
 
-  if (!product.data || !product.data.data) {
-    return <ProductNotFound />;
+  if (product.isError) {
+    return (
+      <ProductStateMessage
+        kind="error"
+        isRetrying={product.isFetching}
+        onRetry={() => product.refetch()}
+      />
+    );
   }
+
+  if (!product.data?.data) {
+    return <ProductStateMessage kind="not-found" />;
+  }
+
+  const productData = product.data.data;
+  const productTitle = productData.title[productLanguage];
+  const initialCoverIndex = normalizeCoverIndex(
+    productData.image_cover_number,
+    productData.image_urls.length,
+  );
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col lg:grid grid-cols-2 gap-4 lg:py-4">
-        <DynamicProductImages
-          coverIndex={2}
-          images={product.data.data.image_urls}
-        />
-        <div className="p-4 flex flex-col gap-4">
-          <ProductSettings />
-          <DynamicProductDetails
-            session={session.data}
-            product={product.data.data}
+    <div className="mx-auto max-w-[90rem] px-4 pt-7 pb-24 sm:px-6 lg:px-8 lg:pt-9">
+      <div className="mb-6 flex items-center justify-between gap-4 border-b border-border pb-4">
+        <Link
+          href="/products"
+          className="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
+        >
+          <LuArrowLeft
+            className="size-4 transition-transform group-hover:-translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none"
+            aria-hidden="true"
           />
-        </div>
+          Wholesale catalog
+        </Link>
+        <p className="font-mono text-[0.625rem] font-semibold tracking-[0.16em] text-muted-foreground uppercase">
+          Ref. DF-{String(productData.id).padStart(5, "0")}
+        </p>
+      </div>
+
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(22rem,2fr)] xl:gap-10">
+        <DynamicProductImages
+          images={productData.image_urls}
+          initialCoverIndex={initialCoverIndex}
+          productTitle={productTitle}
+        />
+
+        <aside
+          className={cn(
+            styles.orderEntrance,
+            "overflow-hidden rounded-2xl border border-border bg-card shadow-xl lg:sticky lg:top-20",
+          )}
+          aria-label="Build your order"
+        >
+          <div className="border-b border-border bg-muted/30 px-5 py-4 sm:px-7">
+            <ProductSettings className="max-w-none gap-3" />
+          </div>
+          <div className="p-5 sm:p-7">
+            <DynamicProductDetails
+              isSessionLoading={session.isLoading}
+              session={session.data}
+              product={productData}
+              productLanguage={productLanguage}
+            />
+          </div>
+        </aside>
       </div>
 
       <ProductDescription
-        className="hidden lg:flex"
-        description={product.data.data.description}
+        className="mt-6 lg:mt-10"
+        description={productData.description}
+        productLanguage={productLanguage}
       />
     </div>
   );

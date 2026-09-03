@@ -71,11 +71,11 @@ const OptionField = ({
           </div>
           <Button
             type="button"
-            variant="outline"
+            variant="destructive"
             size="sm"
-            onClick={() => appendValue(emptyValue)}
+            onClick={onRemoveOption}
           >
-            <LuPlus /> Add value
+            <LuTrash2 /> Delete option
           </Button>
         </div>
 
@@ -96,11 +96,11 @@ const OptionField = ({
       <div className="border-t pt-4">
         <Button
           type="button"
-          variant="destructive"
+          variant="outline"
           size="sm"
-          onClick={onRemoveOption}
+          onClick={() => appendValue(emptyValue)}
         >
-          <LuTrash2 /> Delete option
+          <LuPlus /> Add value
         </Button>
       </div>
     </div>
