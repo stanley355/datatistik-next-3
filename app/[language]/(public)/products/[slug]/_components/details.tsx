@@ -1,31 +1,42 @@
-import { Button } from "@/components/ui/button";
-import { useCurrency } from "@/hooks/currency";
-import { useLanguage } from "@/hooks/language";
-import type { Product, ProductOptionValue } from "@/lib/types";
-import { rmbToIdr } from "@/lib/utils";
-import { useMemo, useState } from "react";
-import { ProductDescription } from "./product-description";
-import { LuMinus, LuPlus, LuShoppingCart } from "react-icons/lu";
-import { sendGAEvent } from "@next/third-parties/google";
-import { toast } from "sonner";
-import { authGetSession, isAuthError } from "@/lib/api";
-import { useRouter } from "next/navigation";
-import { ProductOptions } from "./product-options";
-import { createCart } from "@/lib/api/carts";
 import { useQueryClient } from "@tanstack/react-query";
+import { sendGAEvent } from "@next/third-parties/google";
+import { useCallback, useMemo, useState } from "react";
+import {
+  LuMinus,
+  LuPackageCheck,
+  LuPlus,
+  LuShoppingCart,
+} from "react-icons/lu";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
 import { findCartByUserOptions } from "@/hooks/carts";
+import { useCurrency } from "@/hooks/currency";
+import { authGetSession, isAuthError } from "@/lib/api";
+import { createCart } from "@/lib/api/carts";
+import type { Product, ProductOptionValue } from "@/lib/types";
+import { LANGUAGES } from "@/lib/types/languages";
+import { rmbToIdr } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+
+import styles from "../product-detail.module.css";
+import { formatProductPrice } from "./product-detail-utils";
+import { ProductOptions } from "./product-options";
 
 type DynamicProductDetailsProps = {
-  session: Awaited<ReturnType<typeof authGetSession>>;
+  isSessionLoading: boolean;
   product: Product;
+  productLanguage: (typeof LANGUAGES)[number];
+  session: Awaited<ReturnType<typeof authGetSession>>;
 };
 
 export const DynamicProductDetails = ({
-  session,
+  isSessionLoading,
   product,
+  productLanguage,
+  session,
 }: DynamicProductDetailsProps) => {
   const router = useRouter();
-  const { productLanguage } = useLanguage();
   const { currency } = useCurrency();
   const [selectedOptionValues, setSelectedOptionValues] = useState<
     Record<number, ProductOptionValue>
@@ -33,39 +44,60 @@ export const DynamicProductDetails = ({
   const [quantity, setQuantity] = useState(1);
   const queryClient = useQueryClient();
 
-  const price = useMemo(() => {
-    const basePrice = product.price;
-    const optionValuesPrice =
-      Object.values(selectedOptionValues).length > 0
-        ? Object.values(selectedOptionValues)
-            .map((val) => val.price_addition ?? 0)
-            .reduce((a, b) => a + b)
-        : 0;
-    const finalPrice = basePrice + optionValuesPrice;
+  const selectedCount = Object.keys(selectedOptionValues).length;
+  const remainingOptionCount = Math.max(
+    product.options.length - selectedCount,
+    0,
+  );
+  const totalMinorUnits = useMemo(
+    () =>
+      product.price +
+      Object.values(selectedOptionValues).reduce(
+        (total, value) => total + (value.price_addition ?? 0),
+        0,
+      ),
+    [product.price, selectedOptionValues],
+  );
 
-    if (currency === "IDR") {
-      return rmbToIdr(finalPrice / 100);
-    }
-    return `RMB${finalPrice.toLocaleString("zh-CN")}`;
-  }, [currency, product.price, selectedOptionValues]);
+  const formatPrice = useCallback(
+    (amountInMinorUnits: number, localizedUnit?: string) =>
+      formatProductPrice({
+        amountInMinorUnits,
+        currency,
+        localizedUnit,
+        formatIdr: rmbToIdr,
+      }),
+    [currency],
+  );
+
+  const price = formatPrice(
+    totalMinorUnits,
+    product.unit?.[productLanguage],
+  );
 
   const onAddClick = async () => {
+    if (isSessionLoading) return;
+
     try {
       if (!isAuthError(session) && session?.user.id) {
-        const selectedOptions = Object.values(selectedOptionValues);
-        if (selectedOptions.length !== product.options.length) {
-          toast.warning("Please select product option");
+        const hasEveryOption = product.options.every(
+          (_, index) => selectedOptionValues[index],
+        );
+
+        if (!hasEveryOption) {
+          toast.warning("Please select every product option");
           return;
         }
+
         const cartPayload: Parameters<typeof createCart>[0] = {
           user_id: session.user.id,
           product_id: product.id,
           amount: quantity,
-          options: selectedOptions.map((val, index) => ({
-            id: product.options[index].id,
-            en: product.options[index].en,
-            cn: product.options[index].cn,
-            value: val,
+          options: product.options.map((option, index) => ({
+            id: option.id,
+            en: option.en,
+            cn: option.cn,
+            value: selectedOptionValues[index],
           })),
         };
         const savedCart = await createCart(cartPayload);
@@ -80,73 +112,118 @@ export const DynamicProductDetails = ({
 
       toast.warning("Please login to continue!");
       router.push("/auth/login");
-      return;
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       toast.error("Something went wrong, please try again");
     }
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-xl text-primary font-semibold">{price}</p>
-      <h1 className="text-lg font-bold mb-4">
-        {product.title[productLanguage]}
-      </h1>
+    <div className="space-y-6">
+      <div>
+        <div className="flex items-center justify-between gap-4">
+          <p className="font-mono text-[0.6875rem] font-semibold tracking-[0.16em] text-[var(--sample-indigo)] uppercase">
+            Wholesale selection
+          </p>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--sample-indigo)]/10 px-2.5 py-1 text-[0.6875rem] font-medium text-[var(--sample-indigo)]">
+            <LuPackageCheck className="size-3.5" aria-hidden="true" />
+            Available
+          </span>
+        </div>
+        <h1
+          className={`${styles.displayType} mt-4 text-4xl leading-[0.96] font-bold tracking-[-0.025em] text-balance sm:text-5xl`}
+        >
+          {product.title[productLanguage]}
+        </h1>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-3 border-b border-[var(--sample-rule)] pb-6">
+          <div>
+            <p className="text-xs text-muted-foreground">Current order price</p>
+            <p
+              className={`${styles.displayType} mt-1 text-3xl leading-none font-semibold tracking-tight text-[var(--sample-indigo)] sm:text-4xl`}
+              aria-live="polite"
+            >
+              {price}
+            </p>
+          </div>
+          {product.options.length > 0 ? (
+            <p
+              className="max-w-40 text-right text-xs leading-5 text-muted-foreground"
+              aria-live="polite"
+            >
+              {remainingOptionCount === 0
+                ? "All options selected"
+                : `${remainingOptionCount} option ${remainingOptionCount === 1 ? "group" : "groups"} remaining`}
+            </p>
+          ) : (
+            <p className="text-xs text-muted-foreground">Ready to add</p>
+          )}
+        </div>
+      </div>
 
       <ProductOptions
         productLanguage={productLanguage}
         options={product.options}
         selectedOptionValues={selectedOptionValues}
         setSelectedOptionValues={setSelectedOptionValues}
+        formatPriceAddition={(amountInMinorUnits) =>
+          formatPrice(amountInMinorUnits)
+        }
       />
 
-      <div className="flex items-center gap-4 my-4">
-        <p className="min-w-24">Quantity: </p>
-        <div className="flex items-center gap-8 ">
-          <Button
-            size="icon"
-            variant="outline"
-            disabled={quantity <= 1}
-            onClick={() => setQuantity((q) => q - 1)}
-          >
-            <LuMinus />
-          </Button>
-          <span>{quantity}</span>
-          <Button
-            size="icon"
-            variant="outline"
-            onClick={() => setQuantity((q) => q + 1)}
-          >
-            <LuPlus />
-          </Button>
+      <div className="space-y-3 border-t border-[var(--sample-rule)] pt-6">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold">Quantity</p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              Adjust the amount for this configuration.
+            </p>
+          </div>
+          <div className="flex items-center rounded-xl border border-[var(--sample-rule)] bg-[var(--sample-paper)] p-1">
+            <Button
+              type="button"
+              size="icon-sm"
+              variant="ghost"
+              disabled={quantity <= 1}
+              aria-label="Decrease quantity"
+              onClick={() => setQuantity((current) => current - 1)}
+            >
+              <LuMinus />
+            </Button>
+            <span
+              className="min-w-10 text-center font-mono text-sm font-semibold tabular-nums"
+              aria-live="polite"
+              aria-label={`Quantity ${quantity}`}
+            >
+              {quantity}
+            </span>
+            <Button
+              type="button"
+              size="icon-sm"
+              variant="ghost"
+              aria-label="Increase quantity"
+              onClick={() => setQuantity((current) => current + 1)}
+            >
+              <LuPlus />
+            </Button>
+          </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-2 gap-4 lg:max-w-96">
         <Button
-          variant="secondary"
-          onClick={() => {
-            sendGAEvent(`buy_product_${product.id}`);
-          }}
-        >
-          <LuShoppingCart /> Buy
-        </Button>
-        <Button
-          variant="default"
+          type="button"
+          disabled={isSessionLoading}
+          className="mt-3 h-12 w-full bg-[var(--sample-mandarin)] px-5 text-sm font-semibold text-[#161a2b] shadow-none hover:bg-[var(--sample-mandarin)]/90 focus-visible:ring-[var(--sample-mandarin)]"
           onClick={() => {
             sendGAEvent(`add_to_cart_product_${product.id}`);
             onAddClick();
           }}
         >
-          <LuShoppingCart /> Add to Cart
+          <LuShoppingCart />
+          {isSessionLoading ? "Checking account…" : "Add to cart"}
         </Button>
+        <p className="text-center text-[0.6875rem] leading-5 text-muted-foreground">
+          Your selected options and quantity will be saved to your cart.
+        </p>
       </div>
-
-      <ProductDescription
-        className="lg:hidden"
-        description={product.description}
-      />
     </div>
   );
 };

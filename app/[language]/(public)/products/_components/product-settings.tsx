@@ -31,7 +31,7 @@ export const ProductSettings = ({ className }: ProductSettingsProps) => {
   return (
     <div className={cn("w-full grid grid-cols-2 max-w-96 gap-4", className)}>
       <div className="flex flex-col gap-1">
-        <Label>CURRENCY</Label>
+        <Label htmlFor="product-currency">CURRENCY</Label>
         <Select
           value={currency}
           items={CURRENCY_OPTIONS}
@@ -39,7 +39,11 @@ export const ProductSettings = ({ className }: ProductSettingsProps) => {
             setCurrency(curr as (typeof CURRENCIES)[number]);
           }}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger
+            id="product-currency"
+            aria-label="Product currency"
+            className="w-full"
+          >
             <SelectValue className="text-xs" />
           </SelectTrigger>
           <SelectContent>
@@ -53,7 +57,7 @@ export const ProductSettings = ({ className }: ProductSettingsProps) => {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Label>LANGUAGE</Label>
+        <Label htmlFor="product-language">LANGUAGE</Label>
         <Select
           value={productLanguage}
           items={LANGUAGE_OPTIONS}
@@ -61,7 +65,11 @@ export const ProductSettings = ({ className }: ProductSettingsProps) => {
             setProductLanguage(lang as (typeof LANGUAGES)[number]);
           }}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger
+            id="product-language"
+            aria-label="Product language"
+            className="w-full"
+          >
             <SelectValue className="text-xs uppercase" />
           </SelectTrigger>
           <SelectContent>
