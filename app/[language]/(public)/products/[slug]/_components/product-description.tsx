@@ -16,14 +16,14 @@ export const ProductDescription = ({
   return (
     <section
       className={cn(
-        "rounded-2xl border border-[var(--sample-rule)] bg-[var(--sample-sheet)] px-5 py-7 sm:px-8 sm:py-10",
+        "rounded-2xl border border-border bg-card px-5 py-7 sm:px-8 sm:py-10",
         className,
       )}
       aria-labelledby="product-notes-title"
     >
       <div className="grid gap-5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-10">
         <div>
-          <p className="font-mono text-[0.6875rem] font-semibold tracking-[0.18em] text-[var(--sample-indigo)] uppercase">
+          <p className="font-mono text-[0.6875rem] font-semibold tracking-[0.18em] text-primary uppercase">
             Product notes
           </p>
           <h2 id="product-notes-title" className="mt-2 text-xl font-semibold">

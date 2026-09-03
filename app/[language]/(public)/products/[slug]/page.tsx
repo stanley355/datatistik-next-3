@@ -1,7 +1,6 @@
 import { DynamicProduct } from "./_components";
 import { Barlow_Condensed } from "next/font/google";
 import { cn } from "@/lib/utils";
-import styles from "./product-detail.module.css";
 
 const productDisplay = Barlow_Condensed({
   subsets: ["latin"],
@@ -19,9 +18,8 @@ export default async function Page({ params }: PageProps) {
   return (
     <div
       className={cn(
-        styles.sampleSurface,
         productDisplay.variable,
-        "mt-12",
+        "mt-12 min-h-screen bg-background text-foreground",
       )}
     >
       <DynamicProduct id={parseInt(productId)} />

@@ -22,11 +22,11 @@ export const ProductOptions = ({
   if (options.length === 0) return null;
 
   return (
-    <fieldset className="space-y-5 border-t border-[var(--sample-rule)] pt-6">
+    <fieldset className="space-y-5 border-t border-border pt-6">
       <legend className="sr-only">Product options</legend>
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="font-mono text-[0.6875rem] font-semibold tracking-[0.16em] text-[var(--sample-indigo)] uppercase">
+          <p className="font-mono text-[0.6875rem] font-semibold tracking-[0.16em] text-primary uppercase">
             Configure
           </p>
           <h2 className="mt-1 font-semibold">Choose product options</h2>
@@ -60,8 +60,8 @@ export const ProductOptions = ({
                   }
                   className={
                     selectedOptionValues[optionIndex]?.en === val.en
-                      ? "h-auto min-h-10 border-[var(--sample-indigo)] bg-[var(--sample-indigo)] px-3 py-2 text-white shadow-none hover:bg-[var(--sample-indigo)]/90 hover:text-white dark:text-[#11131a]"
-                      : "h-auto min-h-10 border-[var(--sample-rule)] bg-transparent px-3 py-2 shadow-none hover:border-[var(--sample-indigo)] hover:bg-[var(--sample-indigo)]/5"
+                      ? "h-auto min-h-10 border-primary bg-primary px-3 py-2 text-primary-foreground shadow-none hover:bg-primary/90 hover:text-primary-foreground"
+                      : "h-auto min-h-10 border-border bg-transparent px-3 py-2 shadow-none hover:border-primary hover:bg-primary/5"
                   }
                   onClick={() => {
                     setSelectedOptionValues((currentValues) => ({

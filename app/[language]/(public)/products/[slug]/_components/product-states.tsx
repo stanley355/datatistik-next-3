@@ -27,12 +27,12 @@ export const ProductDetailSkeleton = () => {
           </div>
           <Skeleton className="aspect-square w-full rounded-2xl" />
         </div>
-        <div className="space-y-6 rounded-2xl border border-[var(--sample-rule)] bg-[var(--sample-sheet)] p-5 sm:p-7">
+        <div className="space-y-6 rounded-2xl border border-border bg-card p-5 sm:p-7">
           <Skeleton className="h-16 w-full" />
           <Skeleton className="h-5 w-28" />
           <Skeleton className="h-12 w-3/4" />
           <Skeleton className="h-10 w-40" />
-          <div className="space-y-3 border-t border-[var(--sample-rule)] pt-6">
+          <div className="space-y-3 border-t border-border pt-6">
             <Skeleton className="h-4 w-24" />
             <Skeleton className="h-11 w-full" />
             <Skeleton className="h-11 w-5/6" />
@@ -53,15 +53,15 @@ export const ProductStateMessage = ({
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-xl items-center px-4 py-20">
-      <section className="w-full rounded-2xl border border-[var(--sample-rule)] bg-[var(--sample-sheet)] p-8 text-center shadow-sm sm:p-12">
-        <span className="mx-auto mb-6 grid size-14 place-items-center rounded-full bg-[color:var(--sample-indigo)]/10 text-[var(--sample-indigo)]">
+      <section className="w-full rounded-2xl border border-border bg-card p-8 text-center shadow-sm sm:p-12">
+        <span className="mx-auto mb-6 grid size-14 place-items-center rounded-full bg-primary/10 text-primary">
           {isError ? (
             <LuRefreshCw className="size-6" aria-hidden="true" />
           ) : (
             <LuPackageOpen className="size-6" aria-hidden="true" />
           )}
         </span>
-        <p className="font-mono text-xs font-semibold tracking-[0.18em] text-[var(--sample-indigo)] uppercase">
+        <p className="font-mono text-xs font-semibold tracking-[0.18em] text-primary uppercase">
           {isError ? "Catalog unavailable" : "Product not found"}
         </p>
         <h1 className="mt-3 text-2xl font-semibold tracking-tight">
@@ -93,7 +93,7 @@ export const ProductStateMessage = ({
             href="/products"
             className={cn(
               buttonVariants(),
-              "h-11 bg-[var(--sample-indigo)] px-5 text-white hover:bg-[var(--sample-indigo)]/90 dark:text-[#11131a]",
+              "h-11 bg-primary px-5 text-primary-foreground hover:bg-primary/90",
             )}
           >
             Browse catalog

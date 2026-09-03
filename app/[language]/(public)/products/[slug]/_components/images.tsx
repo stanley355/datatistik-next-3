@@ -61,7 +61,7 @@ export const DynamicProductImages = ({
       <section
         className={cn(
           styles.galleryEntrance,
-          "grid aspect-square place-items-center rounded-2xl border border-[var(--sample-rule)] bg-[var(--sample-sheet)]",
+          "grid aspect-square place-items-center rounded-2xl border border-border bg-card",
         )}
         aria-label="Product gallery"
       >
@@ -93,10 +93,8 @@ export const DynamicProductImages = ({
         aria-pressed={isActive}
         onClick={() => selectImage(index)}
         className={cn(
-          "group relative size-18 shrink-0 overflow-hidden rounded-xl border-2 bg-[var(--sample-sheet)] p-1 shadow-none transition-[border-color,transform] hover:-translate-y-0.5 hover:bg-[var(--sample-sheet)] focus-visible:ring-[var(--sample-indigo)] sm:size-20 lg:size-full lg:max-h-24 motion-reduce:transform-none motion-reduce:transition-none",
-          isActive
-            ? "border-[var(--sample-indigo)]"
-            : "border-[var(--sample-rule)]",
+          "group relative size-18 shrink-0 overflow-hidden rounded-xl border-2 bg-card p-1 shadow-none transition-[border-color,transform] hover:-translate-y-0.5 hover:bg-card focus-visible:ring-ring sm:size-20 lg:size-full lg:max-h-24 motion-reduce:transform-none motion-reduce:transition-none",
+          isActive ? "border-primary" : "border-border",
         )}
       >
         {/* Product image hosts are dynamic, so they cannot be allowlisted for next/image. */}
@@ -110,17 +108,15 @@ export const DynamicProductImages = ({
         />
         <span
           className={cn(
-            "absolute right-1 bottom-1 min-w-6 rounded bg-[var(--sample-sheet)] px-1 py-0.5 font-mono text-[0.5625rem] font-bold leading-none shadow-sm",
-            isActive
-              ? "text-[var(--sample-indigo)]"
-              : "text-muted-foreground",
+            "absolute right-1 bottom-1 min-w-6 rounded bg-card px-1 py-0.5 font-mono text-[0.5625rem] font-bold leading-none shadow-sm",
+            isActive ? "text-primary" : "text-muted-foreground",
           )}
         >
           {sampleNumber(index)}
         </span>
         {isActive ? (
           <span
-            className="absolute top-0 left-0 h-5 w-1.5 bg-[var(--sample-mandarin)]"
+            className="absolute top-0 left-0 h-5 w-1.5 bg-accent"
             aria-hidden="true"
           />
         ) : null}
@@ -141,7 +137,7 @@ export const DynamicProductImages = ({
           {images.map(thumbnail)}
         </div>
 
-        <div className="min-w-0 overflow-hidden rounded-2xl border border-[var(--sample-rule)] bg-[var(--sample-sheet)] shadow-[0_18px_50px_rgba(22,26,43,0.08)]">
+        <div className="min-w-0 overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
           <Carousel
             setApi={setApi}
             opts={{ startIndex: initialCoverIndex }}
@@ -150,7 +146,7 @@ export const DynamicProductImages = ({
             <CarouselContent className="ml-0">
               {images.map((image, index) => (
                 <CarouselItem key={`${image.key}-${index}`} className="pl-0">
-                  <div className="aspect-square overflow-hidden bg-[var(--sample-paper)]">
+                  <div className="aspect-square overflow-hidden bg-muted/30">
                     {/* Product image hosts are dynamic, so they cannot be allowlisted for next/image. */}
                     <img
                       src={imageUrl(image)}
@@ -166,12 +162,12 @@ export const DynamicProductImages = ({
             </CarouselContent>
 
             <div className="pointer-events-none absolute inset-x-4 bottom-4 flex items-center justify-between">
-              <span className="rounded-lg bg-[var(--sample-ink)] px-3 py-2 font-mono text-[0.625rem] font-semibold tracking-[0.14em] text-[var(--sample-paper)] shadow-sm">
+              <span className="rounded-lg bg-foreground px-3 py-2 font-mono text-[0.625rem] font-semibold tracking-[0.14em] text-background shadow-sm">
                 SAMPLE {sampleNumber(activeIndex)} / {sampleNumber(images.length - 1)}
               </span>
               <div className="pointer-events-auto flex gap-2">
-                <CarouselPrevious className="static border-0 bg-[var(--sample-sheet)] text-[var(--sample-ink)] shadow-md hover:bg-[var(--sample-paper)]" />
-                <CarouselNext className="static border-0 bg-[var(--sample-sheet)] text-[var(--sample-ink)] shadow-md hover:bg-[var(--sample-paper)]" />
+                <CarouselPrevious className="static border-0 bg-card text-card-foreground shadow-md hover:bg-muted" />
+                <CarouselNext className="static border-0 bg-card text-card-foreground shadow-md hover:bg-muted" />
               </div>
             </div>
           </Carousel>

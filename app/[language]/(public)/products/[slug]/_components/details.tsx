@@ -122,10 +122,10 @@ export const DynamicProductDetails = ({
     <div className="space-y-6">
       <div>
         <div className="flex items-center justify-between gap-4">
-          <p className="font-mono text-[0.6875rem] font-semibold tracking-[0.16em] text-[var(--sample-indigo)] uppercase">
+          <p className="font-mono text-[0.6875rem] font-semibold tracking-[0.16em] text-primary uppercase">
             Wholesale selection
           </p>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--sample-indigo)]/10 px-2.5 py-1 text-[0.6875rem] font-medium text-[var(--sample-indigo)]">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-[0.6875rem] font-medium text-primary">
             <LuPackageCheck className="size-3.5" aria-hidden="true" />
             Available
           </span>
@@ -135,11 +135,11 @@ export const DynamicProductDetails = ({
         >
           {product.title[productLanguage]}
         </h1>
-        <div className="mt-5 flex flex-wrap items-end justify-between gap-3 border-b border-[var(--sample-rule)] pb-6">
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-3 border-b border-border pb-6">
           <div>
             <p className="text-xs text-muted-foreground">Current order price</p>
             <p
-              className={`${styles.displayType} mt-1 text-3xl leading-none font-semibold tracking-tight text-[var(--sample-indigo)] sm:text-4xl`}
+              className={`${styles.displayType} mt-1 text-3xl leading-none font-semibold tracking-tight text-primary sm:text-4xl`}
               aria-live="polite"
             >
               {price}
@@ -170,7 +170,7 @@ export const DynamicProductDetails = ({
         }
       />
 
-      <div className="space-y-3 border-t border-[var(--sample-rule)] pt-6">
+      <div className="space-y-3 border-t border-border pt-6">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold">Quantity</p>
@@ -178,7 +178,7 @@ export const DynamicProductDetails = ({
               Adjust the amount for this configuration.
             </p>
           </div>
-          <div className="flex items-center rounded-xl border border-[var(--sample-rule)] bg-[var(--sample-paper)] p-1">
+          <div className="flex items-center rounded-xl border border-border bg-muted/30 p-1">
             <Button
               type="button"
               size="icon-sm"
@@ -211,7 +211,7 @@ export const DynamicProductDetails = ({
         <Button
           type="button"
           disabled={isSessionLoading}
-          className="mt-3 h-12 w-full bg-[var(--sample-mandarin)] px-5 text-sm font-semibold text-[#161a2b] shadow-none hover:bg-[var(--sample-mandarin)]/90 focus-visible:ring-[var(--sample-mandarin)]"
+          className="mt-3 h-12 w-full bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-none hover:bg-primary/90 focus-visible:ring-ring"
           onClick={() => {
             sendGAEvent(`add_to_cart_product_${product.id}`);
             onAddClick();
