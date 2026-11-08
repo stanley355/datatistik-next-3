@@ -27,6 +27,7 @@ All clients return parsed JSON and log network failures; authenticated writes us
 
 `lib/api/index.ts` is the public barrel. `hooks/auth.ts`, `hooks/products.ts`, `hooks/carts.ts`, and `hooks/s3.ts` wrap clients in TanStack Query option factories; they are client orchestration, not server endpoints.
 
+
 ## Environment and trust boundaries
 
 `lib/env.ts` validates four public build/runtime values with `@t3-oss/env-nextjs` + Zod: auth URL, API URL, optional Google Analytics ID, and RMB→IDR rate. No server-only secret schema exists here.
